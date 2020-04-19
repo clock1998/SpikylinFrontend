@@ -1,0 +1,141 @@
+.home {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: url(/assets/img/landing.jpg) no-repeat center center;
+	background-size: cover;
+
+	.title {
+		position: relative;
+		h1 {
+			text-align: center;
+			font-size: 120px;
+			color: rgb(226, 226, 226);
+			font-family: 'Caveat', cursive;
+			padding: 10px;
+			transition: ease-in;
+			animation: headerFade 1s ease-in;
+		}
+
+		span {
+			position: absolute;
+			transition: transform 0.5s;
+		}
+		span:nth-child(1) {
+			animation: span1Fade 1s ease-in-out;
+		}
+		span:nth-child(3) {
+			animation: span3Fade 1s ease-in-out;
+		}
+		span:nth-child(1),
+		span:nth-child(3) {
+			width: 100%;
+			height: 3px;
+			background: white;
+		}
+		span:nth-child(1) {
+			top: 0;
+			left: 0;
+			transform-origin: right;
+		}
+		&:hover span:nth-child(1) {
+			transform: scaleX(0);
+			transform-origin: left;
+			transition: transform ease 0.5s;
+		}
+
+		span:nth-child(3) {
+			bottom: 0;
+			left: 0;
+			transform-origin: left;
+		}
+		&:hover span:nth-child(3) {
+			transform: scaleX(0);
+			transform-origin: right;
+			transition: transform ease 0.5s;
+		}
+
+		span:nth-child(2),
+		span:nth-child(4) {
+			width: 3px;
+			height: 100%;
+			background: white;
+		}
+		span:nth-child(2) {
+			top: 0;
+			left: 0;
+			transform: scaleY(0);
+			transform-origin: bottom;
+		}
+		&:hover span:nth-child(2) {
+			transform: scaleY(1);
+			transform-origin: top;
+			transition: transform ease 0.5s;
+		}
+
+		span:nth-child(4) {
+			top: 0;
+			right: 0;
+			transform: scaleY(0);
+			transform-origin: top;
+		}
+		&:hover span:nth-child(4) {
+			transform: scaleY(1);
+			transform-origin: bottom;
+			transition: transform ease 0.5s;
+		}
+	}
+}
+
+@keyframes headerFade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes span1Fade {
+	from {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0%);
+	}
+}
+
+@keyframes span3Fade {
+	from {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0%);
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.background_image {
+		height: 50%;
+		img {
+			width: 100%;
+			height: 50%;
+		}
+	}
+	.content {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		h1 {
+			text-align: center;
+			font-size: 50px;
+			font-family: 'Caveat', cursive;
+		}
+	}
+}
