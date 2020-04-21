@@ -1,1 +1,15 @@
-<p>gallery works!</p>
+<div class="gallery">
+    <app-image *ngFor="let image of images"
+    >
+
+    </app-image>
+    <!-- The Modal -->
+    <div class="modal">
+        <span class="close">&times;</span>
+            <div class="image-frame">
+                <img class="modal-content">
+            </div>
+        <div id="caption"></div>
+    </div>             
+</div>
+    
