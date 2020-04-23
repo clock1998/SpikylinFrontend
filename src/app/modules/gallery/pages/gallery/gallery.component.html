@@ -1,8 +1,10 @@
 <div class="gallery">
-    <app-image *ngFor="let image of images"
-    >
-
-    </app-image>
+    <div class="images">
+        <app-image 
+        *ngFor="let image of images"
+        [image]="image">
+        </app-image>
+    </div>
     <!-- The Modal -->
     <div class="modal">
         <span class="close">&times;</span>

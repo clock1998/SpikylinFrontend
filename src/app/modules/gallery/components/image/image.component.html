@@ -1,5 +1,6 @@
 <div class="image">
-    <div class="thumbnail" style="background: url(/assets/gallery/DSC00474.jpg) center center no-repeat;">
-        <a href="/assets/gallery/DSC00474.jpg"></a>
+    <div class="thumbnail" [ngStyle]="{'background': 'url('+image.URL+')'+' center'+' center'+' no-repeat' }">
+        <a href="image.URL"></a>
     </div>
 </div>
+<!-- 'center' 'center' 'no-repeat' -->
