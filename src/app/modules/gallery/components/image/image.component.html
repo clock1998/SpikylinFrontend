@@ -1,6 +1,5 @@
 <div class="image">
-    <div class="thumbnail" [ngStyle]="{'background': 'url('+image.URL+')'+' center'+' center'+' no-repeat' }">
-        <a href="image.URL"></a>
+    <div (click)="showLightBox(image)" class="thumbnail" [ngStyle]="{'background': 'url('+image.URL+')'+' center'+' center'+' no-repeat' }">
+        
     </div>
 </div>
-<!-- 'center' 'center' 'no-repeat' -->

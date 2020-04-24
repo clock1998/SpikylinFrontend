@@ -7,7 +7,7 @@
 	padding-left: 15px;
 	padding-bottom: 300px;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(350px, 300px));
+	grid-template-columns: repeat(auto-fit, minmax(200px, 350px));
 	row-gap: 20px;
 	column-gap: 20px;
 	justify-content: center;
@@ -32,6 +32,7 @@
 		max-width: 1000px;
 		max-height: 1000px;
 		margin: auto;
+		transform: scale(0);
 		margin-top: 10vh;
 		padding: 10px;
 		/* Modal Content (image) */
@@ -39,8 +40,6 @@
 			display: block;
 			width: 100%;
 		}
-		animation-name: zoom;
-		animation-duration: 0.6s;
 	}
 	/* The Close Button */
 	.close {
@@ -71,15 +70,6 @@
 		height: 150px;
 		animation-name: zoom;
 		animation-duration: 0.6s;
-	}
-
-	@keyframes zoom {
-		from {
-			transform: scale(0);
-		}
-		to {
-			transform: scale(1);
-		}
 	}
 }
 
