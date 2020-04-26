@@ -9,9 +9,7 @@
     <!-- The Modal -->
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
         <span (click)="hideLightBox()" class="close">&times;</span>
-            <div [@showImage]="isLightBoxShown ? 'showImage' : '*' "  class="image-frame">
-                <img src={{imageUrl}} class="modal-content">
-            </div>
+        <img src={{imageUrl}} class="modal-content">
         <div id="caption"></div>
     </div>             
 </div>

@@ -15,10 +15,10 @@
 
 .modal {
 	display: none; /* Hidden by default */
+	flex-direction: column;
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
-	// padding-top: 8vh; /* Location of the box */
-	text-align: center;
+	padding-top: 10vh; /* Location of the box */
 	left: 0;
 	top: 0;
 	width: 100%; /* Full width */
@@ -26,19 +26,25 @@
 	overflow: auto; /* Enable scroll if needed */
 	background-color: rgb(0, 0, 0); /* Fallback color */
 	background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-	.image-frame {
-		background-color: white;
-		width: 70%;
-		max-width: 1000px;
-		max-height: 1000px;
+
+	/* Modal Content (image) */
+	.modal-content {
 		margin: auto;
-		transform: scale(0);
-		margin-top: 10vh;
-		padding: 10px;
-		/* Modal Content (image) */
-		.modal-content {
-			display: block;
-			width: 100%;
+		display: block;
+		max-width: 100%;
+		max-height: 80vh;
+		object-fit: scale-down;
+	}
+
+	animation-name: zoom;
+	animation-duration: 0.6s;
+
+	@keyframes zoom {
+		from {
+			transform: scale(0);
+		}
+		to {
+			transform: scale(1);
 		}
 	}
 	/* The Close Button */

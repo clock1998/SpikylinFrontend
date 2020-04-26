@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Image } from '../../../../shared/models/image';
 import { GalleryService } from 'src/app/core/services/gallery.service';
-import { trigger, state, style, animate, transition, query, animation } from '@angular/animations';
-import { setClassMetadata } from '@angular/core/src/r3_symbols';
+import { trigger, state, style, animate, transition, query, group, animateChild } from '@angular/animations';
+
 @Component({
 	selector: 'app-gallery',
 	templateUrl: './gallery.component.html',
@@ -12,18 +12,10 @@ import { setClassMetadata } from '@angular/core/src/r3_symbols';
 			state(
 				'show',
 				style({
-					display: 'block'
-				})
-			)
-		]),
-		trigger('showImage', [
-			state(
-				'showImage',
-				style({
-					transform: 'scale(1)'
+					display: 'flex'
 				})
 			),
-			transition('* <=> showImage', [ animate('0.5s') ])
+			transition('* <=> show', [])
 		])
 	]
 })
