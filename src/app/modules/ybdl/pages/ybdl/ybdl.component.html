@@ -1,1 +1,26 @@
-<p>ybdl works!</p>
+<div class="ytdl">
+    <div class="form-container">
+        <form #downloadForm="ngForm" class="form" (ngSubmit)="onSubmit()">
+            <select id="filetype" [(ngModel)]="formDataModel.filetype" name="video-formats" name="output" (change)="changeSearchQueryOption($event)">
+                <option value="video">Video</option>
+                <option value="audio">Audio</option>
+            </select>
+
+            <input id="url" type="text" name="url" required [(ngModel)]="formDataModel.url" #url="ngModel">
+            <div [hidden]="url.valid || url.pristine" class="alert alert-danger">
+                url is required
+            </div>
+
+            <select id="audio-formats" [(ngModel)]="formDataModel.format" name="audio-formats">
+                <option *ngFor="let f of audioFormats" [value]="f">{{f}}</option>
+            </select>
+
+            <label for="quality">Quality:</label>
+            <select id="quality" [(ngModel)]="formDataModel.quality" name="quality">
+                <option *ngFor="let q of quality" [value]="q[1]">{{q[0]}}</option>
+            </select>
+
+            <button type="submit" class="btn" [disabled]="!downloadForm.form.valid" (click)="downloadForm.reset()">Submit</button>
+        </form>
+    </div>
+</div>
