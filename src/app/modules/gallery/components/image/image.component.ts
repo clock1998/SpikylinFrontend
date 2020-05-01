@@ -15,6 +15,6 @@ export class ImageComponent implements OnInit {
 
 	ngOnInit(): void {}
 	showLightBox(image): void {
-		this.imageUrl.emit(image.URL);
+		this.imageUrl.emit(image.url);
 	}
 }

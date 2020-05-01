@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { YtdlFormModel } from '../../../../shared/models/ytdl-form-model';
+import { YtdlService } from '../../../../core/services/ytdl.service';
+
+import { from } from 'rxjs';
+
 @Component({
 	selector: 'app-ybdl',
 	templateUrl: './ybdl.component.html',
@@ -11,14 +15,24 @@ export class YbdlComponent implements OnInit {
 	quality = [ [ 'High', '0' ], [ 'Medium', '5' ], [ 'Low', '9' ] ];
 
 	formDataModel = new YtdlFormModel('', 'video', 'mp3', '0');
-	constructor() {}
+	returnedJson: YtdlFormModel;
+	constructor(private ytdlService: YtdlService) {}
 
 	ngOnInit(): void {}
-	onSubmit() {}
 
-	changeSearchQueryOption(event: any): void {
-		console.log(event.target.value);
+	onSubmit() {
+		this.ytdlService.getDownload(this.formDataModel).subscribe(
+			(data: YtdlFormModel) =>
+				(this.returnedJson = {
+					url: data['url'],
+					filetype: data['filetype'],
+					format: data['format'],
+					quality: data['quality']
+				})
+		);
+		console.log(JSON.stringify(this.returnedJson));
 	}
+
 	get diagnostic() {
 		return JSON.stringify(this.formDataModel);
 	}

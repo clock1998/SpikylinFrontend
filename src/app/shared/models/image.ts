@@ -1,6 +1,6 @@
 export class Image {
-	ID: string;
-	Name: string;
-	Caption: string;
-	URL: string;
+	id: string;
+	name: string;
+	caption: string;
+	url: string;
 }

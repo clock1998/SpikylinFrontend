@@ -1,7 +1,7 @@
 <div class="ytdl">
     <div class="form-container">
         <form #downloadForm="ngForm" class="form" (ngSubmit)="onSubmit()">
-            <select id="filetype" [(ngModel)]="formDataModel.filetype" name="video-formats" name="output" (change)="changeSearchQueryOption($event)">
+            <select id="filetype" [(ngModel)]="formDataModel.filetype" name="video-formats" name="output">
                 <option value="video">Video</option>
                 <option value="audio">Audio</option>
             </select>
@@ -10,17 +10,17 @@
             <div [hidden]="url.valid || url.pristine" class="alert alert-danger">
                 url is required
             </div>
-
-            <select id="audio-formats" [(ngModel)]="formDataModel.format" name="audio-formats">
+            
+            <select id="audio-formats" [(ngModel)]="formDataModel.format" name="audio-formats" [hidden]="formDataModel.filetype==='video'" >
                 <option *ngFor="let f of audioFormats" [value]="f">{{f}}</option>
             </select>
 
-            <label for="quality">Quality:</label>
-            <select id="quality" [(ngModel)]="formDataModel.quality" name="quality">
+            <label [hidden]="formDataModel.filetype==='video'" for="quality">Quality:</label>
+            <select id="quality" [(ngModel)]="formDataModel.quality" name="quality" [hidden]="formDataModel.filetype==='video'">
                 <option *ngFor="let q of quality" [value]="q[1]">{{q[0]}}</option>
             </select>
 
-            <button type="submit" class="btn" [disabled]="!downloadForm.form.valid" (click)="downloadForm.reset()">Submit</button>
+            <button type="submit" class="btn" [disabled]="!downloadForm.form.valid">Submit</button>
         </form>
     </div>
 </div>
