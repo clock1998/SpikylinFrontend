@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { YtdlFormModel } from '../../../../shared/models/ytdl-form-model';
 import { YtdlService } from '../../../../core/services/ytdl.service';
 
-import { from } from 'rxjs';
-
 @Component({
 	selector: 'app-ybdl',
 	templateUrl: './ybdl.component.html',
@@ -21,19 +19,35 @@ export class YbdlComponent implements OnInit {
 	ngOnInit(): void {}
 
 	onSubmit() {
-		this.ytdlService.getDownload(this.formDataModel).subscribe(
-			(data: YtdlFormModel) =>
-				(this.returnedJson = {
-					url: data['url'],
-					filetype: data['filetype'],
-					format: data['format'],
-					quality: data['quality']
-				})
-		);
-		console.log(JSON.stringify(this.returnedJson));
+		this.ytdlService.getDownload(this.formDataModel).subscribe((data: YtdlFormModel) => {
+			this.returnedJson = {
+				url: data['url'],
+				filetype: data['filetype'],
+				format: data['format'],
+				quality: data['quality']
+			};
+			console.log(JSON.stringify(this.returnedJson));
+			this.downloadFile(this.returnedJson.url);
+		});
+
+		// this.downloadFile();
 	}
 
 	get diagnostic() {
 		return JSON.stringify(this.formDataModel);
+	}
+
+	downloadFile(url: string, filename: string = null): void {
+		this.ytdlService.downloadFile(url).subscribe((data) => {
+			let dataType = data.type;
+			let binaryData = [];
+			binaryData.push(data);
+			let downloadLink = document.createElement('a');
+			downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+			downloadLink.setAttribute('download', '');
+			if (filename) downloadLink.setAttribute('download', filename);
+			// document.body.appendChild(downloadLink);
+			downloadLink.click();
+		});
 	}
 }
