@@ -3,3 +3,8 @@
 	margin: 0;
 	pad: 0;
 }
+@media screen and (max-width: 768px) {
+	body {
+		overflow-x: hidden;
+	}
+}

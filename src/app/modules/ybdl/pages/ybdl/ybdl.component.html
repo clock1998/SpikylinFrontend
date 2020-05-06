@@ -20,7 +20,13 @@
                 <option *ngFor="let q of quality" [value]="q[1]">{{q[0]}}</option>
             </select>
 
-            <button type="submit" class="btn" [disabled]="!downloadForm.form.valid">Submit</button>
+            <!-- <button type="submit" class="btn" [disabled]="!downloadForm.form.valid">Submit</button> -->
+            <button type="submit" class="learn-more" [disabled]="!downloadForm.form.valid">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Download</span>
+            </button>
         </form>
     </div>
 </div>
