@@ -5,10 +5,11 @@ $black: #282936;
 	transition: $property $duration $ease;
 }
 .ytdl {
-	min-height: 80vh;
+	min-height: 87vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-image: linear-gradient(90deg, #ffdfde75 15%, #f6f2f1 30%, #c2ebf0 75%, #93ddc6b9 100%);
 	.form-container {
 		width: 100%;
 		max-width: 80%;
