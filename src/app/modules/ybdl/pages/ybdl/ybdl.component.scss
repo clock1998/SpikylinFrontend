@@ -22,6 +22,12 @@ $black: #282936;
 				padding: 10px 5px;
 				margin: 10px 5px;
 			}
+			mat-progress-bar {
+				max-width: 200px;
+				height: 20px;
+				padding: 0px;
+				margin: auto 0;
+			}
 			select {
 				max-width: 100px;
 				border-color: $black;

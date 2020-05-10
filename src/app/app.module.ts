@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { GalleryComponent } from './modules/gallery/pages/gallery/gallery.compon
 import { YbdlComponent } from './modules/ybdl/pages/ybdl/ybdl.component';
 import { ImageComponent } from './modules/gallery/components/image/image.component';
 import { FormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -23,7 +24,15 @@ import { FormsModule } from '@angular/forms';
 		YbdlComponent,
 		ImageComponent
 	],
-	imports: [ BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, FormsModule ],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		HttpClientModule,
+		FormsModule,
+		MatProgressBarModule
+	],
+	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers: [],
 	bootstrap: [ AppComponent ]
 })

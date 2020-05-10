@@ -12,7 +12,7 @@ export class YbdlComponent implements OnInit {
 	videoFormats = [ '', 'mp4', 'm4a', 'wav', 'webm' ];
 	audioFormats = [ 'mp3', 'aac', 'flac', 'm4a', 'vorbis' ];
 	quality = [ [ 'High', '0' ], [ 'Medium', '5' ], [ 'Low', '9' ] ];
-
+	showProgressBar = false;
 	formDataModel = new YtdlFormModel('', 'video', 'mp3', '0');
 	fileData: FileDataModel;
 	constructor(private ytdlService: YtdlService, private fileDownloadService: FiledownloadService) {}
@@ -20,6 +20,7 @@ export class YbdlComponent implements OnInit {
 	ngOnInit(): void {}
 
 	onSubmit() {
+		this.showProgressBar = true;
 		if (this.formDataModel.filetype == 'video') {
 			this.formDataModel.format = '';
 			this.formDataModel.quality = '';
@@ -29,6 +30,7 @@ export class YbdlComponent implements OnInit {
 				url: data['url'],
 				fileName: data['fileName']
 			};
+			this.showProgressBar = false;
 			// console.log(JSON.stringify(this.fileData));
 			this.downloadFile(this.fileData.url, this.fileData.fileName);
 		});
