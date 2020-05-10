@@ -18,8 +18,4 @@ export class YtdlService {
 	getDownload(formData: YtdlFormModel): Observable<YtdlFormModel> {
 		return this.http.post<YtdlFormModel>(this.ytdlUrl, formData, httpOptions);
 	}
-
-	downloadFile(fileURL: string): Observable<any> {
-		return this.http.get<Blob>(fileURL, { responseType: 'blob' as 'json' });
-	}
 }
