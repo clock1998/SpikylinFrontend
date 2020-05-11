@@ -11,4 +11,8 @@ export class FiledownloadService {
 	getDownloadData(fileURL: string): Observable<any> {
 		return this.http.get<Blob>(fileURL, { responseType: 'blob' as 'json' });
 	}
+
+	removeDownloadData(filename: string): Observable<any> {
+		return this.http.delete('http://127.0.0.1:8081/ytdl/delete/' + filename);
+	}
 }

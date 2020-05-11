@@ -33,6 +33,7 @@ export class YbdlComponent implements OnInit {
 			this.showProgressBar = false;
 			// console.log(JSON.stringify(this.fileData));
 			this.downloadFile(this.fileData.url, this.fileData.fileName);
+			this.finishDownload(this.fileData.fileName);
 		});
 	}
 
@@ -48,5 +49,9 @@ export class YbdlComponent implements OnInit {
 			// document.body.appendChild(downloadLink);
 			downloadLink.click();
 		});
+	}
+
+	finishDownload(filename: string) {
+		this.fileDownloadService.removeDownloadData(filename).subscribe();
 	}
 }
