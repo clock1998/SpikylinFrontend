@@ -6,10 +6,10 @@ import { GalleryComponent } from './modules/gallery/pages/gallery/gallery.compon
 import { YbdlComponent } from './modules/ybdl/pages/ybdl/ybdl.component';
 
 const routes: Routes = [
-	{ path: '', component: LandingComponent },
-	{ path: 'about', component: AboutComponent },
-	{ path: 'gallery', component: GalleryComponent },
-	{ path: 'ytdl', component: YbdlComponent }
+	{ path: '', component: LandingComponent, data: { animation: 'Home' } },
+	{ path: 'about', component: AboutComponent, data: { animation: 'About' } },
+	{ path: 'gallery', component: GalleryComponent, data: { animation: 'Gallery' } },
+	{ path: 'ytdl', component: YbdlComponent, data: { animation: 'Ytdl' } }
 ];
 
 @NgModule({
