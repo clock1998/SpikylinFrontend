@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,6 +14,6 @@ export class FiledownloadService {
 	}
 
 	removeDownloadData(filename: string): Observable<any> {
-		return this.http.delete('http://127.0.0.1:8081/ytdl/delete/' + filename);
+		return this.http.delete(environment.apiEndpoint + '/ytdl/delete/' + filename);
 	}
 }

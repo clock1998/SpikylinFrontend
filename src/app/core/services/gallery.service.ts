@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Image } from '../../shared/models/image';
+import { environment } from '../../../environments/environment';
 
 const httpOptions = {
 	headers: new HttpHeaders({
@@ -13,7 +14,7 @@ const httpOptions = {
 	providedIn: 'root'
 })
 export class GalleryService {
-	galleryUrl: string = 'http://127.0.0.1:8081/gallery';
+	galleryUrl: string = environment.apiEndpoint + '/gallery';
 	constructor(private http: HttpClient) {}
 
 	getImages(): Observable<Image[]> {
