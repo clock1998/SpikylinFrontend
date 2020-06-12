@@ -84,5 +84,26 @@ export const slideInAnimation = trigger('routeAnimations', [
 				{ optional: true }
 			)
 		])
+	]),
+	transition('* <=> *', [
+		query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
+		group([
+			query(
+				':enter',
+				[
+					style({ filter: 'blur(2.5em)', opacity: '0' }),
+					animate('0.75s ease-in-out', style({ filter: 'blur(0)', opacity: '1' }))
+				],
+				{ optional: true }
+			),
+			query(
+				':leave',
+				[
+					style({ filter: 'blur(0)', opacity: '1' }),
+					animate('0.75s ease-in-out', style({ filter: 'blur(2.5em)', opacity: '0' }))
+				],
+				{ optional: true }
+			)
+		])
 	])
 ]);
