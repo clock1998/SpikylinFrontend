@@ -14,6 +14,7 @@ import { ImageComponent } from './modules/gallery/components/image/image.compone
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoginComponent } from './core/authentication/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -32,7 +33,8 @@ import { LoginComponent } from './core/authentication/login/login.component';
 		BrowserAnimationsModule,
 		HttpClientModule,
 		FormsModule,
-		MatProgressBarModule
+		MatProgressBarModule,
+		ReactiveFormsModule
 	],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers: [],

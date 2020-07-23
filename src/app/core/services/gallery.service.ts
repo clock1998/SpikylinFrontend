@@ -14,10 +14,14 @@ const httpOptions = {
 	providedIn: 'root'
 })
 export class GalleryService {
-	galleryUrl: string = environment.apiEndpoint + '/gallery';
+	galleryUrl: string = environment.apiEndpoint + '/gallery/';
 	constructor(private http: HttpClient) {}
 
 	getImages(): Observable<Image[]> {
 		return this.http.get<Image[]>(this.galleryUrl);
+	}
+
+	uploadImage(formData): Observable<Image>{
+		return this.http.post<any>(this.galleryUrl, formData);
 	}
 }

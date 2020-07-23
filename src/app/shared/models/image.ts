@@ -1,6 +1,9 @@
 export class Image {
 	id: string;
 	name: string;
-	caption: string;
-	url: string;
+	file: string;
+	tag: string;
+	description: string;
+	created: string;
+	owner: string;
 }
