@@ -4,7 +4,8 @@ import { LandingComponent } from './modules/home/pages/landing/landing.component
 import { AboutComponent } from './modules/about/pages/about/about.component';
 import { GalleryComponent } from './modules/gallery/pages/gallery/gallery.component';
 import { YbdlComponent } from './modules/ybdl/pages/ybdl/ybdl.component';
-import { LoginComponent } from './core/authentication/login/login.component';
+import { LoginComponent } from './modules/login/pages/login/login.component';
+import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.component';
 
 const routes: Routes = [
 	{ path: '', component: LandingComponent, data: { animation: 'Home' } },
@@ -12,6 +13,7 @@ const routes: Routes = [
 	{ path: 'gallery', component: GalleryComponent, data: { animation: 'Gallery' } },
 	{ path: 'ytdl', component: YbdlComponent, data: { animation: 'Ytdl' } },
 	{ path: 'login', component: LoginComponent, data: { animation: 'Ytdl' } },
+	{ path: 'dashboard', component: DashboardComponent, data: { animation: 'Ytdl' } },
 ];
 
 @NgModule({

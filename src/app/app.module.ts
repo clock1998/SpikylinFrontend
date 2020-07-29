@@ -1,7 +1,9 @@
+import {ErrorInterceptor } from './core/helpers/error.interceptor'
+import {JwtInterceptor } from './core/helpers/jwt.interceptor'
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './modules/home/pages/landing/landing.component';
@@ -13,8 +15,9 @@ import { YbdlComponent } from './modules/ybdl/pages/ybdl/ybdl.component';
 import { ImageComponent } from './modules/gallery/components/image/image.component';
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { LoginComponent } from './core/authentication/login/login.component';
+import { LoginComponent } from './modules/login/pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -26,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 		YbdlComponent,
 		ImageComponent,
 		LoginComponent,
+		DashboardComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -37,7 +41,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 		ReactiveFormsModule
 	],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-	providers: [],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+	],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {}
