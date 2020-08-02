@@ -14,10 +14,9 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         return this.http.post<any>(`${environment.apiEndpoint}/auth/jwt/create/`, { username, password })
-            .subscribe((res) => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
+            .pipe(map(res => {
                 localStorage.setItem('access_token', res.access);
-            });
+            }));
     }
 
     logout() {
