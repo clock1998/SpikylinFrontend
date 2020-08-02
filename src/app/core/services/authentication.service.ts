@@ -13,15 +13,24 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiEndpoint}/api/token/`, { username, password })
-            .pipe(map(res => {
+        return this.http.post<any>(`${environment.apiEndpoint}/auth/jwt/create/`, { username, password })
+            .subscribe((res) => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('token', res.access);
-            }));
+                localStorage.setItem('access_token', res.access);
+            });
     }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
     }
+
+    getAccessToken(){
+        return localStorage.getItem('access_token');
+    }
+
+    get isLoggedIn(): boolean {
+        let authToken = localStorage.getItem('access_token');
+        return (authToken !== null) ? true : false;
+      }
 }

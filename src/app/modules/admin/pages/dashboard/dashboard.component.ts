@@ -10,20 +10,20 @@ import { AuthenticationService  } from '../../../../core/services/authentication
 export class DashboardComponent {
     loading = false;
     users: User[];
-    user: User;
+    user:User = {email:"", id:0, username:""};
 
     constructor(private userService: UserService, private authService: AuthenticationService ) { }
 
     ngOnInit() {
-        // this.loading = true;
-        // this.userService.getAll().pipe(first()).subscribe(users => {
-        //     this.loading = false;
-        //     this.users = users;
-        // });
         this.loading = true;
-        this.userService.getCurrentUser().subscribe((user)=>{
-            this.user = user;
+        this.getCurrentUser();
+    }
+
+    getCurrentUser(): void{
+        this.userService.getCurrentUser().subscribe((data: User) => this.user = {
+            id: (data as any).id,
+            username:(data as any).username,
+            email:(data as any).email
         });
-        console.log(this.user);
     }
 }
