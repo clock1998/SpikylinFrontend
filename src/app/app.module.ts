@@ -18,6 +18,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoginComponent } from './modules/login/pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.component';
+import { BlogComponent } from './modules/blog//blog/blog.component';
+import { PostComponent } from './modules/blog/post/post.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -30,6 +32,8 @@ import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.co
 		ImageComponent,
 		LoginComponent,
 		DashboardComponent,
+		BlogComponent,
+		PostComponent,
 	],
 	imports: [
 		BrowserModule,
