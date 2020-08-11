@@ -13,26 +13,27 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BlogService {
-  blogPostUrl: string = environment.apiEndpoint + '/blog/posts';
-	constructor(private http: HttpClient) {}
+	blogPostUrl: string = environment.apiEndpoint + '/blog/posts';
+	constructor(private http: HttpClient) { }
 
-	getPosts(): Observable<Post[]> {
+	getPosts(): Observable<any> {
 		return this.http.get<Post[]>(this.blogPostUrl);
 	}
 
-	createPost(formData): Observable<Post>{
-		return this.http.post<any>(this.blogPostUrl, formData);
-  }
-  
-  viewPost(formData): Observable<Post>{
-		return this.http.get<any>(this.blogPostUrl);
-  }
+	getPost(id: number): Observable<any> {
+		const url = `${this.blogPostUrl}/${id}`;
+		return this.http.get<Post>(url);
+	}
 
-  deletePost(formData): Observable<Post>{
+	createPost(formData): Observable<Post> {
 		return this.http.post<any>(this.blogPostUrl, formData);
-  }
+	}
 
-  updatePost(formData): Observable<Post>{
+	deletePost(formData): Observable<Post> {
+		return this.http.post<any>(this.blogPostUrl, formData);
+	}
+
+	updatePost(formData): Observable<Post> {
 		return this.http.put<any>(this.blogPostUrl, formData);
-  }
+	}
 }

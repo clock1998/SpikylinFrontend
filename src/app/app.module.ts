@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.component';
 import { BlogComponent } from './modules/blog//blog/blog.component';
 import { PostComponent } from './modules/blog/post/post.component';
+import { PostDetailComponent } from './modules/blog/post-detail/post-detail.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -34,6 +35,7 @@ import { PostComponent } from './modules/blog/post/post.component';
 		DashboardComponent,
 		BlogComponent,
 		PostComponent,
+		PostDetailComponent,
 	],
 	imports: [
 		BrowserModule,

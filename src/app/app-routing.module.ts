@@ -8,12 +8,14 @@ import { LoginComponent } from './modules/login/pages/login/login.component';
 import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.component';
 import { AuthGuard } from './core/helpers/auth.guard';
 import { BlogComponent } from './modules/blog/blog/blog.component';
+import { PostDetailComponent } from './modules/blog/post-detail/post-detail.component';
 
 const routes: Routes = [
 	{ path: '', component: LandingComponent, data: { animation: 'Home' } },
 	{ path: 'about', component: AboutComponent, data: { animation: 'About' } },
 	{ path: 'gallery', component: GalleryComponent, data: { animation: 'Gallery' } },
 	{ path: 'blog', component: BlogComponent, data: { animation: 'Gallery' } },
+	{ path: 'post/:id', component:PostDetailComponent },
 	{ path: 'ytdl', component: YbdlComponent, data: { animation: 'Ytdl' } },
 	{ path: 'login', component: LoginComponent, data: { animation: 'Ytdl' } },
 	{ path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data: { animation: 'Ytdl' } },

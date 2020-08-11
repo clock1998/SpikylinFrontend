@@ -1,5 +1,6 @@
 <div class="post">
     <h1>{{post.title}}</h1>
+    <a [routerLink]="['/post', post.id]">{{post.title}} </a>
         <p class="content">{{post.content}}</p>
         <p>{{post.author}}</p>
         <p>{{post.created}}</p>
