@@ -3,7 +3,7 @@ export class Post {
     title:string;
     content: string;
     author: string;
-    view:string;
-    created: string;
-    modified: string;
+    view: number;
+    created: Date;
+    modified: Date;
 }

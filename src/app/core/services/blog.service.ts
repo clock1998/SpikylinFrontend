@@ -20,7 +20,7 @@ export class BlogService {
 		return this.http.get<Post[]>(this.blogPostUrl);
 	}
 
-	getPost(id: number): Observable<any> {
+	getPost(id: number): Observable<Post> {
 		const url = `${this.blogPostUrl}/${id}`;
 		return this.http.get<Post>(url);
 	}
