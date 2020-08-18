@@ -1,6 +1,14 @@
 .post{
     display: flex;
     flex-direction: column;
+    .titleLink{
+        color: black;
+        text-decoration-line: none;
+        &:hover{
+            text-decoration-line: underline;
+        }
+    }
+
     .content{
         display: -webkit-box;;
         -webkit-line-clamp: 3;

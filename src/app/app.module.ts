@@ -21,6 +21,8 @@ import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.co
 import { BlogComponent } from './modules/blog//blog/blog.component';
 import { PostComponent } from './modules/blog/post/post.component';
 import { PostDetailComponent } from './modules/blog/post-detail/post-detail.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -38,6 +40,7 @@ import { PostDetailComponent } from './modules/blog/post-detail/post-detail.comp
 		PostDetailComponent,
 	],
 	imports: [
+		CKEditorModule,
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,

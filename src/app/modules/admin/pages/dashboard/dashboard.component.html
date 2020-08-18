@@ -8,9 +8,21 @@
         <div *ngIf="response && imageUrl">
             <img [src]='imageUrl' />
         </div>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
             <input type="file" name="image" (change)="onChange($event)" />
             <button type="submit">Upload Image File</button>
+        </form>
+    </div>
+
+    <div class="newPostForm">
+        <form  [formGroup]="newPostForm" (ngSubmit)="onPostSubmit()">
+            <label>
+                Title:
+                <input class="newPostFormTitle" type="text" formControlName="title" />
+              </label>
+            
+            <ckeditor [editor]="Editor" data="<p>Hello, world!</p>" formControlName="content" ></ckeditor>
+            <button type="submit">New Post</button>
         </form>
     </div>
 </div>
