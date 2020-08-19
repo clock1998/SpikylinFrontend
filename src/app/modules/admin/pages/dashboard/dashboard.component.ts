@@ -7,6 +7,7 @@ import { AuthenticationService } from '../../../../core/services/authentication.
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { BlogService } from 'src/app/core/services/blog.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -25,6 +26,7 @@ export class DashboardComponent {
     imageUrl: string;
 
     constructor(private galleryService: GalleryService,
+        private blogService: BlogService,
         private formBuilder: FormBuilder,
         private userService: UserService,
         private authService: AuthenticationService) { }
@@ -77,6 +79,16 @@ export class DashboardComponent {
     }
 
     onPostSubmit(){
+        const formData = new FormData();
 
+        formData.append('title', this.newPostForm.get('title').value);
+        formData.append('content', this.newPostForm.get('content').value);
+        console.log(formData);
+        this.blogService.createPost(formData).subscribe((res) => {
+            console.log(res);
+        },
+        (err) => {
+            console.log(err);
+        });
     }
 }

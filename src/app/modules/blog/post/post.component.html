@@ -1,6 +1,5 @@
 <div class="post">
-    <h1> <a class="titleLink" [routerLink]="['/post', post.id]">{{post.title}} </a></h1>
-    <p class="content">{{post.content}}</p>
+    <a class="titleLink" [routerLink]="['/post', post.id]">{{post.title}}</a>
     <p>{{post.author}}</p>
-    <p>{{post.created | date}}</p>
+    <div class="content" [innerHTML]='post.content'></div>
 </div>

@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BlogService {
-	blogPostUrl: string = environment.apiEndpoint + '/blog/posts';
+	blogPostUrl: string = environment.apiEndpoint + '/blog/post';
 	constructor(private http: HttpClient) { }
 
 	getPosts(): Observable<any> {
@@ -26,7 +26,7 @@ export class BlogService {
 	}
 
 	createPost(formData): Observable<Post> {
-		return this.http.post<any>(this.blogPostUrl, formData);
+		return this.http.post<any>(this.blogPostUrl+"/", formData);
 	}
 
 	deletePost(formData): Observable<Post> {
