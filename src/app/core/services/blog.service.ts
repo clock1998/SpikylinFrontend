@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from '../../shared/models/post';
 import { environment } from '../../../environments/environment';
+import { User } from 'src/app/shared/models/user';
 
 const httpOptions = {
 	headers: new HttpHeaders({
@@ -36,5 +37,6 @@ export class BlogService {
 
 	updatePost(formData): Observable<Post> {
 		return this.http.put<any>(this.blogPostUrl, formData);
-	}
+    }
+    
 }

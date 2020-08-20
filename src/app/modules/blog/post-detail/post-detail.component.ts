@@ -25,7 +25,6 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getPostId();
     this.getPost();
-    this.getCurrentUser();
   }
  
   getPostId():void {
@@ -35,18 +34,20 @@ export class PostDetailComponent implements OnInit {
   }
 
   getPost():void {
-    this.blogService.getPost(this.id).subscribe(data => {this.post = data});
+    this.blogService.getPost(this.id).subscribe(
+        data => {this.post = data; this.getCurrentUser();},);
   }
 
   deletePost():void{
-    this.blogService.deletePost(this.id).subscribe();
-    this.router.navigate(['/blog']);
+    this.blogService.deletePost(this.id).subscribe(()=>{
+        this.router.navigate(['/blog']);
+    });
   }
 
-  isOwner():boolean{
-    this.getCurrentUser();
-
-      return false;
+  isOwner():void{
+      if(this.user && this.user.username === this.post.author ){
+          this.showDeleteButton = true;
+      }
   }
 
   getCurrentUser(): void {
@@ -55,7 +56,9 @@ export class PostDetailComponent implements OnInit {
         username: (data as any).username,
         email: (data as any).email
     }, error =>{
-        this.showDeleteButton=false;
+        this.showDeleteButton = false;
+    }, ()=>{
+        this.isOwner();
     });
 }
 }

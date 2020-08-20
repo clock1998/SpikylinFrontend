@@ -16,7 +16,7 @@ export class UserService {
 
     getCurrentUser(){
         return this.http.get<User>(`${environment.apiEndpoint}/auth/users/me/`).pipe(
-            retry(3),
+            // retry(3),
             catchError(this.handleError)
           );;
     }
