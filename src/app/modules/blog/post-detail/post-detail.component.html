@@ -3,6 +3,7 @@
     <h3>{{post.author}}</h3>
     <p>{{post.created | date}}</p>
     <p>{{post.modified | date}}</p>
+    <button *ngIf="showDeleteButton" (click)="deletePost()">Delete</button>
     <div [innerHTML]='post.content'></div>
 </div>
 

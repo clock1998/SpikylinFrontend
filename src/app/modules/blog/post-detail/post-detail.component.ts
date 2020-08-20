@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BlogService } from 'src/app/core/services/blog.service';
 import { Post } from 'src/app/shared/models/post';
+import { UserService } from 'src/app/core/services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-post-detail',
@@ -11,24 +13,49 @@ import { Post } from 'src/app/shared/models/post';
 })
 export class PostDetailComponent implements OnInit {
   post:Post = new Post();
+  user:User;
+  showDeleteButton:boolean = false;
   id;
-  constructor( private blogService: BlogService, private activatedRoute: ActivatedRoute) { }
+  constructor( 
+    private blogService: BlogService, 
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.getPostId();
     this.getPost();
-
+    this.getCurrentUser();
   }
  
   getPostId():void {
     this.activatedRoute.paramMap.subscribe(params => { 
-      console.log(params);
        this.id = params.get('id'); 
-       this.getPost();
    });
   }
 
   getPost():void {
-    const id = +this.activatedRoute.snapshot.paramMap.get('id');
-    this.blogService.getPost(id).subscribe(data => {this.post = data});
+    this.blogService.getPost(this.id).subscribe(data => {this.post = data});
   }
+
+  deletePost():void{
+    this.blogService.deletePost(this.id).subscribe();
+    this.router.navigate(['/blog']);
+  }
+
+  isOwner():boolean{
+    this.getCurrentUser();
+
+      return false;
+  }
+
+  getCurrentUser(): void {
+    this.userService.getCurrentUser().subscribe((data: User) => this.user = {
+        id: (data as any).id,
+        username: (data as any).username,
+        email: (data as any).email
+    }, error =>{
+        this.showDeleteButton=false;
+    });
+}
 }

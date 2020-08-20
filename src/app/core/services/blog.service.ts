@@ -29,8 +29,9 @@ export class BlogService {
 		return this.http.post<any>(this.blogPostUrl+"/", formData);
 	}
 
-	deletePost(formData): Observable<Post> {
-		return this.http.post<any>(this.blogPostUrl, formData);
+	deletePost(id:number): Observable<{}> {
+        const url = `${this.blogPostUrl}/${id}`;
+		return this.http.delete(url);
 	}
 
 	updatePost(formData): Observable<Post> {
