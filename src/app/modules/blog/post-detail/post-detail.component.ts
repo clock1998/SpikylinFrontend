@@ -85,7 +85,7 @@ export class PostDetailComponent implements OnInit {
         formData.append('title', this.updatePostForm.get('title').value);
         formData.append('content', this.updatePostForm.get('content').value);
         this.blogService.updatePost(formData, this.id).subscribe((res) => {
-            console.log(res);
+            location.reload(true);
         },
         (err) => {
             console.log(err);

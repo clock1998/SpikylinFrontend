@@ -36,8 +36,8 @@ export class BlogService {
 	}
 
 	updatePost(formData, id:number): Observable<Post> {
-        const url = `${this.blogPostUrl}/${id}`;
-		return this.http.put<any>(this.blogPostUrl, formData);
+        const url = `${this.blogPostUrl}/${id}/`;
+		return this.http.put<any>(url, formData);
     }
     
 }
