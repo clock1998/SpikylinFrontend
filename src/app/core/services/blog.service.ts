@@ -35,7 +35,8 @@ export class BlogService {
 		return this.http.delete(url);
 	}
 
-	updatePost(formData): Observable<Post> {
+	updatePost(formData, id:number): Observable<Post> {
+        const url = `${this.blogPostUrl}/${id}`;
 		return this.http.put<any>(this.blogPostUrl, formData);
     }
     
