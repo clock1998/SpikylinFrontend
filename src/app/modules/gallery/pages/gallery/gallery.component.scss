@@ -82,6 +82,9 @@
 }
 
 .manageGallery{
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
     max-width: 1140px;
     width: 100%;
     margin-left: auto;

@@ -2,5 +2,5 @@
     <div (click)="showLightBox(image)" class="thumbnail" [ngStyle]="{'background': 'url('+image.file+')'+' center'+' center'+' no-repeat' }">
         
     </div>
-    <button *ngIf="editMode" class="deleteButton" (click)="deleteButtonClick($event, image)" >Delete</button>
+    <button *ngIf="editMode" class="deleteButton" (click)="deleteButtonClick(image)" >Delete</button>
 </div>

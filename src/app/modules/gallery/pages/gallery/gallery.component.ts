@@ -26,7 +26,7 @@ export class GalleryComponent implements OnInit {
 	images: Image[];
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';
-    showEditButton:boolean = false;
+    canManageGallery:boolean = false;
     isEditMode:boolean = false;
     uploadImageForm: FormGroup;
     response: any;
@@ -36,7 +36,7 @@ export class GalleryComponent implements OnInit {
         private authentication: AuthenticationService) {}
 	ngOnInit(): void {
         this.getImages();
-        this.showEditButton = this.authentication.isLoggedIn;
+        this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = this.formBuilder.group({
             image: ['']
         })

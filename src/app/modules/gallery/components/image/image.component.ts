@@ -10,9 +10,8 @@ import { GalleryService } from 'src/app/core/services/gallery.service';
 export class ImageComponent implements OnInit, OnChanges {
     @Input() image: Image;
     @Input() editMode: boolean;
-	@Output() isLightBoxShown: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() imageUrl: EventEmitter<string> = new EventEmitter<string>();
-    @Output() imageEmitted: EventEmitter<Image> = new EventEmitter<Image>();
+    @Output() deleteImageEmitter: EventEmitter<Image> = new EventEmitter<Image>();
     showDeleteButton:boolean = false;
 	constructor(private galleryService: GalleryService) {}
 
@@ -29,7 +28,7 @@ export class ImageComponent implements OnInit, OnChanges {
 		this.imageUrl.emit(image.file);
     }
     
-    deleteButtonClick($event, image:Image):void{
-        this.imageEmitted.emit(image);
+    deleteButtonClick( image:Image):void{
+        this.deleteImageEmitter.emit(image);
     }
 }

@@ -16,16 +16,21 @@
         <div id="caption"></div>
     </div>
 
-    <div class="manageGallery">
+    <div *ngIf="canManageGallery" class="manageGallery">
         <div *ngIf="response && imageUrl">
             <img [src]='imageUrl' />
         </div>
-        <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
-            <input type="file" name="image" (change)="onChange($event)" />
-            <button type="submit">Upload Image File</button>
-        </form>
+        <div>
+            <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
+                <input type="file" name="image" (change)="onChange($event)" />
+                <button type="submit">Upload Image File</button>
+            </form>
+        </div>
+        
+        <div>
+            <button *ngIf="canManageGallery" (click)="editButtonClick($event)">Edit</button>
+        </div>
 
-        <button *ngIf="showEditButton" (click)="editButtonClick($event)">Edit</button>
     </div>
 
 </div>
