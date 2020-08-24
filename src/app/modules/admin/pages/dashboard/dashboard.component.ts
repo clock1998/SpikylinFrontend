@@ -18,7 +18,7 @@ export class DashboardComponent {
     public Editor = ClassicEditor;
     loading = false;
     users: User[];
-    user: User = { email: "", id: 0, username: "" };
+    user: User = { email: "", id: "", username: "" };
     uploadImageForm: FormGroup;
     newPostForm: FormGroup;
 

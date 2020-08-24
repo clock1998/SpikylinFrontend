@@ -20,7 +20,15 @@ export class UserService {
             catchError(this.handleError)
           );;
     }
-    
+
+    get UserInfo():User{
+        let userid:string = localStorage.getItem('user_id');
+        let username:string = localStorage.getItem('user_name');
+        let email:string = localStorage.getItem('user_email');
+        let user:User = {id:userid, username:username , email:email};
+        return user;
+    }
+
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
           // A client-side or network error occurred. Handle it accordingly.

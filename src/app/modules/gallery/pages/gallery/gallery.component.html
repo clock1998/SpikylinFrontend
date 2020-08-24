@@ -3,14 +3,29 @@
         <app-image 
         *ngFor="let image of images"
         [image]="image"
+        [editMode]="isEditMode"
         (imageUrl)="showLightBox($event)">
         </app-image>
     </div>
+    
     <!-- The Modal -->
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
         <span (click)="hideLightBox()" class="close">&times;</span>
         <img src={{imageUrl}} class="modal-content">
         <div id="caption"></div>
-    </div>          
+    </div>
+
+    <div class="manageGallery">
+        <div *ngIf="response && imageUrl">
+            <img [src]='imageUrl' />
+        </div>
+        <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
+            <input type="file" name="image" (change)="onChange($event)" />
+            <button type="submit">Upload Image File</button>
+        </form>
+
+        <button *ngIf="showEditButton" (click)="editButtonClick($event)">Edit</button>
+    </div>
+
 </div>
 <app-footer></app-footer>

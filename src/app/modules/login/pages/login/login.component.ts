@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService  } from '../../../../core/services/authentication.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({ 
   selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private userService: UserService
     ) { 
         // redirect to home if already logged in
         if (this.authenticationService.getAccessToken()) { 
@@ -38,6 +41,15 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
+    
+    getCurrentUser(): void {
+        this.userService.getCurrentUser().subscribe((data: User) => {
+            localStorage.setItem('user_id', data.id);
+            localStorage.setItem('user_name', data.username);
+            localStorage.setItem('user_email', data.email);
+        });
+    }
+
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
@@ -52,6 +64,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .subscribe(
                 data => {
+                    this.getCurrentUser();
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
@@ -59,4 +72,5 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+    
 }
