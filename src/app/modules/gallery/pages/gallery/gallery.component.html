@@ -4,7 +4,8 @@
         *ngFor="let image of images"
         [image]="image"
         [editMode]="isEditMode"
-        (imageUrl)="showLightBox($event)">
+        (imageUrl)="showLightBox($event)"
+        (imageEmitted)="deleteImage($event)">
         </app-image>
     </div>
     

@@ -14,7 +14,7 @@ const httpOptions = {
 	providedIn: 'root'
 })
 export class GalleryService {
-	galleryUrl: string = environment.apiEndpoint + '/gallery/';
+	galleryUrl: string = environment.apiEndpoint + '/gallery';
 	constructor(private http: HttpClient) {}
 
 	getImages(): Observable<Image[]> {
@@ -22,6 +22,12 @@ export class GalleryService {
 	}
 
 	uploadImage(formData): Observable<Image>{
+        const url = `${this.galleryUrl}/`;
 		return this.http.post<any>(this.galleryUrl, formData);
-	}
+    }
+    
+    deleteImage(id:string):Observable<{}>{
+        const url = `${this.galleryUrl}/${id}`;
+        return this.http.delete(url);
+    }
 }

@@ -55,6 +55,11 @@ export class GalleryComponent implements OnInit {
 		this.isLightBoxShown = false;
     }
     
+    deleteImage(image:Image):void{
+        this.galleryService.deleteImage(image.id).subscribe((res)=>{});
+        location.reload(true);
+    }
+
     onChange(event) {
         if (event.target.files.length > 0) {
             const file = event.target.files[0];
@@ -82,7 +87,5 @@ export class GalleryComponent implements OnInit {
 
     editButtonClick(event){
         this.isEditMode= true;
-        
-        console.log(this.isEditMode);
     }
 }
