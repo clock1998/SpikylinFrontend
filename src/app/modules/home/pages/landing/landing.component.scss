@@ -3,9 +3,17 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: url(/assets/img/landing.jpg) no-repeat center center;
-	background-size: cover;
-
+	// background: url(/assets/img/landing.jpg) no-repeat center center;
+    // background-size: cover;
+    .backgroundImage{
+        z-index: -1;
+        min-height: 100vh;
+        width: 100%;
+        position: absolute;
+        background: url(/assets/img/landing.jpg) no-repeat center center;
+        background-size: cover;
+        transition: ease-in-out 0.3s;
+    }
 	.title {
 		position: relative;
 		h1 {
@@ -38,11 +46,16 @@
 			top: 0;
 			left: 0;
 			transform-origin: right;
-		}
+        }
+        &:hover + .backgroundImage{
+            filter: blur(20px);
+            transition: ease-in-out 0.3s;
+        }
 		&:hover span:nth-child(1) {
 			transform: scaleX(0);
 			transform-origin: left;
-			transition: transform ease 0.5s;
+            transition: transform ease 0.5s;
+            
 		}
 
 		span:nth-child(3) {

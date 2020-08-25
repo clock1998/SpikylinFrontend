@@ -1,4 +1,4 @@
-<div class="home">
+<div class="home" #home>
     <div class="title">
       <span></span>
       <span></span>
@@ -6,5 +6,7 @@
       <span></span>
       <h1>Hi, I'm Lin</h1>
     </div>
+    <div [@startChange]="isBackgroundImageChange" 
+    class="backgroundImage" [style.background-image]="backgroundImage"></div>
 </div>
 <app-footer></app-footer>
