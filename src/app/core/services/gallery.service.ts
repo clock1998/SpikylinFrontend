@@ -23,7 +23,7 @@ export class GalleryService {
 
 	uploadImage(formData): Observable<Image>{
         const url = `${this.galleryUrl}/`;
-		return this.http.post<any>(this.galleryUrl, formData);
+		return this.http.post<any>(url, formData);
     }
     
     deleteImage(id:string):Observable<{}>{

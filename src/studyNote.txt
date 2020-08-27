@@ -9,3 +9,7 @@
         console.log(this.user); // the user will be empty, because the the result returns after
         the console log is executed. The subcription is async. 
     }
+
+    Emitter variable name need to be the same:
+    @Output() clickedImageEmitter: EventEmitter<Image> = new EventEmitter<Image>();
+    (clickedImageEmitter)="showLightBox($event)"

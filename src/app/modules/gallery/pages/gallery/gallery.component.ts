@@ -26,6 +26,7 @@ export class GalleryComponent implements OnInit {
 	images: Image[];
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';
+    description: string = '';
     canManageGallery:boolean = false;
     isEditMode:boolean = false;
     uploadImageForm: FormGroup;
@@ -38,7 +39,8 @@ export class GalleryComponent implements OnInit {
         this.getImages();
         this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = this.formBuilder.group({
-            image: ['']
+            image: [''],
+            description: ['']
         })
 	}
 
@@ -47,9 +49,11 @@ export class GalleryComponent implements OnInit {
 			this.images = images;
 		});
 	}
-	showLightBox(imageUrl: string): void {
-		this.isLightBoxShown = true;
-		this.imageUrl = imageUrl;
+	showLightBox(image: Image): void {
+        console.log(image)
+        this.isLightBoxShown = true;
+        this.imageUrl = image.file;
+        this.description = image.description;
 	}
 	hideLightBox(): void {
 		this.isLightBoxShown = false;
@@ -71,11 +75,13 @@ export class GalleryComponent implements OnInit {
 
         formData.append('file', this.uploadImageForm.get('image').value);
         formData.append('name', this.uploadImageForm.get('image').value.name);
-
+        formData.append('description', this.uploadImageForm.get('description').value);
+        console.log(this.uploadImageForm.get('description').value);
         this.galleryService.uploadImage(formData).subscribe(
             (res) => {
                 this.response = res;
                 this.imageUrl = `${res.file}/`;
+                this.getImages();
                 console.log(res);
                 console.log(this.imageUrl);
             },

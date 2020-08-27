@@ -5,10 +5,17 @@
     margin-top: 10vh;
 }
 .galleryHeader{
+    font-family: 'Noto Sans', sans-serif;
     text-align: center;
     padding-top: 44px;
     padding-bottom: 44px;;
-    
+    h2{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 100;
+        opacity: 0.87;
+        letter-spacing: 10px;
+        font-style: italic;
+    }
 }
 .images {
 	max-width: 1140px;

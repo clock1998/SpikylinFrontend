@@ -7,7 +7,7 @@
         *ngFor="let image of images"
         [image]="image"
         [editMode]="isEditMode"
-        (imageUrl)="showLightBox($event)"
+        (clickedImageEmitter)="showLightBox($event)"
         (imageEmitted)="deleteImage($event)">
         </app-image>
     </div>
@@ -16,7 +16,7 @@
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
         <span (click)="hideLightBox()" class="close">&times;</span>
         <img src={{imageUrl}} class="modal-content">
-        <div id="caption"></div>
+        <div id="caption">{{description}}</div>
     </div>
 
     <div *ngIf="canManageGallery" class="manageGallery">
@@ -25,7 +25,8 @@
         </div>
         <div>
             <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
-                <input type="file" name="image" (change)="onChange($event)" />
+                <input type="file" formControlName="image" (change)="onChange($event)" />
+                <input type="text" formControlName="description" />
                 <button type="submit">Upload Image File</button>
             </form>
         </div>
