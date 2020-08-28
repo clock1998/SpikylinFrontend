@@ -61,7 +61,7 @@ export class GalleryComponent implements OnInit {
     
     deleteImage(image:Image):void{
         this.galleryService.deleteImage(image.id).subscribe((res)=>{});
-        location.reload(true);
+        this.getImages();
     }
 
     onChange(event) {
