@@ -6,5 +6,5 @@ export class Image {
     tags: string[];
     tagsInString: string;
 	created: string;
-	owner: string;
+    owner: string;
 }

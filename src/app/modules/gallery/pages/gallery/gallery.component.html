@@ -5,6 +5,9 @@
         </div>
         <div class="tagsContainer">
             <ul class="tags" >
+                <li class="tag" (click)="showAllClick()">
+                    Show All
+                </li>
                 <li class="tag" *ngFor="let tag of tags" (click)="tagClick(tag)">
                     {{tag.tag}}
                 </li>
@@ -13,11 +16,11 @@
     </div>
     <div class="images">
         <app-image 
-        *ngFor="let image of images"
+        *ngFor="let image of imagesTemp"
         [image]="image"
         [editMode]="isEditMode"
         (clickedImageEmitter)="showLightBox($event)"
-        (imageEmitted)="deleteImage($event)">
+        (deleteImageEmitter)="deleteImage($event)">
         </app-image>
     </div>
     

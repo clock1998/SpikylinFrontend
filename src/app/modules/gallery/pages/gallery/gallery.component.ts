@@ -25,7 +25,8 @@ import { Tag, ImageTag } from 'src/app/shared/models/tag';
 	]
 })
 export class GalleryComponent implements OnInit {
-    images: Image[];
+    images: Image[]=[];
+    imagesTemp: Image[]=[];
     tags:Tag[];
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';
@@ -40,6 +41,7 @@ export class GalleryComponent implements OnInit {
         private tagService:TagService,
         private formBuilder: FormBuilder,
         private authentication: AuthenticationService) {}
+
     ngOnInit(): void {
         this.getAllImageTags();
         this.getImages();
@@ -63,6 +65,7 @@ export class GalleryComponent implements OnInit {
                     });
                 });
             });
+            this.imagesTemp=this.images;
 		});
     }
 
@@ -72,26 +75,36 @@ export class GalleryComponent implements OnInit {
         })
     }
 
+    showAllClick():void{
+        this.imagesTemp=this.images;
+    }
+
     tagClick(tag): void {
-        this.tagService.getImagesByTag(tag.tag).subscribe((imageTags)=>{
-            console.log(imageTags)
+        this.imagesTemp = [];
+        this.images.forEach(image => {
+            if (image.tags.includes(tag.id)) {
+                this.imagesTemp.push(image);
+            }
         });
     }
 
 	showLightBox(image: Image): void {
-        console.log(image)
         this.isLightBoxShown = true;
         this.imageUrl = image.file;
         this.description = image.description;
         this.tagsInString = image.tagsInString;
-	}
+    }
+    
 	hideLightBox(): void {
 		this.isLightBoxShown = false;
     }
     
     deleteImage(image:Image):void{
         this.galleryService.deleteImage(image.id).subscribe((res)=>{});
-        this.getImages();
+        let index =  this.imagesTemp.findIndex(x => x.id==image.id);
+        if (index > -1) {
+            this.imagesTemp.splice(index, 1);
+        }
     }
 
     onChange(event) {
@@ -102,11 +115,9 @@ export class GalleryComponent implements OnInit {
     }
     onImageSubmit() {
         const formData = new FormData();
-
         formData.append('file', this.uploadImageForm.get('image').value);
         formData.append('name', this.uploadImageForm.get('image').value.name);
         formData.append('description', this.uploadImageForm.get('description').value);
-        console.log(this.uploadImageForm.get('description').value);
         this.galleryService.uploadImage(formData).subscribe(
             (res) => {
                 this.response = res;
