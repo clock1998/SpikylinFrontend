@@ -1,6 +1,15 @@
 <div class="gallery">
     <div class="galleryHeader">
-        <h2>Gallery</h2>
+        <div>
+            <h2>Gallery</h2>
+        </div>
+        <div class="tagsContainer">
+            <ul class="tags" >
+                <li class="tag" *ngFor="let tag of tags">
+                    {{tag}}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="images">
         <app-image 

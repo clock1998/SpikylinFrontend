@@ -5,6 +5,8 @@ import { GalleryService } from 'src/app/core/services/gallery.service';
 import { trigger, state, style, animate, transition, query, group, animateChild } from '@angular/animations';
 import { flatMap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { TagService } from 'src/app/core/services/tag.service';
+import { Tag, ImageTag } from 'src/app/shared/models/tag';
 
 @Component({
 	selector: 'app-gallery',
@@ -23,7 +25,9 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 	]
 })
 export class GalleryComponent implements OnInit {
-	images: Image[];
+    images: Image[];
+    imageTags:ImageTag[];
+    tags:string[]=[];
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';
     description: string = '';
@@ -33,10 +37,12 @@ export class GalleryComponent implements OnInit {
     response: any;
 
     constructor( private galleryService: GalleryService,
+        private tagService:TagService,
         private formBuilder: FormBuilder,
         private authentication: AuthenticationService) {}
 	ngOnInit(): void {
         this.getImages();
+        this.getAllImageTags();
         this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = this.formBuilder.group({
             image: [''],
@@ -46,9 +52,20 @@ export class GalleryComponent implements OnInit {
 
 	getImages(): void {
 		this.galleryService.getImages().subscribe((images) => {
-			this.images = images;
+            this.images = images;
 		});
-	}
+    }
+
+    getAllImageTags():void{
+        this.tagService.getAllImageTags().subscribe((imageTags) =>{
+            this.imageTags = imageTags;
+            imageTags.forEach(element => {
+                this.tags.push(element.tag)
+            });
+            console.log(this.tags)
+        })
+    }
+
 	showLightBox(image: Image): void {
         console.log(image)
         this.isLightBoxShown = true;

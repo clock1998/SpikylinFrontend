@@ -5,6 +5,6 @@ export class Tag {
 }
 export class ImageTag {
     id: string;
-    post:string;
+    image:string;
     tag: string;
 }

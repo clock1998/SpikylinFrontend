@@ -5,24 +5,51 @@
     margin-top: 10vh;
 }
 .galleryHeader{
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
-    padding-top: 44px;
-    padding-bottom: 44px;;
+    width: 100%;
+    margin: 22px 0;
     h2{
-        font-family: 'Montserrat', sans-serif;
         font-weight: 100;
         opacity: 0.87;
         letter-spacing: 10px;
         font-style: italic;
     }
+    .tagsContainer{
+        padding:22px;
+        opacity: 0.87;
+        .tags{
+            width: 100%;
+            padding:0;
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content:center;
+            flex-wrap: wrap;
+            .tag{
+                cursor: pointer;
+                padding: 5px 18px;
+                margin: 0 5px;
+                border: solid 2px;
+                border-radius: 20px;
+                transition: ease-in-out 0.2s;
+                &:hover{
+                    color:white;
+                    background-color:black;
+                    opacity: 0.87;
+                    transition: ease-in-out 0.2s;
+                }
+            }
+        }
+    }
+    
 }
 .images {
 	max-width: 1140px;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 10vh;
 	text-align: center;
 	padding-right: 15px;
 	padding-left: 15px;
