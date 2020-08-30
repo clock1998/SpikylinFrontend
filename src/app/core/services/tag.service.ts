@@ -22,15 +22,19 @@ export class TagService {
         return this.http.delete(url);
     }
 
-    getAllImageTags(): Observable<ImageTag[]> {
-        const url = `${this.imageTagUrl}`;
-		return this.http.get<ImageTag[]>(url);
+    getAllImageTags(): Observable<Tag[]> {
+		return this.http.get<ImageTag[]>(this.tagUrl);
     }
     
-    getImageTags(id:string): Observable<ImageTag[]> {
+    getTagsByImage(id:string): Observable<ImageTag[]> {
         const url = `${this.imageTagUrl}/?image=${id}`;
 		return this.http.get<ImageTag[]>(url);
 	}
+    
+    getImagesByTag(id:string): Observable<ImageTag[]> {
+        const url = `${this.imageTagUrl}/?tag=${id}`;
+		return this.http.get<ImageTag[]>(url);
+    }
     
     deleteImageTag(id:string):Observable<{}>{
         const url = `${this.imageTagUrl}/${id}`;

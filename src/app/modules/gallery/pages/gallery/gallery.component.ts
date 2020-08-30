@@ -26,11 +26,11 @@ import { Tag, ImageTag } from 'src/app/shared/models/tag';
 })
 export class GalleryComponent implements OnInit {
     images: Image[];
-    imageTags:ImageTag[];
-    tags:string[]=[];
+    tags:Tag[];
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';
     description: string = '';
+    tagsInString: string = '';
     canManageGallery:boolean = false;
     isEditMode:boolean = false;
     uploadImageForm: FormGroup;
@@ -40,9 +40,9 @@ export class GalleryComponent implements OnInit {
         private tagService:TagService,
         private formBuilder: FormBuilder,
         private authentication: AuthenticationService) {}
-	ngOnInit(): void {
-        this.getImages();
+    ngOnInit(): void {
         this.getAllImageTags();
+        this.getImages();
         this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = this.formBuilder.group({
             image: [''],
@@ -53,17 +53,29 @@ export class GalleryComponent implements OnInit {
 	getImages(): void {
 		this.galleryService.getImages().subscribe((images) => {
             this.images = images;
+            this.images.forEach(image => {
+                image.tagsInString='';
+                image.tags.forEach(tagId => {
+                    this.tags.forEach(tag=>{
+                        if(tag.id == tagId){
+                            image.tagsInString+=tag.tag+',';
+                        }
+                    });
+                });
+            });
 		});
     }
 
     getAllImageTags():void{
-        this.tagService.getAllImageTags().subscribe((imageTags) =>{
-            this.imageTags = imageTags;
-            imageTags.forEach(element => {
-                this.tags.push(element.tag)
-            });
-            console.log(this.tags)
+        this.tagService.getAllImageTags().subscribe((tags) =>{
+            this.tags = tags;
         })
+    }
+
+    tagClick(tag): void {
+        this.tagService.getImagesByTag(tag.tag).subscribe((imageTags)=>{
+            console.log(imageTags)
+        });
     }
 
 	showLightBox(image: Image): void {
@@ -71,6 +83,7 @@ export class GalleryComponent implements OnInit {
         this.isLightBoxShown = true;
         this.imageUrl = image.file;
         this.description = image.description;
+        this.tagsInString = image.tagsInString;
 	}
 	hideLightBox(): void {
 		this.isLightBoxShown = false;

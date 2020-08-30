@@ -5,8 +5,8 @@
         </div>
         <div class="tagsContainer">
             <ul class="tags" >
-                <li class="tag" *ngFor="let tag of tags">
-                    {{tag}}
+                <li class="tag" *ngFor="let tag of tags" (click)="tagClick(tag)">
+                    {{tag.tag}}
                 </li>
             </ul>
         </div>
@@ -25,7 +25,7 @@
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
         <span (click)="hideLightBox()" class="close">&times;</span>
         <img src={{imageUrl}} class="modal-content">
-        <div id="caption">{{description}}</div>
+        <div id="caption">{{description}} Tags: {{tagsInString}}</div>
     </div>
 
     <div *ngIf="canManageGallery" class="manageGallery">
