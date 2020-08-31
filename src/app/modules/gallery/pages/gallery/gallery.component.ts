@@ -27,7 +27,7 @@ import { Tag, ImageTag } from 'src/app/shared/models/tag';
 export class GalleryComponent implements OnInit {
     images: Image[]=[];
     imagesTemp: Image[]=[];
-    tags:Tag[];
+    tags:Tag[]=[];
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';
     description: string = '';
@@ -68,7 +68,7 @@ export class GalleryComponent implements OnInit {
             this.imagesTemp=this.images;
 		});
     }
-
+    
     getAllImageTags():void{
         this.tagService.getAllImageTags().subscribe((tags) =>{
             this.tags = tags;

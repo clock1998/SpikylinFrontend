@@ -39,6 +39,9 @@
             <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
                 <input type="file" formControlName="image" (change)="onChange($event)" />
                 <input type="text" formControlName="description" />
+                <select size="1">
+                    <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.tag}}</option>
+                </select>
                 <button type="submit">Upload Image File</button>
             </form>
         </div>
