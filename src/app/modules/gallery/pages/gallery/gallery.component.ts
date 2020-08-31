@@ -35,7 +35,7 @@ export class GalleryComponent implements OnInit {
     canManageGallery:boolean = false;
     isEditMode:boolean = false;
     uploadImageForm: FormGroup;
-    response: any;
+    file:File;
 
     constructor( private galleryService: GalleryService,
         private tagService:TagService,
@@ -48,7 +48,8 @@ export class GalleryComponent implements OnInit {
         this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = this.formBuilder.group({
             image: [''],
-            description: ['']
+            description: [''],
+            tags:[]
         })
 	}
 
@@ -107,21 +108,23 @@ export class GalleryComponent implements OnInit {
         }
     }
 
-    onChange(event) {
+    onImageSelect(event) {
         if (event.target.files.length > 0) {
-            const file = event.target.files[0];
-            this.uploadImageForm.get('image').setValue(file);
+            this.file = event.target.files[0];
+            // this.uploadImageForm.get('image').setValue(file);
         }
     }
     onImageSubmit() {
         const formData = new FormData();
-        formData.append('file', this.uploadImageForm.get('image').value);
-        formData.append('name', this.uploadImageForm.get('image').value.name);
+        formData.append('file', this.file, this.file.name);
+        formData.append('name', this.file.name);
         formData.append('description', this.uploadImageForm.get('description').value);
+        this.uploadImageForm.get('tags').value.forEach(element => {
+            formData.append('tags', element);    
+        });
+        
         this.galleryService.uploadImage(formData).subscribe(
             (res) => {
-                this.response = res;
-                this.imageUrl = `${res.file}/`;
                 this.getImages();
                 console.log(res);
                 console.log(this.imageUrl);

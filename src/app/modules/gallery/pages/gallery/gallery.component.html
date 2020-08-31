@@ -32,14 +32,11 @@
     </div>
 
     <div *ngIf="canManageGallery" class="manageGallery">
-        <div *ngIf="response && imageUrl">
-            <img [src]='imageUrl' />
-        </div>
         <div>
             <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
-                <input type="file" formControlName="image" (change)="onChange($event)" />
+                <input type="file" formControlName="image" (change)="onImageSelect($event)" />
                 <input type="text" formControlName="description" />
-                <select size="1">
+                <select size="5" formControlName="tags" multiple>
                     <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.tag}}</option>
                 </select>
                 <button type="submit">Upload Image File</button>

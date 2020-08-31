@@ -22,6 +22,8 @@ import { BlogComponent } from './modules/blog//blog/blog.component';
 import { PostComponent } from './modules/blog/post/post.component';
 import { PostDetailComponent } from './modules/blog/post-detail/post-detail.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
 	declarations: [
@@ -47,7 +49,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 		HttpClientModule,
 		FormsModule,
 		MatProgressBarModule,
-		ReactiveFormsModule
+        ReactiveFormsModule,
+        MatChipsModule,
+        MatAutocompleteModule
 	],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers: [
