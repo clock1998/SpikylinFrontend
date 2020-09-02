@@ -1,0 +1,4 @@
+git clone form github
+run npm install
+npm run deploy
+copy asset from dist to /var/www

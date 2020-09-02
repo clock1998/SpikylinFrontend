@@ -13,6 +13,11 @@ export class TagService {
     imageTagUrl: string = environment.apiEndpoint + '/tag/images';
 	constructor(private http: HttpClient) {}
 
+    createTag(formData): Observable<Tag>{
+        const url = `${this.tagUrl}/`;
+        return this.http.post<Tag>(url,formData);
+    }
+
 	getTags(): Observable<Tag[]> {
 		return this.http.get<Tag[]>(this.tagUrl);
 	}

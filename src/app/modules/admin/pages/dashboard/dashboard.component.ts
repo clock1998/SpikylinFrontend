@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BlogService } from 'src/app/core/services/blog.service';
+import { TagService } from 'src/app/core/services/tag.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -21,6 +22,7 @@ export class DashboardComponent {
     user: User = { email: "", id: "", username: "" };
     uploadImageForm: FormGroup;
     newPostForm: FormGroup;
+    newTagForm:FormGroup;
 
     response: any;
     imageUrl: string;
@@ -29,6 +31,7 @@ export class DashboardComponent {
         private blogService: BlogService,
         private formBuilder: FormBuilder,
         private userService: UserService,
+        private tagService: TagService,
         private authService: AuthenticationService) { }
 
     ngOnInit() {
@@ -37,7 +40,9 @@ export class DashboardComponent {
         this.uploadImageForm = this.formBuilder.group({
             image: ['']
         })
-
+        this.newTagForm = this.formBuilder.group({
+            tag: ['', Validators.required],
+        })
         this.newPostForm = this.formBuilder.group({
             title: ['', Validators.required],
             content: ['', Validators.required]
@@ -80,15 +85,24 @@ export class DashboardComponent {
 
     onPostSubmit(){
         const formData = new FormData();
-
         formData.append('title', this.newPostForm.get('title').value);
         formData.append('content', this.newPostForm.get('content').value);
-        console.log(formData);
         this.blogService.createPost(formData).subscribe((res) => {
             console.log(res);
         },
         (err) => {
             console.log(err);
+        });
+    }
+
+    onTagSubmit():void{
+        const formData = new FormData();
+        formData.append('tag', this.newTagForm.get('tag').value);
+        this.tagService.createTag(formData).subscribe((res) => {
+            console.log(res);
+        },
+        (err) => {
+            console.error(err);
         });
     }
 }
