@@ -1,8 +1,34 @@
+.videoBackground{
+    height: 100vh;
+}
+.headerImage{
+    z-index: -1;
+    width: 100%;
+    height: 50vh;
+    background: url(/assets/img/blogHeader.jpg) no-repeat center;
+    background-size: cover;
+}
 .blog{
+    font-family: 'Roboto', sans-serif;
+    opacity: 0.87;
     min-height: 100vh;
     margin-top: 10vh;
-    max-width: 1010px;
+    max-width: 720px;
     min-width: 300px;
     margin-left: auto;
     margin-right: auto;
+
+    .headerContainer{
+        text-align: center;
+    }
+    .header{
+        font-weight: 500;
+        padding: 22px;
+    }
+    .subHeader{
+        font-family: 'Dosis', sans-serif;
+        letter-spacing: 2px;
+        font-weight: 300;
+        padding: 0 22px 22px 22px;
+    }
 }

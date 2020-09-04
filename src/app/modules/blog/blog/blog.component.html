@@ -1,4 +1,17 @@
-<div class="blog">
+<!-- <div class="videoBackground">
+    <iframe height="100%" width="100%" src="https://www.youtube.com/embed/-9fYF_zAh9E?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div> -->
+<div [@initHeaderImage] class="headerImage"></div>
+<div class="blog" @initBlog>
+    <div class="headerContainer">
+        <h1 class="header">
+            Blog
+        </h1>
+        <h2 class="subHeader">
+            Thoughs, stories, and ideas......
+        </h2>
+    </div>
+    
     <div class="posts">
         <app-post *ngFor="let post of posts"
         [post]="post">

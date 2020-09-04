@@ -10,7 +10,21 @@ import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.scss']
+  styleUrls: ['./blog.component.scss'],
+  animations: [
+    trigger('initHeaderImage', [
+        transition(':enter', [
+            style({ opacity: 0}),
+            animate('1.5s ease-in-out', style({ opacity: 1 })),
+          ])
+    ]),
+    trigger('initBlog', [
+        transition(':enter', [
+            style({ opacity: 0, transform:'translateY(20vh)'}),
+            animate('1s ease-in-out', style({ opacity: 1, transform:'translateY(0)'})),
+          ])
+    ]),
+]
 })
 export class BlogComponent implements OnInit {
   posts: Post[];
