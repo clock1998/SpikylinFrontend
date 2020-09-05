@@ -13,6 +13,10 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./blog.component.scss'],
   animations: [
     trigger('initHeaderImage', [
+        transition('*<=>*', [
+            style({ opacity: 0}),
+            animate('1.5s ease-in-out', style({ opacity: 1 })),
+          ]),
         transition(':enter', [
             style({ opacity: 0}),
             animate('1.5s ease-in-out', style({ opacity: 1 })),
@@ -21,7 +25,7 @@ import { switchMap } from 'rxjs/operators';
     trigger('initBlog', [
         transition(':enter', [
             style({ opacity: 0, transform:'translateY(20vh)'}),
-            animate('1s ease-in-out', style({ opacity: 1, transform:'translateY(0)'})),
+            animate('1s ease-out', style({ opacity: 1, transform:'translateY(0)'})),
           ])
     ]),
 ]

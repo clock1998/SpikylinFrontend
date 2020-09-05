@@ -1,5 +1,7 @@
 <div class="post">
-    <a class="titleLink" [routerLink]="['/post', post.id]">{{post.title}}</a>
-    <p>{{post.author}}</p>
-    <div class="content" [innerHTML]='post.content'></div>
+    <h3>
+        <a class="titleLink" [routerLink]="['/post', post.id]">{{post.title}}</a>
+    </h3>
+    <h4 class="postInfo">{{post.author}} on {{post.created | date}}</h4>
+    <div class="content">{{post.content}}</div>
 </div>

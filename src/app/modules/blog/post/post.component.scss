@@ -1,23 +1,29 @@
 .post{
     display: flex;
     flex-direction: column;
+    padding:22px 0;
+    
     .titleLink{
         color: black;
+        opacity: 0.87;
         text-decoration-line: none;
+        font-size: 22px;
         &:hover{
             text-decoration-line: underline;
         }
     }
-
+    .postInfo{
+        padding: 12px 0;
+        font-weight: 500;
+    }
     .content{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 18px;
         display: -webkit-box;;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .info{
-        width: 500px;
-    }    
 }
 
