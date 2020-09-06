@@ -31,6 +31,7 @@ export class PostDetailComponent implements OnInit {
     ngOnInit(): void {
         this.getPostId();
         this.getPost();
+        this.user = this.userService.UserInfo;
         this.updatePostForm = this.formBuilder.group({
             title: [ '', Validators.required],
             content: ['', Validators.required]
@@ -46,8 +47,8 @@ export class PostDetailComponent implements OnInit {
     getPost(): void {
         this.blogService.getPost(this.id).subscribe(
             data => { 
-                this.post = data; 
-                this.getCurrentUser(); 
+                this.post = data;
+                this.isOwner(); 
                 this.updatePostForm = this.formBuilder.group({
                     title: [ this.post.title, Validators.required],
                     content: [this.post.content, Validators.required]
@@ -62,22 +63,12 @@ export class PostDetailComponent implements OnInit {
     }
 
     isOwner(): void {
+        console.log(this.user.username)
+        console.log(this.post.author)
         if (this.user && this.user.username === this.post.author) {
             this.showDeleteButton = true;
             this.showUpdateForm = true;
         }
-    }
-
-    getCurrentUser(): void {
-        this.userService.getCurrentUser().subscribe((data: User) => this.user = {
-            id: (data as any).id,
-            username: (data as any).username,
-            email: (data as any).email
-        }, error => {
-            this.showDeleteButton = false;
-        }, () => {
-            this.isOwner();
-        });
     }
 
     onPostSubmit() {

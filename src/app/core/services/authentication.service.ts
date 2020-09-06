@@ -31,6 +31,9 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('user_email');
     }
 
     getAccessToken(){

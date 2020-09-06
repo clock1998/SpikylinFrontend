@@ -13,10 +13,6 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./blog.component.scss'],
   animations: [
     trigger('initHeaderImage', [
-        transition('*<=>*', [
-            style({ opacity: 0}),
-            animate('1.5s ease-in-out', style({ opacity: 1 })),
-          ]),
         transition(':enter', [
             style({ opacity: 0}),
             animate('1.5s ease-in-out', style({ opacity: 1 })),

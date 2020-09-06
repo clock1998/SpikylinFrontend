@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
 import { environment } from '../../../environments/environment';
 import { User } from '../../shared/models/user';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/internal/operators';
+import { map } from 'rxjs/internal/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -15,7 +13,11 @@ export class UserService {
     }
 
     getCurrentUser(){
-        return this.http.get<User>(`${environment.apiEndpoint}/auth/users/me/`);
+        return this.http.get<User>(`${environment.apiEndpoint}/auth/users/me/`).pipe(map(res=>{
+            localStorage.setItem('user_id', res.id);
+            localStorage.setItem('user_name', res.username);
+            localStorage.setItem('user_email', res.email);
+        }));
     }
 
     get UserInfo():User{

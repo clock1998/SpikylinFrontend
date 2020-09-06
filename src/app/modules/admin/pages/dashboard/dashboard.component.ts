@@ -36,7 +36,7 @@ export class DashboardComponent {
 
     ngOnInit() {
         this.loading = true;
-        this.getCurrentUser();
+        this.user=this.userService.UserInfo;
         this.uploadImageForm = this.formBuilder.group({
             image: ['']
         })
@@ -47,14 +47,6 @@ export class DashboardComponent {
             title: ['', Validators.required],
             content: ['', Validators.required]
         })
-    }
-
-    getCurrentUser(): void {
-        this.userService.getCurrentUser().subscribe((data: User) => this.user = {
-            id: (data as any).id,
-            username: (data as any).username,
-            email: (data as any).email
-        });
     }
 
     onChange(event) {

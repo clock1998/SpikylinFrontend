@@ -43,11 +43,7 @@ export class LoginComponent implements OnInit {
 
     
     getCurrentUser(): void {
-        this.userService.getCurrentUser().subscribe((data: User) => {
-            localStorage.setItem('user_id', data.id);
-            localStorage.setItem('user_name', data.username);
-            localStorage.setItem('user_email', data.email);
-        });
+        this.userService.getCurrentUser().subscribe();
     }
 
     // convenience getter for easy access to form fields
