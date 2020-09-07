@@ -4,22 +4,22 @@
     </div>
     <ul [@fade]="isNavHide ? '*' : 'show' " class="nav-links">
       <li>
-        <a routerLink="/">Home</a>
+        <a routerLink="/" (click)="toggleNavbar()" >Home</a>
       </li>
       <li>
-        <a routerLink="/about">About</a>
+        <a routerLink="/about" (click)="toggleNavbar()">About</a>
       </li>
       <li>
-        <a routerLink="/gallery">Gallery</a>
+        <a routerLink="/gallery" (click)="toggleNavbar()">Gallery</a>
       </li>
       <li>
-        <a routerLink="/blog">Blog</a>
+        <a routerLink="/blog" (click)="toggleNavbar()">Blog</a>
       </li>
       <li>
-        <a routerLink="/ytdl">Ytdl</a>
+        <a routerLink="/ytdl" (click)="toggleNavbar()">Ytdl</a>
       </li>
       <li>
-        <a routerLink="/login">login</a>
+        <a routerLink="/login" (click)="toggleNavbar()">login</a>
       </li>
     </ul>
     <div (click)="toggleNavbar()" class="burger">
