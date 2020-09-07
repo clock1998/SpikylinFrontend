@@ -1,6 +1,16 @@
 <div class="image">
-    <div (click)="showLightBox(image)" class="thumbnail" [ngStyle]="{'background': 'url('+image.file+')'+' center'+' center'+' no-repeat' }">
-        
+    <div (click)="showLightBox(image)" class="thumbnail"
+        [ngStyle]="{'background': 'url('+image.file+')'+' center'+' center'+' no-repeat' }">
     </div>
-    <button *ngIf="editMode" class="deleteButton" (click)="deleteButtonClick(image)" >Delete</button>
+    <div *ngIf="editMode">
+        <button class="deleteButton" (click)="deleteButtonClick(image)">Delete</button>
+        <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
+            <input type="file" formControlName="image" (change)="onImageSelect($event)" />
+            <input type="text" formControlName="description" />
+            <select size="5" formControlName="tags" multiple>
+                <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.tag}}</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+    </div>
 </div>

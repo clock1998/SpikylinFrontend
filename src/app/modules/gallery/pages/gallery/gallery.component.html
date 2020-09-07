@@ -18,6 +18,7 @@
         <app-image 
         *ngFor="let image of imagesTemp"
         [image]="image"
+        [tags]="tags"
         [editMode]="isEditMode"
         (clickedImageEmitter)="showLightBox($event)"
         (deleteImageEmitter)="deleteImage($event)">
