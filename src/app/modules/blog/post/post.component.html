@@ -3,5 +3,5 @@
         <a class="titleLink" [routerLink]="['/post', post.id]">{{post.title}}</a>
     </h3>
     <h4 class="postInfo">{{post.author}} on {{post.created | date}}</h4>
-    <div class="content">{{post.content}}</div>
+    <div class="content" [innerHTML]='post.content'></div>
 </div>
