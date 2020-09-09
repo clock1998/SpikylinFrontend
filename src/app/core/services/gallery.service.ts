@@ -21,11 +21,16 @@ export class GalleryService {
 		return this.http.get<Image[]>(this.galleryUrl);
 	}
 
-	uploadImage(formData): Observable<Image>{
+	addImage(formData): Observable<Image>{
         const url = `${this.galleryUrl}/`;
 		return this.http.post<any>(url, formData);
     }
     
+    updateImage(formData, id:string): Observable<Image>{
+        const url = `${this.galleryUrl}/${id}/`;
+		return this.http.put<any>(url, formData);
+    }
+
     deleteImage(id:string):Observable<{}>{
         const url = `${this.galleryUrl}/${id}`;
         return this.http.delete(url);

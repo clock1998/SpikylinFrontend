@@ -62,7 +62,7 @@ export class DashboardComponent {
         formData.append('file', this.uploadImageForm.get('image').value);
         formData.append('name', this.uploadImageForm.get('image').value.name);
 
-        this.galleryService.uploadImage(formData).subscribe(
+        this.galleryService.addImage(formData).subscribe(
             (res) => {
                 this.response = res;
                 this.imageUrl = `${res.file}/`;

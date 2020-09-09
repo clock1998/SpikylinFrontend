@@ -123,7 +123,7 @@ export class GalleryComponent implements OnInit {
             formData.append('tags', element);    
         });
         
-        this.galleryService.uploadImage(formData).subscribe(
+        this.galleryService.addImage(formData).subscribe(
             (res) => {
                 this.getImages();
                 console.log(res);
