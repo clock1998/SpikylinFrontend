@@ -7,6 +7,7 @@ import { flatMap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { TagService } from 'src/app/core/services/tag.service';
 import { Tag, ImageTag } from 'src/app/shared/models/tag';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Component({
 	selector: 'app-gallery',
@@ -40,7 +41,8 @@ export class GalleryComponent implements OnInit {
     constructor( private galleryService: GalleryService,
         private tagService:TagService,
         private formBuilder: FormBuilder,
-        private authentication: AuthenticationService) {}
+        private authentication: AuthenticationService,
+        private ng2ImgMax: Ng2ImgMaxService) {}
 
     ngOnInit(): void {
         this.getAllImageTags();
@@ -115,22 +117,31 @@ export class GalleryComponent implements OnInit {
         }
     }
     onImageSubmit() {
-        const formData = new FormData();
-        formData.append('file', this.file, this.file.name);
-        formData.append('name', this.file.name);
-        formData.append('description', this.uploadImageForm.get('description').value);
-        this.uploadImageForm.get('tags').value.forEach(element => {
-            formData.append('tags', element);    
-        });
-        
-        this.galleryService.addImage(formData).subscribe(
-            (res) => {
-                this.getImages();
-                console.log(res);
-                console.log(this.imageUrl);
+        this.ng2ImgMax.compressImage(this.file, 1).subscribe(
+            result => {
+                console.log(result)
+                this.file = result;
+                const formData = new FormData();
+                formData.append('file', this.file, this.file.name);
+                formData.append('name', this.file.name);
+                formData.append('description', this.uploadImageForm.get('description').value);
+                this.uploadImageForm.get('tags').value.forEach(element => {
+                    formData.append('tags', element);
+                });
+
+                this.galleryService.addImage(formData).subscribe(
+                    (res) => {
+                        this.getImages();
+                        console.log(res);
+                        console.log(this.imageUrl);
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                );
             },
-            (err) => {
-                console.log(err);
+            error => {
+                console.log('Compress failed!', error);
             }
         );
     }

@@ -24,6 +24,7 @@ import { PostDetailComponent } from './modules/blog/post-detail/post-detail.comp
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { Ng2ImgMaxService, Ng2ImgMaxModule } from 'ng2-img-max';
 
 @NgModule({
 	declarations: [
@@ -51,12 +52,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 		MatProgressBarModule,
         ReactiveFormsModule,
         MatChipsModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
+        Ng2ImgMaxModule
 	],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 	],
 	bootstrap: [ AppComponent ]
 })
