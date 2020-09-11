@@ -73,7 +73,7 @@ export class ImageComponent implements OnInit, OnChanges {
                 this.galleryService.updateImage(formData, this.image.id).subscribe(
                     (res) => {
                         this.image = res;
-                        console.log(res);
+                        // console.log(res);
                     },
                     (err) => {
                         console.log(err);

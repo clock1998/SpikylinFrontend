@@ -117,7 +117,7 @@ export class GalleryComponent implements OnInit {
         }
     }
     onImageSubmit() {
-        this.ng2ImgMax.compressImage(this.file, 1).subscribe(
+        this.ng2ImgMax.compressImage(this.file, 1.5).subscribe(
             result => {
                 console.log(result)
                 this.file = result;
@@ -132,8 +132,7 @@ export class GalleryComponent implements OnInit {
                 this.galleryService.addImage(formData).subscribe(
                     (res) => {
                         this.getImages();
-                        console.log(res);
-                        console.log(this.imageUrl);
+                        // console.log(res);
                     },
                     (err) => {
                         console.log(err);
