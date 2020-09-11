@@ -23,8 +23,10 @@
         (clickedImageEmitter)="showLightBox($event)"
         (deleteImageEmitter)="deleteImage($event)">
         </app-image>
+        
     </div>
-    
+    <p style="text-align: center;">All the images are compressed, please contact me for better quality images.</p>
+
     <!-- The Modal -->
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
         <span (click)="hideLightBox()" class="close">&times;</span>
