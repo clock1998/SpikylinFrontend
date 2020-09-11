@@ -70,7 +70,7 @@ export class ImageComponent implements OnInit, OnChanges {
                     formData.append('tags', element);
                 });
 
-                this.galleryService.addImage(formData).subscribe(
+                this.galleryService.updateImage(formData, this.image.id).subscribe(
                     (res) => {
                         this.image = res;
                         console.log(res);
