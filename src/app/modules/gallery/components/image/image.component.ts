@@ -3,6 +3,7 @@ import { Image } from 'src/app/shared/models/image';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import { Tag } from 'src/app/shared/models/tag';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Component({
 	selector: 'app-image',
@@ -22,7 +23,9 @@ export class ImageComponent implements OnInit, OnChanges {
     description: string = '';
     uploadImageForm: FormGroup;
     file:File;
-	constructor(private galleryService: GalleryService, private formBuilder: FormBuilder) {}
+    constructor(private galleryService: GalleryService, 
+        private formBuilder: FormBuilder,
+        private ng2ImgMax: Ng2ImgMaxService) {}
 
 
 	ngOnInit(): void {
@@ -55,24 +58,30 @@ export class ImageComponent implements OnInit, OnChanges {
     }
 
     onImageSubmit() {
-        const formData = new FormData();
-        formData.append('file', this.file, this.file.name);
-        formData.append('name', this.file.name);
-        formData.append('description', this.uploadImageForm.get('description').value);
-        if(this.uploadImageForm.get('tags').value){
-            this.uploadImageForm.get('tags').value.forEach(element => {
-                formData.append('tags', element);    
-            });
-        }
-        
-        this.galleryService.updateImage(formData, this.image.id).subscribe(
-            (res) => {
-                this.image = res;
-                console.log(res);
-                console.log(this.imageUrl);
+        this.ng2ImgMax.compressImage(this.file, 1).subscribe(
+            result => {
+                console.log(result)
+                this.file = result;
+                const formData = new FormData();
+                formData.append('file', this.file, this.file.name);
+                formData.append('name', this.file.name);
+                formData.append('description', this.uploadImageForm.get('description').value);
+                this.uploadImageForm.get('tags').value.forEach(element => {
+                    formData.append('tags', element);
+                });
+
+                this.galleryService.addImage(formData).subscribe(
+                    (res) => {
+                        this.image = res;
+                        console.log(res);
+                    },
+                    (err) => {
+                        console.log(err);
+                    }
+                );
             },
-            (err) => {
-                console.log(err);
+            error => {
+                console.log('Compress failed!', error);
             }
         );
     }
