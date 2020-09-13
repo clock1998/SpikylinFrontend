@@ -2,7 +2,7 @@
     <h1>{{post.title}}</h1>
     <h3>Created by {{post.author}} on {{post.created | date}}, updated on {{post.modified | date}}</h3>
     <button *ngIf="showDeleteButton" (click)="deletePost()">Delete</button>
-    <div class="content" [innerHTML]='post.content'></div>
+    <section class="content" [innerHTML]="post.content | safeHtml"></section>
 
     <div *ngIf="showUpdateForm" class="newPostForm">
         <form  [formGroup]="updatePostForm" (ngSubmit)="onPostSubmit()">
@@ -10,7 +10,7 @@
                 Title:
                 <input class="newPostFormTitle" type="text" formControlName="title" />
               </label>
-            <ckeditor [editor]="Editor" data="<p>Hello, world!</p>" formControlName="content" ></ckeditor>
+            <ckeditor [editor]="Editor" [config]="CKEditorConfig" data="<p>Hello, world!</p>" formControlName="content" ></ckeditor>
             <button type="submit">Update Post</button>
         </form>
     </div>

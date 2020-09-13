@@ -1,8 +1,8 @@
 import {ErrorInterceptor } from './core/helpers/error.interceptor'
 import {JwtInterceptor } from './core/helpers/jwt.interceptor'
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, PipeTransform, Pipe } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,22 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Ng2ImgMaxService, Ng2ImgMaxModule } from 'ng2-img-max';
 
+@Pipe({ name: 'safeHtml'})
+export class SafeHtmlPipe implements PipeTransform  {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value) {
+    return this.sanitized.bypassSecurityTrustHtml(value);
+  }
+}
+
+@Pipe({ name: 'safeCss'})
+export class SafeStylePipe implements PipeTransform  {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value) {
+    return this.sanitized.bypassSecurityTrustStyle(value);
+  }
+}
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -40,7 +56,9 @@ import { Ng2ImgMaxService, Ng2ImgMaxModule } from 'ng2-img-max';
 		DashboardComponent,
 		BlogComponent,
 		PostComponent,
-		PostDetailComponent,
+        PostDetailComponent,
+        SafeHtmlPipe,
+        SafeStylePipe
 	],
 	imports: [
 		CKEditorModule,

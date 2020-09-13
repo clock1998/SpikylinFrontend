@@ -6,7 +6,6 @@ import { UserService } from '../../../../core/services/user.service';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GalleryService } from 'src/app/core/services/gallery.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BlogService } from 'src/app/core/services/blog.service';
 import { TagService } from 'src/app/core/services/tag.service';
 
@@ -16,7 +15,6 @@ import { TagService } from 'src/app/core/services/tag.service';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-    public Editor = ClassicEditor;
     loading = false;
     users: User[];
     user: User = { email: "", id: "", username: "" };
