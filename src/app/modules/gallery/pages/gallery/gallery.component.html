@@ -36,9 +36,19 @@
 
     <div *ngIf="canManageGallery" class="manageGallery">
         <div>
+            <form [formGroup]="newTagForm" (ngSubmit)="onTagSubmit()">
+                <label>
+                    Tag:
+                    <input class="newTagFormTag" type="text" formControlName="tag" />
+                </label>
+                <button type="submit">Add Tag</button>
+            </form>
             <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
                 <input type="file" formControlName="image" (change)="onImageSelect($event)" />
-                <input type="text" formControlName="description" />
+                <label>
+                    Description:
+                    <input type="text" formControlName="description" />
+                </label>
                 <select size="5" formControlName="tags" multiple>
                     <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.tag}}</option>
                 </select>

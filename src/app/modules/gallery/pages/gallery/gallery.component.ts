@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Image } from '../../../../shared/models/image';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import { trigger, state, style, animate, transition, query, group, animateChild } from '@angular/animations';
@@ -36,6 +36,7 @@ export class GalleryComponent implements OnInit {
     canManageGallery:boolean = false;
     isEditMode:boolean = false;
     uploadImageForm: FormGroup;
+    newTagForm: FormGroup;
     file:File;
 
     constructor( private galleryService: GalleryService,
@@ -52,6 +53,9 @@ export class GalleryComponent implements OnInit {
             image: [''],
             description: [''],
             tags:[]
+        });
+        this.newTagForm = this.formBuilder.group({
+            tag: ['', Validators.required],
         })
 	}
 
@@ -110,6 +114,19 @@ export class GalleryComponent implements OnInit {
         }
     }
 
+    onTagSubmit():void{
+        const formData = new FormData();
+        formData.append('tag', this.newTagForm.get('tag').value);
+        this.tagService.createTag(formData).subscribe((res) => {
+            this.newTagForm.reset();
+            this.getAllImageTags();
+            console.log(res);
+        },
+        (err) => {
+            console.error(err);
+        });
+    }
+
     onImageSelect(event) {
         if (event.target.files.length > 0) {
             this.file = event.target.files[0];
@@ -132,6 +149,7 @@ export class GalleryComponent implements OnInit {
                 this.galleryService.addImage(formData).subscribe(
                     (res) => {
                         this.getImages();
+                        this.uploadImageForm.reset();
                         // console.log(res);
                     },
                     (err) => {

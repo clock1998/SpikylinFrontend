@@ -47,52 +47,16 @@ export class DashboardComponent {
         })
     }
 
-    onChange(event) {
-        if (event.target.files.length > 0) {
-            const file = event.target.files[0];
-            this.uploadImageForm.get('image').setValue(file);
-        }
-    }
-
-    onImageSubmit() {
-        const formData = new FormData();
-
-        formData.append('file', this.uploadImageForm.get('image').value);
-        formData.append('name', this.uploadImageForm.get('image').value.name);
-
-        this.galleryService.addImage(formData).subscribe(
-            (res) => {
-                this.response = res;
-                this.imageUrl = `${res.file}/`;
-                console.log(res);
-                console.log(this.imageUrl);
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
-    }
-
     onPostSubmit(){
         const formData = new FormData();
         formData.append('title', this.newPostForm.get('title').value);
         formData.append('content', this.newPostForm.get('content').value);
         this.blogService.createPost(formData).subscribe((res) => {
+            this.newPostForm.reset();
             console.log(res);
         },
         (err) => {
             console.log(err);
-        });
-    }
-
-    onTagSubmit():void{
-        const formData = new FormData();
-        formData.append('tag', this.newTagForm.get('tag').value);
-        this.tagService.createTag(formData).subscribe((res) => {
-            console.log(res);
-        },
-        (err) => {
-            console.error(err);
         });
     }
 }
