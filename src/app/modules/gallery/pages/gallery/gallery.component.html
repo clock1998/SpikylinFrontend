@@ -36,28 +36,38 @@
 
     <div *ngIf="canManageGallery" class="manageGallery">
         <div>
+            <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick($event)">Edit</button>
+        </div>
+
+        <div>
             <form [formGroup]="newTagForm" (ngSubmit)="onTagSubmit()">
-                <label>
-                    Tag:
-                    <input class="newTagFormTag" type="text" formControlName="tag" />
-                </label>
-                <button type="submit">Add Tag</button>
-            </form>
-            <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
-                <input type="file" formControlName="image" (change)="onImageSelect($event)" />
-                <label>
-                    Description:
-                    <input type="text" formControlName="description" />
-                </label>
-                <select size="5" formControlName="tags" multiple>
-                    <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.tag}}</option>
-                </select>
-                <button type="submit">Upload Image File</button>
+                <mat-form-field appearance="fill" id="Tag">
+                    <mat-label>Tag</mat-label>
+                    <input matInput formControlName="tag">
+                </mat-form-field>
+                <button mat-stroked-button type="submit">Add Tag</button>
             </form>
         </div>
-        
         <div>
-            <button *ngIf="canManageGallery" (click)="editButtonClick($event)">Edit</button>
+            <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
+                <input type="file" formControlName="image" (change)="onImageSelect($event)" />
+
+                <mat-form-field appearance="fill" id="ImageDescription">
+                    <mat-label>Image Description</mat-label>
+                    <textarea matInput type="text" formControlName="description"></textarea>
+                </mat-form-field>
+
+                <mat-selection-list formControlName="tags">
+                    <mat-list-option value="{{tag.id}}" *ngFor="let tag of tags">
+                        {{tag.tag}}
+                    </mat-list-option>
+                </mat-selection-list>
+<!-- 
+                <select size="5" formControlName="tags" multiple>
+                    <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.tag}}</option>
+                </select> -->
+                <button mat-stroked-button type="submit">Upload Image File</button>
+            </form>
         </div>
 
     </div>

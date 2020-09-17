@@ -133,12 +133,21 @@
 
 .manageGallery{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-content: space-around;
-    max-width: 1140px;
-    width: 100%;
+    max-width: 50%;
     margin-left: auto;
     margin-right: auto;
+    div{
+        margin-bottom: 12px;
+    }
+    #Tag{
+        width: 100%;
+    }
+    #ImageDescription{
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width: 768px) {
