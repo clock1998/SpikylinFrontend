@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition, query } from '@angular/animations';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
 	selector: 'app-navbar',
 	templateUrl: './navbar.component.html',
@@ -18,11 +19,20 @@ import { trigger, state, style, animate, transition, query } from '@angular/anim
 	]
 })
 export class NavbarComponent implements OnInit {
-	isNavHide = true;
-	constructor() {}
+    isNavHide = true;
+    loggedIn = false;
+	constructor(private authentication: AuthenticationService) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+        this.loggedIn = this.authentication.isLoggedIn;
+    }
+
 	toggleNavbar(): void {
 		this.isNavHide = !this.isNavHide;
-	}
+    }
+
+    logout():void{
+        this.authentication.logout();
+        this.loggedIn = false;
+    }
 }

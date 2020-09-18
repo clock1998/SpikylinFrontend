@@ -3,4 +3,9 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    .loginForm{
+        display: flex;
+        flex-direction: column;
+        min-width: 300px;
+    }
 }

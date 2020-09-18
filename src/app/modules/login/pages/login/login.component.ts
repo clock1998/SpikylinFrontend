@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService  } from '../../../../core/services/authentication.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { User } from 'src/app/shared/models/user';
 
 @Component({ 
   selector: 'app-login',
@@ -16,10 +14,11 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-    error = '';
+    detailError = '';
+    usernameError:string;
+    passwordError:string;
 
     constructor(
-        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
@@ -32,9 +31,9 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+        this.loginForm = new FormGroup({
+            username: new FormControl(''),
+            password: new FormControl('')
         });
 
         // get return url from route parameters or default to '/'
@@ -63,8 +62,11 @@ export class LoginComponent implements OnInit {
                     this.getCurrentUser();
                     this.router.navigate([this.returnUrl]);
                 },
-                error => {
-                    this.error = error;
+                (err) => {
+                    console.log(err.username);
+                    this.usernameError = err.username;
+                    this.passwordError = err.password;
+                    this.detailError = err.detail;
                     this.loading = false;
                 });
     }

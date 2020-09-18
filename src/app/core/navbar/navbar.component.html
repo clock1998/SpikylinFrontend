@@ -19,7 +19,8 @@
         <a routerLink="/ytdl" (click)="toggleNavbar()">Ytdl</a>
       </li>
       <li>
-        <a routerLink="/login" (click)="toggleNavbar()">login</a>
+        <a *ngIf="!this.loggedIn" routerLink="/login" (click)="toggleNavbar()">login</a>
+        <a *ngIf="this.loggedIn" routerLink="/"  (click)="logout()">logout</a>
       </li>
     </ul>
     <div (click)="toggleNavbar()" class="burger">
