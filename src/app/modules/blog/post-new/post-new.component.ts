@@ -10,6 +10,7 @@ import * as Editor from 'src/assets/ckeditor5/build/ckeditor';
 })
 export class PostNewComponent implements OnInit {
     newPostForm: FormGroup;
+    formError:String;
     public Editor = Editor;
     CKEditorConfig = {
         toolbar: {
@@ -83,7 +84,12 @@ export class PostNewComponent implements OnInit {
         console.log(res);
     },
     (err) => {
-        console.log(err);
+        if(err.title){
+            this.formError = "Title:" + err.title;
+        }
+        if(err.content){
+            this.formError = this.formError + "Content:" + err.content;
+        }
     });
 }
 }

@@ -11,7 +11,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
-            console.log(err.error)
+            console.log(err)
             if (err.error.code === 'token_not_valid') {
                 // this.authenticationService.refresh().subscribe();
                 // auto logout if 401 response returned from api

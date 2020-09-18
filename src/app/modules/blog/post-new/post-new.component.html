@@ -13,5 +13,8 @@
             Content is <strong>required</strong>
         </mat-error>
         <button mat-stroked-button type="submit">New Post</button>
+        <mat-error *ngIf="formError">
+            <strong>{{formError}}</strong>
+        </mat-error>
     </form>
 </div>
