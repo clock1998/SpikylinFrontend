@@ -9,6 +9,7 @@ import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.co
 import { AuthGuard } from './core/helpers/auth.guard';
 import { BlogComponent } from './modules/blog/blog/blog.component';
 import { PostDetailComponent } from './modules/blog/post-detail/post-detail.component';
+import { PostNewComponent } from './modules/blog/post-new/post-new.component';
 
 const routes: Routes = [
 	{ path: '', component: LandingComponent, data: { animation: 'Home' } },
@@ -18,7 +19,8 @@ const routes: Routes = [
 	{ path: 'post/:id', component:PostDetailComponent },
 	{ path: 'ytdl', component: YbdlComponent, data: { animation: 'Ytdl' } },
 	{ path: 'login', component: LoginComponent, data: { animation: 'Ytdl' } },
-	{ path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data: { animation: 'Ytdl' } },
+    { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data: { animation: 'Ytdl' } },
+    { path: 'newPost', component: PostNewComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({

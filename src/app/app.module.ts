@@ -21,6 +21,8 @@ import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.co
 import { BlogComponent } from './modules/blog//blog/blog.component';
 import { PostComponent } from './modules/blog/post/post.component';
 import { PostDetailComponent } from './modules/blog/post-detail/post-detail.component';
+import { PostNewComponent } from './modules/blog/post-new/post-new.component';
+
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { Ng2ImgMaxService, Ng2ImgMaxModule } from 'ng2-img-max';
 
@@ -30,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+
 
 @Pipe({ name: 'safeHtml'})
 export class SafeHtmlPipe implements PipeTransform  {
@@ -63,7 +66,8 @@ export class SafeStylePipe implements PipeTransform  {
 		PostComponent,
         PostDetailComponent,
         SafeHtmlPipe,
-        SafeStylePipe
+        SafeStylePipe,
+        PostNewComponent
 	],
 	imports: [
 		CKEditorModule,

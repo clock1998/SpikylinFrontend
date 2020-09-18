@@ -1,0 +1,17 @@
+<div class="formContainer">
+    <form [formGroup]="newPostForm" (ngSubmit)="onPostSubmit()" class="newPostForm">
+        <mat-form-field class="title">
+            <mat-label>Title:</mat-label>
+            <input matInput formControlName="title" type="text" />
+            <mat-error *ngIf="title.errors?.required">
+                Title is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <ckeditor [editor]="Editor" [config]="CKEditorConfig" data="<p>Hello, world!</p>" formControlName="content">
+        </ckeditor>
+        <mat-error *ngIf="content.touched && content.errors?.required">
+            Content is <strong>required</strong>
+        </mat-error>
+        <button mat-stroked-button type="submit">New Post</button>
+    </form>
+</div>

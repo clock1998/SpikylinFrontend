@@ -41,22 +41,6 @@ export class DashboardComponent {
         this.newTagForm = this.formBuilder.group({
             tag: ['', Validators.required],
         })
-        this.newPostForm = this.formBuilder.group({
-            title: ['', Validators.required],
-            content: ['', Validators.required]
-        })
     }
 
-    onPostSubmit(){
-        const formData = new FormData();
-        formData.append('title', this.newPostForm.get('title').value);
-        formData.append('content', this.newPostForm.get('content').value);
-        this.blogService.createPost(formData).subscribe((res) => {
-            this.newPostForm.reset();
-            console.log(res);
-        },
-        (err) => {
-            console.log(err);
-        });
-    }
 }
