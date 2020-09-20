@@ -36,7 +36,11 @@ export class GalleryComponent implements OnInit {
     canManageGallery:boolean = false;
     isEditMode:boolean = false;
     uploadImageForm: FormGroup;
+    uploadImageFormError:string = '';
+    uploadImageFormImageError:string = '';
+
     newTagForm: FormGroup;
+    newTagFormError: string = '';
     file:File;
 
     constructor( private galleryService: GalleryService,
@@ -120,10 +124,9 @@ export class GalleryComponent implements OnInit {
         this.tagService.createTag(formData).subscribe((res) => {
             this.newTagForm.reset();
             this.getAllImageTags();
-            console.log(res);
         },
         (err) => {
-            console.error(err);
+            this.newTagFormError = err.tag;
         });
     }
 
@@ -134,33 +137,39 @@ export class GalleryComponent implements OnInit {
         }
     }
     onImageSubmit() {
-        this.ng2ImgMax.compressImage(this.file, 1.5).subscribe(
-            result => {
-                console.log(result)
-                this.file = result;
-                const formData = new FormData();
-                formData.append('file', this.file, this.file.name);
-                formData.append('name', this.file.name);
-                formData.append('description', this.uploadImageForm.get('description').value);
-                this.uploadImageForm.get('tags').value.forEach(element => {
-                    formData.append('tags', element);
-                });
-
-                this.galleryService.addImage(formData).subscribe(
-                    (res) => {
-                        this.getImages();
-                        this.uploadImageForm.reset();
-                        // console.log(res);
-                    },
-                    (err) => {
-                        console.log(err);
-                    }
-                );
-            },
-            error => {
-                console.log('Compress failed!', error);
-            }
-        );
+        if(this.file){
+            this.ng2ImgMax.compressImage(this.file, 1.5).subscribe(
+                result => {
+                    console.log(result)
+                    this.file = result;
+                    const formData = new FormData();
+                    formData.append('file', this.file, this.file.name);
+                    formData.append('name', this.file.name);
+                    formData.append('description', this.uploadImageForm.get('description').value);
+                    this.uploadImageForm.get('tags').value.forEach(element => {
+                        formData.append('tags', element);
+                    });
+    
+                    this.galleryService.addImage(formData).subscribe(
+                        (res) => {
+                            this.getImages();
+                            this.uploadImageForm.reset();
+                        },
+                        (err) => {
+                            this.uploadImageFormError = err.File;
+                            console.log(err);
+                        }
+                    );
+                },
+                error => {
+                    this.uploadImageFormError = "Image Compress failed!";
+                    console.log('Compress failed!', error);
+                }
+            );
+        }
+        else{
+            this.uploadImageFormError = "File cannot be empty!";
+        }
     }
 
     editButtonClick(event){
