@@ -24,7 +24,7 @@ import { PostDetailComponent } from './modules/blog/post-detail/post-detail.comp
 import { PostNewComponent } from './modules/blog/post-new/post-new.component';
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { Ng2ImgMaxService, Ng2ImgMaxModule } from 'ng2-img-max';
+import { Ng2ImgMaxService, Ng2ImgMaxModule, ImgExifService } from 'ng2-img-max';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,7 +32,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
-
 
 @Pipe({ name: 'safeHtml'})
 export class SafeHtmlPipe implements PipeTransform  {

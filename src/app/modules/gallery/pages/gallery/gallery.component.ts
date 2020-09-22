@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Image } from '../../../../shared/models/image';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import { trigger, state, style, animate, transition, query, group, animateChild } from '@angular/animations';
-import { flatMap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { TagService } from 'src/app/core/services/tag.service';
 import { Tag, ImageTag } from 'src/app/shared/models/tag';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+declare var EXIF: any;
 
 @Component({
 	selector: 'app-gallery',
@@ -42,6 +42,9 @@ export class GalleryComponent implements OnInit {
     newTagForm: FormGroup;
     newTagFormError: string = '';
     file:File;
+    imagePreviewUrl: any;
+
+    @ViewChild('imageInput') imgInputElement: ElementRef;
 
     constructor( private galleryService: GalleryService,
         private tagService:TagService,
@@ -133,6 +136,16 @@ export class GalleryComponent implements OnInit {
     onImageSelect(event) {
         if (event.target.files.length > 0) {
             this.file = event.target.files[0];
+
+            var reader = new FileReader();
+
+            reader.readAsDataURL(this.file); // read file as data url
+
+            reader.onload = (event) => { // called once readAsDataURL is completed
+                this.imagePreviewUrl = event.target.result;
+                console.log(this.imagePreviewUrl)
+            }
+
             // this.uploadImageForm.get('image').setValue(file);
         }
     }
@@ -170,6 +183,15 @@ export class GalleryComponent implements OnInit {
         else{
             this.uploadImageFormError = "File cannot be empty!";
         }
+    }
+
+    getExif() {
+        EXIF.getData(this.imgInputElement.nativeElement, function() {
+            // const make = EXIF.getTag(this, 'Make');
+            // const model = EXIF.getTag(this, 'Model');
+            // console.log(make, model);
+            console.log(EXIF.getAllTags(this));
+        });
     }
 
     editButtonClick(event){
