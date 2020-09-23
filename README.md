@@ -1,6 +1,10 @@
 # TapiFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+Hello all, this is my personal website. It has a landing page, an about page. a gallery and a blog. More functionalities will be added in the future. 
+
+Since it is built in Angular, you can follow the standard Angular way to build or serve the project. 
+
+Thanks.
 
 ## Development server
 
