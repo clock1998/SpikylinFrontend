@@ -8,6 +8,7 @@ import { TagService } from 'src/app/core/services/tag.service';
 import { Tag, ImageTag } from 'src/app/shared/models/tag';
 import { Ng2ImgMaxService } from 'ng2-img-max';
 declare var EXIF: any;
+// import * as EXIF from 'exif-js';
 
 @Component({
 	selector: 'app-gallery',
@@ -139,11 +140,9 @@ export class GalleryComponent implements OnInit {
 
             var reader = new FileReader();
 
-            reader.readAsDataURL(this.file); // read file as data url
-
+            reader.readAsDataURL(this.file); 
             reader.onload = (event) => { // called once readAsDataURL is completed
                 this.imagePreviewUrl = event.target.result;
-                console.log(this.imagePreviewUrl)
             }
 
             // this.uploadImageForm.get('image').setValue(file);
@@ -186,11 +185,17 @@ export class GalleryComponent implements OnInit {
     }
 
     getExif() {
-        EXIF.getData(this.imgInputElement.nativeElement, function() {
-            // const make = EXIF.getTag(this, 'Make');
-            // const model = EXIF.getTag(this, 'Model');
-            // console.log(make, model);
-            console.log(EXIF.getAllTags(this));
+        const img = document.createElement("img");
+        img.src = this.imagePreviewUrl;
+        EXIF.getData(img, function() {
+            const model = EXIF.getTag(this, 'Model');
+            const ExposureTime = EXIF.getTag(this, 'ExposureTime');
+            console.log(ExposureTime.numerator+'/'+ExposureTime.denominator)
+            const FNumber = EXIF.getTag(this, 'FNumber');
+            console.log(FNumber.Number)
+            const FocalLength = EXIF.getTag(this, 'FocalLength');
+            const ISOSpeedRatings = EXIF.getTag(this, 'ISOSpeedRatings');
+            console.log(model, ExposureTime, FNumber, FocalLength, ISOSpeedRatings);
         });
     }
 
