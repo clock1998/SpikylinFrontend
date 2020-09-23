@@ -152,12 +152,11 @@ export class GalleryComponent implements OnInit {
         if(this.file){
             this.ng2ImgMax.compressImage(this.file, 1.5).subscribe(
                 result => {
-                    console.log(result)
                     this.file = result;
                     const formData = new FormData();
                     formData.append('file', this.file, this.file.name);
                     formData.append('name', this.file.name);
-                    formData.append('description', this.uploadImageForm.get('description').value);
+                    formData.append('description', this.uploadImageForm.get('description').value + this.getExif());
                     this.uploadImageForm.get('tags').value.forEach(element => {
                         formData.append('tags', element);
                     });
@@ -184,19 +183,19 @@ export class GalleryComponent implements OnInit {
         }
     }
 
-    getExif() {
+    getExif():string {
         const img = document.createElement("img");
         img.src = this.imagePreviewUrl;
+        let metaData = '';
         EXIF.getData(img, function() {
             const model = EXIF.getTag(this, 'Model');
             const ExposureTime = EXIF.getTag(this, 'ExposureTime');
-            console.log(ExposureTime.numerator+'/'+ExposureTime.denominator)
             const FNumber = EXIF.getTag(this, 'FNumber');
-            console.log(FNumber.Number)
             const FocalLength = EXIF.getTag(this, 'FocalLength');
             const ISOSpeedRatings = EXIF.getTag(this, 'ISOSpeedRatings');
-            console.log(model, ExposureTime, FNumber, FocalLength, ISOSpeedRatings);
+            metaData = ` ${model} F${FNumber.numerator/FNumber.denominator} ${ExposureTime.numerator}/${ExposureTime.denominator}s ISO${ISOSpeedRatings} ${FocalLength.numerator/FocalLength.denominator}mm`;
         });
+        return metaData;
     }
 
     editButtonClick(event){

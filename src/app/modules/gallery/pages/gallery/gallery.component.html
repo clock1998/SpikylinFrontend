@@ -31,7 +31,7 @@
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
         <span (click)="hideLightBox()" class="close">&times;</span>
         <img src={{imageUrl}} class="modal-content">
-        <div id="caption">{{description}} Tags: {{tagsInString}}</div>
+        <div id="caption"><p>{{description}} Tags: {{tagsInString}}</p></div>
     </div>
 
     <div *ngIf="canManageGallery" class="manageGallery">
