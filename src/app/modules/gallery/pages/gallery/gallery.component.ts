@@ -45,8 +45,6 @@ export class GalleryComponent implements OnInit {
     file:File;
     imagePreviewUrl: any;
 
-    @ViewChild('imageInput') imgInputElement: ElementRef;
-
     constructor( private galleryService: GalleryService,
         private tagService:TagService,
         private formBuilder: FormBuilder,
@@ -83,11 +81,13 @@ export class GalleryComponent implements OnInit {
             this.imagesTemp=this.images;
 		});
     }
-    
-    getAllImageTags():void{
-        this.tagService.getAllImageTags().subscribe((tags) =>{
-            this.tags = tags;
-        })
+
+    deleteImage(image:Image):void{
+        this.galleryService.deleteImage(image.id).subscribe((res)=>{});
+        let index =  this.imagesTemp.findIndex(x => x.id==image.id);
+        if (index > -1) {
+            this.imagesTemp.splice(index, 1);
+        }
     }
 
     showAllClick():void{
@@ -113,13 +113,11 @@ export class GalleryComponent implements OnInit {
 	hideLightBox(): void {
 		this.isLightBoxShown = false;
     }
-    
-    deleteImage(image:Image):void{
-        this.galleryService.deleteImage(image.id).subscribe((res)=>{});
-        let index =  this.imagesTemp.findIndex(x => x.id==image.id);
-        if (index > -1) {
-            this.imagesTemp.splice(index, 1);
-        }
+
+    getAllImageTags():void{
+        this.tagService.getAllImageTags().subscribe((tags) =>{
+            this.tags = tags;
+        })
     }
 
     onTagSubmit():void{
@@ -139,7 +137,6 @@ export class GalleryComponent implements OnInit {
             this.file = event.target.files[0];
 
             var reader = new FileReader();
-
             reader.readAsDataURL(this.file); 
             reader.onload = (event) => { // called once readAsDataURL is completed
                 this.imagePreviewUrl = event.target.result;

@@ -53,7 +53,7 @@
         </div>
         <div>
             <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
-                <img #imageInput src="{{imagePreviewUrl}}" width="300"/>
+                <img src="{{imagePreviewUrl}}" width="300"/>
                 <input type="file" formControlName="image" (change)="onImageSelect($event)" />
                 <mat-error *ngIf="uploadImageFormImageError">
                     {{uploadImageFormImageError}}
@@ -75,8 +75,6 @@
                 </mat-error>
                 <button mat-stroked-button type="submit">Upload Image File</button>
             </form>
-            
-            <button mat-stroked-button (click)="getExif()">Get Data</button>
         </div>
 
     </div>
