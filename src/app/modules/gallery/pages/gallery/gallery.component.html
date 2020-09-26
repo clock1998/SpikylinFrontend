@@ -21,9 +21,9 @@
         [tags]="tags"
         [editMode]="isEditMode"
         (clickedImageEmitter)="showLightBox($event)"
-        (deleteImageEmitter)="deleteImage($event)">
+        (deleteImageEmitter)="deleteImage($event)"
+        [@imageFade]>
         </app-image>
-        
     </div>
     <p style="text-align: center;">All the images are compressed, please contact me for better quality images.</p>
 
