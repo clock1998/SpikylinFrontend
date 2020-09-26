@@ -26,12 +26,12 @@ declare var EXIF: any;
         ]),
         trigger('imageFade', [
 			transition('void => *', [
-                style({ opacity: '0' }),
-                animate('300ms ease-in', style({ opacity: 1 }))
+                style({ opacity: '0',  transform: 'scale(0.2)'}),
+                animate('300ms ease-in-out', style({ opacity: 1, transform: 'scale(1)' }))
             ]),
             transition('* => void', [
-                style({ opacity: '1' }),
-                animate('300ms ease-in', style({ opacity: 0 }))
+                style({ opacity: '1',transform: 'scale(1)' }),
+                animate('300ms ease-in-out', style({ opacity: 0, transform: 'scale(0.2)'}))
             ]),
         ]),
 	]
@@ -40,7 +40,8 @@ export class GalleryComponent implements OnInit {
     images: Image[]=[];
     imagesTemp: Image[]=[];
     tags:Tag[]=[];
-	isLightBoxShown: boolean = false;
+    isLightBoxShown: boolean = false;
+    tagClicked:boolean = false;
     imageUrl: string = '';
     description: string = '';
     tagsInString: string = '';
@@ -105,6 +106,7 @@ export class GalleryComponent implements OnInit {
     }
 
     tagClick(tag): void {
+        this.tagClicked = !this.tagClicked;
         this.imagesTemp = [];
         this.images.forEach(image => {
             if (image.tags.includes(tag.id)) {
