@@ -1,12 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Image } from '../../../../shared/models/image';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import { trigger, state, style, animate, transition, query, group, animateChild } from '@angular/animations';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { TagService } from 'src/app/core/services/tag.service';
-import { Tag, ImageTag } from 'src/app/shared/models/tag';
+import { Tag, } from 'src/app/shared/models/tag';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 declare var EXIF: any;
 // import * as EXIF from 'exif-js';
 
@@ -56,11 +61,26 @@ export class GalleryComponent implements OnInit {
     file:File;
     imagePreviewUrl: any;
 
+    //#region chips componet
+    @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+    @ViewChild('auto') matAutocomplete: MatAutocomplete;
+    removable = true;
+    tagChips:Tag[] = [];
+    allTagChips:Tag[] = [];
+    filteredTagChips: Observable<Tag[]>;
+    tagControl = new FormControl();
+    separatorKeysCodes: number[] = [ENTER, COMMA];
+    //#endregion
+
     constructor( private galleryService: GalleryService,
         private tagService:TagService,
         private formBuilder: FormBuilder,
         private authentication: AuthenticationService,
-        private ng2ImgMax: Ng2ImgMaxService) {}
+        private ng2ImgMax: Ng2ImgMaxService) {
+            this.filteredTagChips = this.tagControl.valueChanges.pipe(
+                startWith(null),
+                map((tag:string | null) => tag ? this._filter(tag) : this.allTagChips.slice()));
+        }
 
     ngOnInit(): void {
         this.getAllImageTags();
@@ -69,7 +89,8 @@ export class GalleryComponent implements OnInit {
         this.uploadImageForm = this.formBuilder.group({
             image: [''],
             description: [''],
-            tags:[]
+            tags:[],
+            tagControl:[]
         });
         this.newTagForm = this.formBuilder.group({
             tag: ['', Validators.required],
@@ -129,6 +150,7 @@ export class GalleryComponent implements OnInit {
     getAllImageTags():void{
         this.tagService.getAllImageTags().subscribe((tags) =>{
             this.tags = tags;
+            this.allTagChips = tags;
         })
     }
 
@@ -210,4 +232,43 @@ export class GalleryComponent implements OnInit {
     editButtonClick(event){
         this.isEditMode= true;
     }
+    
+    //#region chips compoent 
+    remove(tag: Tag): void {
+        const index = this.tagChips.indexOf(tag);
+
+        if (index >= 0) {
+            this.tagChips.splice(index, 1);
+        }
+    }
+
+    selected(event: MatAutocompleteSelectedEvent): void {
+        this.tagChips.push(event.option.value);
+        this.tagInput.nativeElement.value = '';
+        this.tagControl.setValue(null);
+    }
+    
+    add(event: MatChipInputEvent): void {
+        const input = event.input;
+        const value = event.value;
+    
+        this.tags.forEach(element => {
+            if (element.tag == input.value) {
+                this.tagChips.push(element);
+            }
+        });
+    
+        if (input) {
+          input.value = '';
+        }
+    
+        this.tagControl.setValue(null);
+      }
+
+      private _filter(value: string): Tag[] {
+        const filterValue = value;
+        console.log(filterValue)
+        return this.allTagChips.filter(tag => tag.tag.indexOf(filterValue) === 0);
+      }
+      //#endregion
 }
