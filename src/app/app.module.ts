@@ -27,6 +27,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { Ng2ImgMaxModule, } from 'ng2-img-max';
 
 import { MatChipsModule } from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -83,7 +84,8 @@ export class SafeStylePipe implements PipeTransform  {
         MatFormFieldModule,
         MatChipsModule,
         MatButtonModule,
-        MatListModule
+        MatListModule,
+        MatIconModule
 	],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers: [

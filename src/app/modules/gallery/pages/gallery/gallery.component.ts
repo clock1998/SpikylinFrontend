@@ -85,15 +85,14 @@ export class GalleryComponent implements OnInit {
         this.getAllImageTags();
         this.getImages();
         this.canManageGallery = this.authentication.isLoggedIn;
-        this.uploadImageForm = this.formBuilder.group({
-            image: [''],
-            description: [''],
-            tags:[],
-            tagControl:[]
+        this.uploadImageForm = new FormGroup({
+            image: new FormControl(''),
+            description: new FormControl(''),
+            tags:new FormControl(''),
         });
-        this.newTagForm = this.formBuilder.group({
-            tag: ['', Validators.required],
-        })
+        this.newTagForm = new FormGroup({
+            tag: new FormControl('', Validators.required),
+        });
 	}
 
     //#region image actions
@@ -123,9 +122,16 @@ export class GalleryComponent implements OnInit {
                     formData.append('file', this.file, this.file.name);
                     formData.append('name', this.file.name);
                     formData.append('description', this.uploadImageForm.get('description').value + this.getExif());
-                    this.uploadImageForm.get('tags').value.forEach(element => {
-                        formData.append('tags', element);
-                    });
+                    if(this.uploadImageForm.get('tags').value){
+                        this.uploadImageForm.get('tags').value.forEach(element => {
+                            formData.append('tags', element);
+                        });
+                    }
+                    else{
+                        this.tagChips.forEach(element => {
+                            formData.append('tags', element.id);
+                        });
+                    }
     
                     this.galleryService.addImage(formData).subscribe(
                         (res) => {
@@ -157,7 +163,7 @@ export class GalleryComponent implements OnInit {
         }
     }
     //#endregion
-    
+
     onImageSelect(event) {
         if (event.target.files.length > 0) {
             this.file = event.target.files[0];
@@ -208,7 +214,7 @@ export class GalleryComponent implements OnInit {
         })
     }
 
-    onTagSubmit():void{
+    newTag():void{
         const formData = new FormData();
         formData.append('tag', this.newTagForm.get('tag').value);
         this.tagService.createTag(formData).subscribe((res) => {
@@ -220,8 +226,7 @@ export class GalleryComponent implements OnInit {
         });
     }
 
-    
-
+    //#region get imgae meta data
     getExif():string {
         const img = document.createElement("img");
         img.src = this.imagePreviewUrl;
@@ -236,6 +241,7 @@ export class GalleryComponent implements OnInit {
         });
         return metaData;
     }
+    //#endregion
 
     editButtonClick(event){
         this.isEditMode= true;
@@ -275,7 +281,7 @@ export class GalleryComponent implements OnInit {
 
       private _filter(value: string): Tag[] {
         const filterValue = value;
-        return this.allTagChips.filter(tag => tag.tag.indexOf(filterValue) === 0);
+        return this.allTagChips.filter(tag => tag.tag.toLowerCase().indexOf(filterValue) === 0);
       }
       //#endregion
 }

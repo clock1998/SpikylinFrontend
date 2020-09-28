@@ -38,7 +38,7 @@
         </div>
 
         <div>
-            <form [formGroup]="newTagForm" (ngSubmit)="onTagSubmit()">
+            <form [formGroup]="newTagForm" (ngSubmit)="newTag()">
                 <mat-form-field appearance="fill" id="Tag">
                     <mat-label>Tag</mat-label>
                     <input matInput formControlName="tag">
@@ -64,29 +64,20 @@
 
                 <mat-form-field id="tagChips">
                     <mat-chip-list #chipList aria-label="Tag selection">
-                      <mat-chip
-                        *ngFor="let tag of tagChips"
-                        [selectable]="false"
-                        [removable]="removable"
-                        (removed)="remove(tag)">
-                        {{tag.tag}}
-                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                      </mat-chip>
-                      <input
-                        placeholder="New fruit..."
-                        #tagInput
-                        [formControl]="tagControl"
-                        [matAutocomplete]="auto"
-                        [matChipInputFor]="chipList"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        (matChipInputTokenEnd)="add($event)">
+                        <mat-chip *ngFor="let tag of tagChips" [selectable]="false" [removable]="removable" (removed)="remove(tag)">
+                            {{tag.tag}}
+                            <mat-icon matChipRemove *ngIf="removable">Cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Tags..." #tagInput [formControl]="tagControl" [matAutocomplete]="auto"
+                            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                      <mat-option *ngFor="let tag of filteredTagChips | async" [value]="tag">
-                        {{tag.tag}}
-                      </mat-option>
+                        <mat-option *ngFor="let tag of filteredTagChips | async" [value]="tag">
+                            {{tag.tag}}
+                        </mat-option>
                     </mat-autocomplete>
-                  </mat-form-field>
+                </mat-form-field>
 
                 <mat-selection-list formControlName="tags">
                     <mat-list-option value="{{tag.id}}" *ngFor="let tag of tags">
