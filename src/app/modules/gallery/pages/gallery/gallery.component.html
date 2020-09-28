@@ -5,7 +5,7 @@
         </div>
         <div class="tagsContainer">
             <ul class="tags" >
-                <li class="tag" (click)="showAllClick()">
+                <li class="tag" (click)="showAllTagClick()">
                     Show All
                 </li>
                 <li class="tag" *ngFor="let tag of tags" (click)="tagClick(tag)">
@@ -50,7 +50,7 @@
             </form>
         </div>
         <div>
-            <form [formGroup]="uploadImageForm" (ngSubmit)="onImageSubmit()">
+            <form [formGroup]="uploadImageForm" (ngSubmit)="addImage()">
                 <img src="{{imagePreviewUrl}}" width="300"/>
                 <input type="file" formControlName="image" (change)="onImageSelect($event)" />
                 <mat-error *ngIf="uploadImageFormImageError">
@@ -62,7 +62,7 @@
                     <textarea matInput type="text" formControlName="description"></textarea>
                 </mat-form-field>
 
-                <mat-form-field>
+                <mat-form-field id="tagChips">
                     <mat-chip-list #chipList aria-label="Tag selection">
                       <mat-chip
                         *ngFor="let tag of tagChips"

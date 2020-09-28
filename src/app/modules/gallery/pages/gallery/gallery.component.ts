@@ -78,7 +78,6 @@ export class GalleryComponent implements OnInit {
         private authentication: AuthenticationService,
         private ng2ImgMax: Ng2ImgMaxService) {
             this.filteredTagChips = this.tagControl.valueChanges.pipe(
-                startWith(null),
                 map((tag:string | null) => tag ? this._filter(tag) : this.allTagChips.slice()));
         }
 
@@ -97,6 +96,7 @@ export class GalleryComponent implements OnInit {
         })
 	}
 
+    //#region image actions
 	getImages(): void {
 		this.galleryService.getImages().subscribe((images) => {
             this.images = images;
@@ -114,72 +114,7 @@ export class GalleryComponent implements OnInit {
 		});
     }
 
-    deleteImage(image:Image):void{
-        this.galleryService.deleteImage(image.id).subscribe((res)=>{});
-        let index =  this.imagesTemp.findIndex(x => x.id==image.id);
-        if (index > -1) {
-            this.imagesTemp.splice(index, 1);
-        }
-    }
-
-    showAllClick():void{
-        this.imagesTemp=this.images;
-    }
-
-    tagClick(tag): void {
-        this.tagClicked = !this.tagClicked;
-        this.imagesTemp = [];
-        this.images.forEach(image => {
-            if (image.tags.includes(tag.id)) {
-                this.imagesTemp.push(image);
-            }
-        });
-    }
-
-	showLightBox(image: Image): void {
-        this.isLightBoxShown = true;
-        this.imageUrl = image.file;
-        this.description = image.description;
-        this.tagsInString = image.tagsInString;
-    }
-    
-	hideLightBox(): void {
-		this.isLightBoxShown = false;
-    }
-
-    getAllImageTags():void{
-        this.tagService.getAllImageTags().subscribe((tags) =>{
-            this.tags = tags;
-            this.allTagChips = tags;
-        })
-    }
-
-    onTagSubmit():void{
-        const formData = new FormData();
-        formData.append('tag', this.newTagForm.get('tag').value);
-        this.tagService.createTag(formData).subscribe((res) => {
-            this.newTagForm.reset();
-            this.getAllImageTags();
-        },
-        (err) => {
-            this.newTagFormError = err.tag;
-        });
-    }
-
-    onImageSelect(event) {
-        if (event.target.files.length > 0) {
-            this.file = event.target.files[0];
-
-            var reader = new FileReader();
-            reader.readAsDataURL(this.file); 
-            reader.onload = (event) => { // called once readAsDataURL is completed
-                this.imagePreviewUrl = event.target.result;
-            }
-
-            // this.uploadImageForm.get('image').setValue(file);
-        }
-    }
-    onImageSubmit() {
+    addImage() {
         if(this.file){
             this.ng2ImgMax.compressImage(this.file, 1.5).subscribe(
                 result => {
@@ -213,6 +148,79 @@ export class GalleryComponent implements OnInit {
             this.uploadImageFormError = "File cannot be empty!";
         }
     }
+
+    deleteImage(image:Image):void{
+        this.galleryService.deleteImage(image.id).subscribe((res)=>{});
+        let index =  this.imagesTemp.findIndex(x => x.id==image.id);
+        if (index > -1) {
+            this.imagesTemp.splice(index, 1);
+        }
+    }
+    //#endregion
+    
+    onImageSelect(event) {
+        if (event.target.files.length > 0) {
+            this.file = event.target.files[0];
+
+            var reader = new FileReader();
+            reader.readAsDataURL(this.file); 
+            reader.onload = (event) => { // called once readAsDataURL is completed
+                this.imagePreviewUrl = event.target.result;
+            }
+
+            // this.uploadImageForm.get('image').setValue(file);
+        }
+    }
+
+    //#region tag header actions
+    showAllTagClick():void{
+        this.imagesTemp=this.images;
+    }
+
+    tagClick(tag): void {
+        this.tagClicked = !this.tagClicked;
+        this.imagesTemp = [];
+        this.images.forEach(image => {
+            if (image.tags.includes(tag.id)) {
+                this.imagesTemp.push(image);
+            }
+        });
+    }
+    //#endregion
+
+    //#region light box
+	showLightBox(image: Image): void {
+        this.isLightBoxShown = true;
+        this.imageUrl = image.file;
+        this.description = image.description;
+        this.tagsInString = image.tagsInString;
+    }
+    
+	hideLightBox(): void {
+		this.isLightBoxShown = false;
+    }
+    //#endregion
+
+    getAllImageTags():void{
+        this.tagService.getAllImageTags().subscribe((tags) =>{
+            this.tags = tags;
+            this.allTagChips = tags;
+        })
+    }
+
+    onTagSubmit():void{
+        const formData = new FormData();
+        formData.append('tag', this.newTagForm.get('tag').value);
+        this.tagService.createTag(formData).subscribe((res) => {
+            this.newTagForm.reset();
+            this.getAllImageTags();
+        },
+        (err) => {
+            this.newTagFormError = err.tag;
+        });
+    }
+
+    
 
     getExif():string {
         const img = document.createElement("img");
@@ -267,7 +275,6 @@ export class GalleryComponent implements OnInit {
 
       private _filter(value: string): Tag[] {
         const filterValue = value;
-        console.log(filterValue)
         return this.allTagChips.filter(tag => tag.tag.indexOf(filterValue) === 0);
       }
       //#endregion

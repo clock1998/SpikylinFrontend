@@ -24,7 +24,7 @@ import { PostDetailComponent } from './modules/blog/post-detail/post-detail.comp
 import { PostNewComponent } from './modules/blog/post-new/post-new.component';
 
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { Ng2ImgMaxService, Ng2ImgMaxModule, ImgExifService } from 'ng2-img-max';
+import { Ng2ImgMaxModule, } from 'ng2-img-max';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
