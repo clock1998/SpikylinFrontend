@@ -4,6 +4,8 @@ import { GalleryService } from 'src/app/core/services/gallery.service';
 import { Tag } from 'src/app/shared/models/tag';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+import { Photo } from 'src/app/shared/models/photo';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-image',
@@ -11,12 +13,14 @@ import { Ng2ImgMaxService } from 'ng2-img-max';
 	styleUrls: [ './image.component.scss' ]
 })
 export class ImageComponent implements OnInit, OnChanges {
-    @Input() image: Image;
+    @Input() photo: Photo;
     @Input() editMode: boolean;
     @Input() tags: Tag[];
     @Output() clickedImageEmitter: EventEmitter<Image> = new EventEmitter<Image>();
     @Output() deleteImageEmitter: EventEmitter<Image> = new EventEmitter<Image>();
     showDeleteButton:boolean = false;
+
+    staticFiles: string = environment.staticImage;
 
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';
@@ -32,8 +36,8 @@ export class ImageComponent implements OnInit, OnChanges {
         this.showDeleteButton=this.editMode;
         this.uploadImageForm = this.formBuilder.group({
             image: [''],
-            description: [this.image.description],
-            tags:[this.image.tags]
+            description: [this.photo.description],
+            // tags:[this.image.tags]
         })
     }
 
@@ -70,9 +74,9 @@ export class ImageComponent implements OnInit, OnChanges {
                     formData.append('tags', element);
                 });
 
-                this.galleryService.updateImage(formData, this.image.id).subscribe(
+                this.galleryService.updateImage(formData, this.photo.id).subscribe(
                     (res) => {
-                        this.image = res;
+                        // this.image = res;
                         // console.log(res);
                     },
                     (err) => {

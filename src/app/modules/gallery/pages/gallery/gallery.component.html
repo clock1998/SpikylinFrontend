@@ -16,8 +16,8 @@
     </div>
     <div class="images">
         <app-image 
-        *ngFor="let image of imagesTemp"
-        [image]="image"
+        *ngFor="let photo of photosTemp"
+        [photo]="photo"
         [tags]="tags"
         [editMode]="isEditMode"
         (clickedImageEmitter)="showLightBox($event)"
@@ -66,7 +66,7 @@
                     <mat-chip-list #chipList aria-label="Tag selection">
                         <mat-chip *ngFor="let tag of tagChips" [selectable]="false" [removable]="removable" (removed)="remove(tag)">
                             {{tag.tag}}
-                            <mat-icon matChipRemove *ngIf="removable">Cancel</mat-icon>
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
                         <input placeholder="Tags..." #tagInput [formControl]="tagControl" [matAutocomplete]="auto"
                             [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"

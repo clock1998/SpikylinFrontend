@@ -12,6 +12,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Photo } from 'src/app/shared/models/photo';
+import { environment } from 'src/environments/environment';
 declare var EXIF: any;
 // import * as EXIF from 'exif-js';
 
@@ -42,8 +44,8 @@ declare var EXIF: any;
 	]
 })
 export class GalleryComponent implements OnInit {
-    images: Image[]=[];
-    imagesTemp: Image[]=[];
+    photos: Photo[]=[];
+    photosTemp: Photo[]=[];
     tags:Tag[]=[];
     isLightBoxShown: boolean = false;
     tagClicked:boolean = false;
@@ -97,19 +99,19 @@ export class GalleryComponent implements OnInit {
 
     //#region image actions
 	getImages(): void {
-		this.galleryService.getImages().subscribe((images) => {
-            this.images = images;
-            this.images.forEach(image => {
-                image.tagsInString='';
-                image.tags.forEach(tagId => {
-                    this.tags.forEach(tag=>{
-                        if(tag.id == tagId){
-                            image.tagsInString+=tag.tag+',';
-                        }
-                    });
-                });
+		this.galleryService.getImages().subscribe((photos) => {
+            this.photos = photos;
+            this.photos.forEach(photo => {
+                // image.tagsInString='';
+                // image.tags.forEach(tagId => {
+                //     this.tags.forEach(tag=>{
+                //         if(tag.id == tagId){
+                //             image.tagsInString+=tag.tag+',';
+                //         }
+                //     });
+                // });
             });
-            this.imagesTemp=this.images;
+            this.photosTemp=this.photos;
 		});
     }
 
@@ -157,9 +159,9 @@ export class GalleryComponent implements OnInit {
 
     deleteImage(image:Image):void{
         this.galleryService.deleteImage(image.id).subscribe((res)=>{});
-        let index =  this.imagesTemp.findIndex(x => x.id==image.id);
+        let index =  this.photosTemp.findIndex(x => x.id==image.id);
         if (index > -1) {
-            this.imagesTemp.splice(index, 1);
+            this.photosTemp.splice(index, 1);
         }
     }
     //#endregion
@@ -180,26 +182,26 @@ export class GalleryComponent implements OnInit {
 
     //#region tag header actions
     showAllTagClick():void{
-        this.imagesTemp=this.images;
+        this.photosTemp=this.photos;
     }
 
     tagClick(tag): void {
-        this.tagClicked = !this.tagClicked;
-        this.imagesTemp = [];
-        this.images.forEach(image => {
-            if (image.tags.includes(tag.id)) {
-                this.imagesTemp.push(image);
-            }
-        });
+        // this.tagClicked = !this.tagClicked;
+        // this.photosTemp = [];
+        // this.photos.forEach(image => {
+        //     if (image.tags.includes(tag.id)) {
+        //         this.imagesTemp.push(image);
+        //     }
+        // });
     }
     //#endregion
 
     //#region light box
-	showLightBox(image: Image): void {
+	showLightBox(photo: Photo): void {
         this.isLightBoxShown = true;
-        this.imageUrl = image.file;
-        this.description = image.description;
-        this.tagsInString = image.tagsInString;
+        this.imageUrl = environment.staticImage + photo.fileName;
+        this.description = photo.description;
+        // this.tagsInString = image.tagsInString;
     }
     
 	hideLightBox(): void {
