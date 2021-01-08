@@ -1,9 +1,9 @@
 import { TagContentType } from '@angular/compiler';
-export class Tag {
-    id: string;
-    tag: string;
+import { BaseMO } from './baseMO';
+export class Tag extends BaseMO {
+    title: string;
 }
-export class ImageTag {
+export class ImageTag extends Tag {
     id: string;
     image:string;
     tag: string;

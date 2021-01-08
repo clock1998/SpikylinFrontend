@@ -102,14 +102,10 @@ export class GalleryComponent implements OnInit {
 		this.galleryService.getImages().subscribe((photos) => {
             this.photos = photos;
             this.photos.forEach(photo => {
-                // image.tagsInString='';
-                // image.tags.forEach(tagId => {
-                //     this.tags.forEach(tag=>{
-                //         if(tag.id == tagId){
-                //             image.tagsInString+=tag.tag+',';
-                //         }
-                //     });
-                // });
+                photo.tagsInString='';
+                photo.imageTagDocs.forEach(tagDoc => {
+                    photo.tagsInString+=tagDoc.title;
+                });
             });
             this.photosTemp=this.photos;
 		});
@@ -201,7 +197,7 @@ export class GalleryComponent implements OnInit {
         this.isLightBoxShown = true;
         this.imageUrl = environment.staticImage + photo.fileName;
         this.description = photo.description;
-        // this.tagsInString = image.tagsInString;
+        this.tagsInString = photo.tagsInString;
     }
     
 	hideLightBox(): void {
@@ -212,6 +208,7 @@ export class GalleryComponent implements OnInit {
     getAllImageTags():void{
         this.tagService.getAllImageTags().subscribe((tags) =>{
             this.tags = tags;
+            console.log(this.tags)
             this.allTagChips = tags;
         })
     }
@@ -269,7 +266,7 @@ export class GalleryComponent implements OnInit {
         const value = event.value;
     
         this.tags.forEach(element => {
-            if (element.tag == input.value) {
+            if (element.title == input.value) {
                 this.tagChips.push(element);
             }
         });
@@ -283,7 +280,7 @@ export class GalleryComponent implements OnInit {
 
       private _filter(value: string): Tag[] {
         const filterValue = value;
-        return this.allTagChips.filter(tag => tag.tag.toLowerCase().indexOf(filterValue) === 0);
+        return this.allTagChips.filter(tag => tag.title.toLowerCase().indexOf(filterValue) === 0);
       }
       //#endregion
 }

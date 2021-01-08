@@ -16,8 +16,8 @@ export class ImageComponent implements OnInit, OnChanges {
     @Input() photo: Photo;
     @Input() editMode: boolean;
     @Input() tags: Tag[];
-    @Output() clickedImageEmitter: EventEmitter<Image> = new EventEmitter<Image>();
-    @Output() deleteImageEmitter: EventEmitter<Image> = new EventEmitter<Image>();
+    @Output() clickedImageEmitter: EventEmitter<Photo> = new EventEmitter<Photo>();
+    @Output() deleteImageEmitter: EventEmitter<Photo> = new EventEmitter<Photo>();
     showDeleteButton:boolean = false;
 
     staticFiles: string = environment.staticImage;
@@ -45,12 +45,12 @@ export class ImageComponent implements OnInit, OnChanges {
         
     }
 
-	showLightBox(image:Image): void {
-		this.clickedImageEmitter.emit(image);
+	showLightBox(photo:Photo): void {
+		this.clickedImageEmitter.emit(photo);
     }
     
-    deleteButtonClick( image:Image):void{
-        this.deleteImageEmitter.emit(image);
+    deleteButtonClick(photo:Photo):void{
+        this.deleteImageEmitter.emit(photo);
     }
 
 

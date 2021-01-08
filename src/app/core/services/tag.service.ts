@@ -9,7 +9,7 @@ import { Tag, ImageTag } from 'src/app/shared/models/tag';
   providedIn: 'root'
 })
 export class TagService {
-    tagUrl: string = environment.apiEndpoint + '/tag';
+    tagUrl: string = environment.apiEndpoint + '/ImageTag';
     imageTagUrl: string = environment.apiEndpoint + '/tag/images';
 	constructor(private http: HttpClient) {}
 
