@@ -1,4 +1,4 @@
-# TapiFrontend
+# www.spikylin.com Frontend
 
 Hello all, this is my personal website. It has a landing page, an about page. a gallery and a blog. More functionalities will be added in the future. 
 
