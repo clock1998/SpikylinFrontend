@@ -51,6 +51,7 @@ export class GalleryComponent implements OnInit {
     tagClicked:boolean = false;
     imageUrl: string = '';
     description: string = '';
+    photoMeta: string;
     tagsInString: string = '';
     canManageGallery:boolean = false;
     isEditMode:boolean = false;
@@ -72,6 +73,7 @@ export class GalleryComponent implements OnInit {
     filteredTagChips: Observable<Tag[]>;
     tagControl = new FormControl();
     separatorKeysCodes: number[] = [ENTER, COMMA];
+
     //#endregion
 
     constructor( private galleryService: GalleryService,
@@ -88,7 +90,7 @@ export class GalleryComponent implements OnInit {
         this.getImages();
         this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = new FormGroup({
-            image: new FormControl(''),
+            photoname: new FormControl(''),
             description: new FormControl(''),
             tags:new FormControl(''),
         });
@@ -117,9 +119,10 @@ export class GalleryComponent implements OnInit {
                 result => {
                     this.file = result;
                     const formData = new FormData();
-                    formData.append('file', this.file, this.file.name);
-                    formData.append('name', this.file.name);
-                    formData.append('description', this.uploadImageForm.get('description').value + this.getExif());
+                    formData.append('file', this.file);
+                    formData.append('photoname', this.uploadImageForm.get('photoname').value);
+                    formData.append('photometa', this.getExif());
+                    formData.append('description', this.uploadImageForm.get('description').value);
                     if(this.uploadImageForm.get('tags').value){
                         this.uploadImageForm.get('tags').value.forEach(element => {
                             formData.append('tags', element);
@@ -162,7 +165,7 @@ export class GalleryComponent implements OnInit {
     }
     //#endregion
 
-    onImageSelect(event) {
+    onUploadImageSelect(event) {
         if (event.target.files.length > 0) {
             this.file = event.target.files[0];
 
@@ -198,6 +201,7 @@ export class GalleryComponent implements OnInit {
         this.imageUrl = environment.staticImage + photo.fileName;
         this.description = photo.description;
         this.tagsInString = photo.tagsInString;
+        this.photoMeta = photo.photoMeta;
     }
     
 	hideLightBox(): void {
@@ -208,7 +212,6 @@ export class GalleryComponent implements OnInit {
     getAllImageTags():void{
         this.tagService.getAllImageTags().subscribe((tags) =>{
             this.tags = tags;
-            console.log(this.tags)
             this.allTagChips = tags;
         })
     }

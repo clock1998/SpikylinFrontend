@@ -31,8 +31,8 @@
         <img src={{imageUrl}} class="modal-content">
         <div id="caption"><p>{{description}} Tags: {{tagsInString}}</p></div>
     </div>
-
-    <div *ngIf="canManageGallery" class="manageGallery">
+    <!-- *ngIf="canManageGallery"  -->
+    <div class="manageGallery">
         <div>
             <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick($event)">Edit</button>
         </div>
@@ -52,13 +52,18 @@
         <div>
             <form [formGroup]="uploadImageForm" (ngSubmit)="addImage()">
                 <img src="{{imagePreviewUrl}}" width="300"/>
-                <input type="file" formControlName="image" (change)="onImageSelect($event)" />
+                <input type="file" formControlName="image" (change)="onUploadImageSelect($event)" />
                 <mat-error *ngIf="uploadImageFormImageError">
                     {{uploadImageFormImageError}}
                 </mat-error>
 
+                <mat-form-field appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <textarea matInput type="text" formControlName="photoname"></textarea>
+                </mat-form-field>
+
                 <mat-form-field appearance="fill" id="ImageDescription">
-                    <mat-label>Image Description</mat-label>
+                    <mat-label>Description</mat-label>
                     <textarea matInput type="text" formControlName="description"></textarea>
                 </mat-form-field>
 

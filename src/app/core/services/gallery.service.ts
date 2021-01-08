@@ -22,12 +22,12 @@ export class GalleryService {
 		return this.http.get<Photo[]>(this.galleryUrl);
 	}
 
-	addImage(formData): Observable<Image>{
+	addImage(formData): Observable<Photo>{
         const url = `${this.galleryUrl}/`;
 		return this.http.post<any>(url, formData);
     }
     
-    updateImage(formData, id:string): Observable<Image>{
+    updateImage(formData, id:string): Observable<Photo>{
         const url = `${this.galleryUrl}/${id}/`;
 		return this.http.put<any>(url, formData);
     }
