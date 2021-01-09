@@ -78,7 +78,6 @@ export class GalleryComponent implements OnInit {
 
     constructor( private galleryService: GalleryService,
         private tagService:TagService,
-        private formBuilder: FormBuilder,
         private authentication: AuthenticationService,
         private ng2ImgMax: Ng2ImgMaxService) {
             this.filteredTagChips = this.tagControl.valueChanges.pipe(
@@ -130,7 +129,7 @@ export class GalleryComponent implements OnInit {
                     }
                     else{
                         this.tagChips.forEach(element => {
-                            formData.append('tags', element.id);
+                            formData.append('ImageTagIds', element.id);
                         });
                     }
     
@@ -218,7 +217,7 @@ export class GalleryComponent implements OnInit {
 
     newTag():void{
         const formData = new FormData();
-        formData.append('tag', this.newTagForm.get('tag').value);
+        formData.append('title', this.newTagForm.get('tag').value);
         this.tagService.createTag(formData).subscribe((res) => {
             this.newTagForm.reset();
             this.getAllImageTags();
@@ -233,13 +232,37 @@ export class GalleryComponent implements OnInit {
         const img = document.createElement("img");
         img.src = this.imagePreviewUrl;
         let metaData = '';
+        let cameraModel: string = '';
+        let exposureTime: string = '';
+        let fStop: string = '';
+        let focalLength: string = '';
+        let ISO: string = '';
         EXIF.getData(img, function() {
             const model = EXIF.getTag(this, 'Model');
+            if(model != null){
+                cameraModel = model;
+            }
+
             const ExposureTime = EXIF.getTag(this, 'ExposureTime');
+            if(ExposureTime != null){
+                exposureTime =`${ExposureTime.numerator}/${ExposureTime.denominator}s`;    
+            }
+
             const FNumber = EXIF.getTag(this, 'FNumber');
+            if(FNumber != null){
+                fStop =`F${FNumber.numerator/FNumber.denominator}`;    
+            }
+            
             const FocalLength = EXIF.getTag(this, 'FocalLength');
+            if(FocalLength != null){
+                focalLength =`${FocalLength.numerator/FocalLength.denominator}mm`;    
+            }
+
             const ISOSpeedRatings = EXIF.getTag(this, 'ISOSpeedRatings');
-            metaData = ` ${model} F${FNumber.numerator/FNumber.denominator} ${ExposureTime.numerator}/${ExposureTime.denominator}s ISO${ISOSpeedRatings} ${FocalLength.numerator/FocalLength.denominator}mm`;
+            if(ISOSpeedRatings != null){
+                ISO =`ISO${ISOSpeedRatings} `;    
+            }
+            metaData = ` ${cameraModel} ${fStop} ${exposureTime} ${ISO} ${focalLength}`;
         });
         return metaData;
     }

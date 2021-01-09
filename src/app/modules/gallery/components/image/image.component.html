@@ -8,7 +8,7 @@
             <input type="file" formControlName="image" (change)="onImageSelect($event)" />
             <input type="text" formControlName="description" />
             <select size="5" formControlName="tags" multiple>
-                <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.tag}}</option>
+                <option *ngFor="let tag of tags" value="{{tag.id}}">{{tag.title}}</option>
             </select>
             <button type="submit">Update</button>
         </form>
