@@ -184,13 +184,13 @@ export class GalleryComponent implements OnInit {
     }
 
     tagClick(tag): void {
-        // this.tagClicked = !this.tagClicked;
-        // this.photosTemp = [];
-        // this.photos.forEach(image => {
-        //     if (image.tags.includes(tag.id)) {
-        //         this.imagesTemp.push(image);
-        //     }
-        // });
+        this.tagClicked = !this.tagClicked;
+        this.photosTemp = [];
+        this.photos.forEach(photo => {
+            if (photo.imageTagIds.includes(tag.id)) {
+                this.photosTemp.push(photo);
+            }
+        });
     }
     //#endregion
 
