@@ -37,7 +37,7 @@ export class ImageComponent implements OnInit, OnChanges {
         this.uploadImageForm = this.formBuilder.group({
             image: [''],
             description: [this.photo.description],
-            // tags:[this.image.tags]
+            tags:[this.photo.imageTagDocs]
         })
     }
 

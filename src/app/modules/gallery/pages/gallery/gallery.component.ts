@@ -155,9 +155,9 @@ export class GalleryComponent implements OnInit {
         }
     }
 
-    deleteImage(image:Image):void{
-        this.galleryService.deleteImage(image.id).subscribe((res)=>{});
-        let index =  this.photosTemp.findIndex(x => x.id==image.id);
+    deleteImage(photo:Photo):void{
+        this.galleryService.deleteImage(photo.id).subscribe((res)=>{});
+        let index =  this.photosTemp.findIndex(x => x.id==photo.id);
         if (index > -1) {
             this.photosTemp.splice(index, 1);
         }
@@ -269,7 +269,7 @@ export class GalleryComponent implements OnInit {
     //#endregion
 
     editButtonClick(event){
-        this.isEditMode= true;
+        this.isEditMode = !this.isEditMode;
     }
     
     //#region chips compoent 

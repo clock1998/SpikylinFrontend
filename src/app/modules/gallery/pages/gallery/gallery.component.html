@@ -37,7 +37,8 @@
     <!-- *ngIf="canManageGallery"  -->
     <div class="manageGallery">
         <div>
-            <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick($event)">Edit</button>
+            <!-- *ngIf="canManageGallery"  -->
+            <button mat-stroked-button (click)="editButtonClick($event)">Edit</button>
         </div>
 
         <div>
