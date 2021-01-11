@@ -78,7 +78,7 @@ export class ImageComponent implements OnInit, OnChanges {
                     formData.append('photometa', this.getExif());
                     formData.append('description', this.uploadImageForm.get('description').value);
                     this.uploadImageForm.get('tags').value.forEach(element => {
-                        formData.append('tags', element);
+                        formData.append('ImageTagIds', element);
                     });
     
                     this.galleryService.updateImage(formData, this.photo.id).subscribe(
@@ -101,7 +101,7 @@ export class ImageComponent implements OnInit, OnChanges {
             formData.append('photoname', this.uploadImageForm.get('name').value);
             formData.append('description', this.uploadImageForm.get('description').value);
             this.uploadImageForm.get('tags').value.forEach(element => {
-                formData.append('tags', element);
+                formData.append('ImageTagIds', element);
             });
 
             this.galleryService.updatePhotoInfo(formData, this.photo.id).subscribe(
