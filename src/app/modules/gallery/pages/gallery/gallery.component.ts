@@ -85,7 +85,7 @@ export class GalleryComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllImageTags();
-        this.getImages();
+        this.getPhotos();
         this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = new FormGroup({
             photoname: new FormControl(''),
@@ -98,7 +98,7 @@ export class GalleryComponent implements OnInit {
 	}
 
     //#region image actions
-	getImages(): void {
+	getPhotos(): void {
 		this.galleryService.getImages().subscribe((photos) => {
             this.photos = photos;
             this.photos.forEach(photo => {
@@ -111,7 +111,7 @@ export class GalleryComponent implements OnInit {
 		});
     }
 
-    addImage() {
+    addPhoto() {
         if(this.file){
             this.ng2ImgMax.compressImage(this.file, 1.5).subscribe(
                 result => {
@@ -121,20 +121,13 @@ export class GalleryComponent implements OnInit {
                     formData.append('photoname', this.uploadImageForm.get('photoname').value);
                     formData.append('photometa', this.getExif());
                     formData.append('description', this.uploadImageForm.get('description').value);
-                    if(this.uploadImageForm.get('tags').value){
-                        this.uploadImageForm.get('tags').value.forEach(element => {
-                            formData.append('tags', element);
-                        });
-                    }
-                    else{
-                        this.tagChips.forEach(element => {
-                            formData.append('ImageTagIds', element.id);
-                        });
-                    }
+                    this.tagChips.forEach(element => {
+                        formData.append('ImageTagIds', element.id);
+                    });
     
                     this.galleryService.addImage(formData).subscribe(
                         (res) => {
-                            this.getImages();
+                            this.getPhotos();
                             this.uploadImageForm.reset();
                         },
                         (err) => {

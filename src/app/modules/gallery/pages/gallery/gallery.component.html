@@ -54,7 +54,7 @@
             </form>
         </div>
         <div>
-            <form [formGroup]="uploadImageForm" (ngSubmit)="addImage()">
+            <form [formGroup]="uploadImageForm" (ngSubmit)="addPhoto()">
                 <img src="{{imagePreviewUrl}}" width="300"/>
                 <input type="file" formControlName="image" (change)="onUploadImageSelect($event)" />
                 <mat-error *ngIf="uploadImageFormImageError">
