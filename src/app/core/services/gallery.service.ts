@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Image } from '../../shared/models/image';
 import { environment } from 'src/environments/environment';
 import { Photo } from 'src/app/shared/models/photo';
 

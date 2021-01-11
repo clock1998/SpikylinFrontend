@@ -1,14 +1,12 @@
+import { BaseMO } from "./baseMO";
 import { Tag } from "./tag";
 
-export class Photo {
-	id: string;
-	photoName: string;
+export class Photo extends BaseMO {
+    photoName: string;
+    description: string;
 	fileName: string;
     photoMeta: string;
-    description: string;
     imageTagIds: string[];
     imageTagDocs: Tag[];
     tagsInString: string;
-    created: string;
-    lastUpdated: string;
 }
