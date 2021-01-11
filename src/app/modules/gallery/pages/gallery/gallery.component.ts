@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Image } from '../../../../shared/models/image';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import { trigger, state, style, animate, transition, query, group, animateChild } from '@angular/animations';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
@@ -173,7 +172,6 @@ export class GalleryComponent implements OnInit {
             reader.onload = (event) => { // called once readAsDataURL is completed
                 this.imagePreviewUrl = event.target.result;
             }
-
             // this.uploadImageForm.get('image').setValue(file);
         }
     }

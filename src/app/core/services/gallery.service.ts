@@ -32,6 +32,11 @@ export class GalleryService {
 		return this.http.put<any>(url, formData);
     }
 
+    updatePhotoInfo(formData, id:string): Observable<Photo>{
+        const url = `${this.galleryUrl}/nofile/${id}/`;
+		return this.http.put<any>(url, formData);
+    }
+
     deleteImage(id:string):Observable<{}>{
         const url = `${this.galleryUrl}/${id}`;
         return this.http.delete(url);
