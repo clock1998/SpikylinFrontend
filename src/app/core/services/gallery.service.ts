@@ -17,16 +17,17 @@ export class GalleryService {
 	galleryUrl: string = environment.apiEndpoint + '/gallery';
 	constructor(private http: HttpClient) {}
 
-	getImages(): Observable<Photo[]> {
+	get(): Observable<Photo[]> {
+        console.log((<any>this).constructor.name);
 		return this.http.get<Photo[]>(this.galleryUrl);
 	}
 
-	addImage(formData): Observable<Photo>{
+	create(formData): Observable<Photo>{
         const url = `${this.galleryUrl}/`;
 		return this.http.post<any>(url, formData);
     }
     
-    updateImage(formData, id:string): Observable<Photo>{
+    update(formData, id:string): Observable<Photo>{
         const url = `${this.galleryUrl}/${id}/`;
 		return this.http.put<any>(url, formData);
     }
@@ -36,7 +37,7 @@ export class GalleryService {
 		return this.http.put<any>(url, formData);
     }
 
-    deleteImage(id:string):Observable<{}>{
+    delete(id:string):Observable<{}>{
         const url = `${this.galleryUrl}/${id}`;
         return this.http.delete(url);
     }

@@ -11,22 +11,18 @@ export class TagService {
     tagUrl: string = environment.apiEndpoint + '/ImageTag';
 	constructor(private http: HttpClient) {}
 
-    createTag(formData): Observable<Tag>{
+    get(): Observable<Tag[]> {
+		return this.http.get<Tag[]>(this.tagUrl);
+	}
+    
+    create(formData): Observable<Tag>{
         const url = `${this.tagUrl}/`;
         return this.http.post<Tag>(url,formData);
     }
 
-	getTags(): Observable<Tag[]> {
-		return this.http.get<Tag[]>(this.tagUrl);
-	}
-    
-    deleteTag(id:string):Observable<{}>{
+    delete(id:string):Observable<{}>{
         const url = `${this.tagUrl}/${id}`;
         return this.http.delete(url);
-    }
-
-    getAllImageTags(): Observable<Tag[]> {
-		return this.http.get<Tag[]>(this.tagUrl);
     }
     
     // getTagsByImage(id:string): Observable<ImageTag[]> {

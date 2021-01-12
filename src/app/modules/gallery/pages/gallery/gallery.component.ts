@@ -99,7 +99,7 @@ export class GalleryComponent implements OnInit {
 
     //#region image actions
 	getPhotos(): void {
-		this.galleryService.getImages().subscribe((photos) => {
+		this.galleryService.get().subscribe((photos) => {
             this.photos = photos;
             this.photos.forEach(photo => {
                 photo.tagsInString='';
@@ -125,7 +125,7 @@ export class GalleryComponent implements OnInit {
                         formData.append('ImageTagIds', element.id);
                     });
     
-                    this.galleryService.addImage(formData).subscribe(
+                    this.galleryService.create(formData).subscribe(
                         (res) => {
                             this.getPhotos();
                             this.uploadImageForm.reset();
@@ -148,7 +148,7 @@ export class GalleryComponent implements OnInit {
     }
 
     deleteImage(photo:Photo):void{
-        this.galleryService.deleteImage(photo.id).subscribe((res)=>{});
+        this.galleryService.delete(photo.id).subscribe((res)=>{});
         let index =  this.photosTemp.findIndex(x => x.id==photo.id);
         if (index > -1) {
             this.photosTemp.splice(index, 1);
@@ -159,7 +159,6 @@ export class GalleryComponent implements OnInit {
     onUploadImageSelect(event) {
         if (event.target.files.length > 0) {
             this.file = event.target.files[0];
-
             var reader = new FileReader();
             reader.readAsDataURL(this.file); 
             reader.onload = (event) => { // called once readAsDataURL is completed
@@ -200,7 +199,7 @@ export class GalleryComponent implements OnInit {
     //#endregion
 
     getAllImageTags():void{
-        this.tagService.getAllImageTags().subscribe((tags) =>{
+        this.tagService.get().subscribe((tags) =>{
             this.tags = tags;
             this.allTagChips = tags;
         })
@@ -209,7 +208,7 @@ export class GalleryComponent implements OnInit {
     newTag():void{
         const formData = new FormData();
         formData.append('title', this.newTagForm.get('tag').value);
-        this.tagService.createTag(formData).subscribe((res) => {
+        this.tagService.create(formData).subscribe((res) => {
             this.newTagForm.reset();
             this.getAllImageTags();
         },
