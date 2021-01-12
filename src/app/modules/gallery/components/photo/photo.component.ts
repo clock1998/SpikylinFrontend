@@ -8,11 +8,11 @@ import { environment } from 'src/environments/environment';
 declare var EXIF: any;
 
 @Component({
-	selector: 'app-image',
-	templateUrl: './image.component.html',
-	styleUrls: [ './image.component.scss' ]
+	selector: 'app-photo',
+	templateUrl: './photo.component.html',
+	styleUrls: [ './photo.component.scss' ]
 })
-export class ImageComponent implements OnInit, OnChanges {
+export class PhotoComponent implements OnInit, OnChanges {
     @Input() photo: Photo;
     @Input() editMode: boolean;
     @Input() tags: Tag[];

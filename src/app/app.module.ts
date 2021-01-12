@@ -12,7 +12,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { AboutComponent } from './modules/about/pages/about/about.component';
 import { GalleryComponent } from './modules/gallery/pages/gallery/gallery.component';
 import { YbdlComponent } from './modules/ybdl/pages/ybdl/ybdl.component';
-import { ImageComponent } from './modules/gallery/components/image/image.component';
+import { PhotoComponent } from './modules/gallery/components/photo/photo.component';
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoginComponent } from './modules/login/pages/login/login.component';
@@ -59,7 +59,7 @@ export class SafeStylePipe implements PipeTransform  {
 		AboutComponent,
 		GalleryComponent,
 		YbdlComponent,
-		ImageComponent,
+		PhotoComponent,
 		LoginComponent,
 		DashboardComponent,
 		BlogComponent,

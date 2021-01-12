@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="images">
-        <app-image 
+        <app-photo 
         *ngFor="let photo of photosTemp"
         [photo]="photo"
         [tags]="tags"
@@ -23,7 +23,7 @@
         (clickedImageEmitter)="showLightBox($event)"
         (deleteImageEmitter)="deleteImage($event)"
         [@imageFade]>
-        </app-image>
+        </app-photo>
     </div>
     <!-- The Modal -->
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
