@@ -4,8 +4,8 @@
 
 export const environment = {
 	production: false,
-    apiEndpoint: 'https://127.0.0.1:5001/api',
-    staticImage: 'https://127.0.0.1:5001/images/'
+    apiEndpoint: 'https://localhost:5001/api',
+    staticImage: 'https://localhost:5001/images/'
 };
 
 /*

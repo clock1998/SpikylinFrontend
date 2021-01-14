@@ -20,7 +20,7 @@ const routes: Routes = [
 	{ path: 'ytdl', component: YbdlComponent, data: { animation: 'Ytdl' } },
 	{ path: 'login', component: LoginComponent, data: { animation: 'Ytdl' } },
     { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data: { animation: 'Ytdl' } },
-    { path: 'newPost', component: PostNewComponent, canActivate:[AuthGuard]},
+    { path: 'newPost', component: PostNewComponent,},
 ];
 
 @NgModule({

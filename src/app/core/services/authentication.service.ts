@@ -13,24 +13,25 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiEndpoint}/auth/jwt/create/`, { username, password })
+        return this.http.post<any>(`${environment.apiEndpoint}/token`, { username, password })
             .pipe(map(res => {
-                localStorage.setItem('access_token', res.access);
-                localStorage.setItem('refresh_token', res.refresh);
+                console.log(res)
+                localStorage.setItem('access_token', res.access_token);
+                // localStorage.setItem('refresh_token', res.refresh);
             }));
     }
 
     refresh() {
         return this.http.post<any>(`${environment.apiEndpoint}/auth/jwt/refresh/`, {refresh:this.getAccessToken()})
             .pipe(map(res => {
-                localStorage.setItem('access_token', res.access);
+                localStorage.setItem('access_token', res.access_token);
             }));
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        // localStorage.removeItem('refresh_token');
         localStorage.removeItem('user_id');
         localStorage.removeItem('user_name');
         localStorage.removeItem('user_email');

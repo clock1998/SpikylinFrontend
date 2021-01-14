@@ -80,7 +80,7 @@ export class PostDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.getPostId();
-        this.getPost();
+        // this.getPost();
         this.user = this.userService.UserInfo;
         this.updatePostForm = this.formBuilder.group({
             title: [ '', Validators.required],
@@ -94,20 +94,20 @@ export class PostDetailComponent implements OnInit {
         });
     }
 
-    getPost(): void {
-        this.blogService.getPost(this.id).subscribe(
-            data => { 
-                this.post = data;
-                this.isOwner(); 
-                this.updatePostForm = this.formBuilder.group({
-                    title: [ this.post.title, Validators.required],
-                    content: [this.post.content, Validators.required]
-                });
-            });
-    }
+    // getPost(): void {
+    //     this.blogService.get(this.id).subscribe(
+    //         data => { 
+    //             this.post = data;
+    //             this.isOwner(); 
+    //             this.updatePostForm = this.formBuilder.group({
+    //                 title: [ this.post.title, Validators.required],
+    //                 content: [this.post.content, Validators.required]
+    //             });
+    //         });
+    // }
 
     deletePost(): void {
-        this.blogService.deletePost(this.id).subscribe(() => {
+        this.blogService.delete(this.id).subscribe(() => {
             this.router.navigate(['/blog']);
         });
     }
@@ -125,7 +125,7 @@ export class PostDetailComponent implements OnInit {
         const formData = new FormData();
         formData.append('title', this.updatePostForm.get('title').value);
         formData.append('content', this.updatePostForm.get('content').value);
-        this.blogService.updatePost(formData, this.id).subscribe((res) => {
+        this.blogService.update(formData, this.id).subscribe((res) => {
             location.reload(true);
         },
         (err) => {

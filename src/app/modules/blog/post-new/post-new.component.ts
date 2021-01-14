@@ -79,7 +79,7 @@ export class PostNewComponent implements OnInit {
     const formData = new FormData();
     formData.append('title', this.newPostForm.get('title').value);
     formData.append('content', this.newPostForm.get('content').value);
-    this.blogService.createPost(formData).subscribe((res) => {
+    this.blogService.create(formData).subscribe((res) => {
         this.newPostForm.reset();
         console.log(res);
     },

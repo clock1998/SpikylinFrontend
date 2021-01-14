@@ -1,5 +1,6 @@
-export class User {
-    email: string;
-    id: string;
+import { BaseMO } from "./baseMO";
+
+export class User extends BaseMO {
+    // email: string;
     username: string;
 }

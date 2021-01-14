@@ -1,6 +1,6 @@
 <div class="post">
     <h1>{{post.title}}</h1>
-    <h3>Created by {{post.author}} on {{post.created | date}}, updated on {{post.modified | date}}</h3>
+    <h3>Created by {{post.author}} on {{post.created | date}}, updated on {{post.lastUpdated | date}}</h3>
     <button *ngIf="showDeleteButton" (click)="deletePost()">Delete</button>
     <section class="content" [innerHTML]="post.content | safeHtml"></section>
 

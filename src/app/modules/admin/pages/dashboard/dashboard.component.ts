@@ -17,7 +17,7 @@ import { TagService } from 'src/app/core/services/tag.service';
 export class DashboardComponent {
     loading = false;
     users: User[];
-    user: User = { email: "", id: "", username: "" };
+    user: User = { id: "", username: "", created:"", lastUpdated:"" };
     uploadImageForm: FormGroup;
     newPostForm: FormGroup;
     newTagForm:FormGroup;
