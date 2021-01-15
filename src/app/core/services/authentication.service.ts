@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { User } from '../../shared/models/user';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -15,8 +14,11 @@ export class AuthenticationService {
     login(username: string, password: string) {
         return this.http.post<any>(`${environment.apiEndpoint}/token`, { username, password })
             .pipe(map(res => {
-                console.log(res)
                 localStorage.setItem('access_token', res.access_token);
+                let jwtDecoded = this.getDecodedAccessToken(res.access_token);
+                localStorage.setItem('user_id',jwtDecoded.id);
+                localStorage.setItem('exp',jwtDecoded.exp);
+                console.log(jwt_decode(res.access_token));
                 // localStorage.setItem('refresh_token', res.refresh);
             }));
     }
@@ -29,12 +31,8 @@ export class AuthenticationService {
     }
 
     logout() {
+        localStorage.clear();
         // remove user from local storage to log user out
-        localStorage.removeItem('access_token');
-        // localStorage.removeItem('refresh_token');
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('user_name');
-        localStorage.removeItem('user_email');
     }
 
     getAccessToken(){
@@ -43,6 +41,15 @@ export class AuthenticationService {
 
     getRefreshToken(){
         return localStorage.getItem('refresh_token');
+    }
+
+    getDecodedAccessToken(token: string): any {
+        try {
+            return jwt_decode(token);
+        }
+        catch (Error) {
+            return null;
+        }
     }
 
     get isLoggedIn(): boolean {

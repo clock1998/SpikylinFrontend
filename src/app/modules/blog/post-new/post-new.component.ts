@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from 'src/app/core/services/blog.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { Post } from 'src/app/shared/models/post';
 import * as Editor from 'src/assets/ckeditor5/build/ckeditor';
 
 @Component({
@@ -61,8 +63,8 @@ export class PostNewComponent implements OnInit {
         },
         licenseKey: '',
     }
-  constructor(
-    private blogService: BlogService,) { }
+
+  constructor(private blogService: BlogService,private userService: UserService) { }
 
   ngOnInit(): void {
     this.newPostForm = new FormGroup({
@@ -77,9 +79,15 @@ export class PostNewComponent implements OnInit {
 
   onPostSubmit(){
     const formData = new FormData();
+    let newPost = new Post;
+    newPost.title = this.newPostForm.get('title').value;
+    newPost.content = this.newPostForm.get('content').value;
+    newPost.user = this.userService.UserInfo;
+
     formData.append('title', this.newPostForm.get('title').value);
     formData.append('content', this.newPostForm.get('content').value);
-    this.blogService.create(formData).subscribe((res) => {
+
+    this.blogService.create(JSON.stringify(newPost)).subscribe((res) => {
         this.newPostForm.reset();
         console.log(res);
     },

@@ -5,7 +5,7 @@ import { AboutComponent } from './modules/about/pages/about/about.component';
 import { GalleryComponent } from './modules/gallery/pages/gallery/gallery.component';
 import { YbdlComponent } from './modules/ybdl/pages/ybdl/ybdl.component';
 import { LoginComponent } from './modules/login/pages/login/login.component';
-import { DashboardComponent } from './modules/admin/pages/dashboard/dashboard.component';
+import { DashboardComponent } from './modules/admin/dashboard/dashboard.component';
 import { AuthGuard } from './core/helpers/auth.guard';
 import { BlogComponent } from './modules/blog/blog/blog.component';
 import { PostDetailComponent } from './modules/blog/post-detail/post-detail.component';
@@ -20,7 +20,7 @@ const routes: Routes = [
 	{ path: 'ytdl', component: YbdlComponent, data: { animation: 'Ytdl' } },
 	{ path: 'login', component: LoginComponent, data: { animation: 'Ytdl' } },
     { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data: { animation: 'Ytdl' } },
-    { path: 'newPost', component: PostNewComponent,},
+    { path: 'newPost', component: PostNewComponent,canActivate:[AuthGuard],},
 ];
 
 @NgModule({

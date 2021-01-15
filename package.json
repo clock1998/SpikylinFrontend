@@ -25,6 +25,7 @@
     "@ckeditor/ckeditor5-angular": "^2.0.1",
     "blueimp-canvas-to-blob": "^3.28.0",
     "exif-js": "^2.3.0",
+    "jwt-decode": "^3.1.2",
     "material-design-icons": "^3.0.1",
     "ng2-img-max": "^2.2.4",
     "rxjs": "~6.6.3",

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
-import { environment } from '../../../../../environments/environment';
-import { User } from '../../../../shared/models/user';
-import { UserService } from '../../../../core/services/user.service';
-import { AuthenticationService } from '../../../../core/services/authentication.service';
+import { User } from '../../../shared/models/user';
+import { UserService } from '../../../core/services/user.service';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { GalleryService } from 'src/app/core/services/gallery.service';
 import { BlogService } from 'src/app/core/services/blog.service';

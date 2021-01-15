@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
 
     
     getCurrentUser(): void {
-        this.userService.getCurrentUser().subscribe();
+        console.log(localStorage.getItem('user_id'));
+        this.userService.getUserById(localStorage.getItem('user_id')).subscribe();
     }
 
     // convenience getter for easy access to form fields

@@ -34,11 +34,9 @@
             <p>{{photoMeta}}</p>
         </div>
     </div>
-    <!-- *ngIf="canManageGallery"  -->
-    <div class="manageGallery">
+    <div class="manageGallery" *ngIf="canManageGallery">
         <div>
-            <!-- *ngIf="canManageGallery"  -->
-            <button mat-stroked-button (click)="editButtonClick($event)">Edit</button>
+            <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick($event)">Edit</button>
         </div>
 
         <div>

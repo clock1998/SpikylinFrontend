@@ -114,8 +114,7 @@ export class PostDetailComponent implements OnInit {
 
     isOwner(): void {
         console.log(this.user.username)
-        console.log(this.post.author)
-        if (this.user && this.user.username === this.post.author) {
+        if (this.user && this.user.username === this.post.user.username) {
             this.showDeleteButton = true;
             this.showUpdateForm = true;
         }
