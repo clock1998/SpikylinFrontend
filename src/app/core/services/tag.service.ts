@@ -8,7 +8,7 @@ import { Tag } from 'src/app/shared/models/tag';
   providedIn: 'root'
 })
 export class TagService {
-    tagUrl: string = environment.apiEndpoint + '/ImageTag';
+    tagUrl: string = environment.Endpoint + '/ImageTag';
 	constructor(private http: HttpClient) {}
 
     get(): Observable<Tag[]> {

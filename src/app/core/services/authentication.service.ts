@@ -12,7 +12,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiEndpoint}/token`, { username, password })
+        return this.http.post<any>(`${environment.Endpoint}/token`, { username, password })
             .pipe(map(res => {
                 localStorage.setItem('access_token', res.access_token);
                 let jwtDecoded = this.getDecodedAccessToken(res.access_token);
@@ -24,7 +24,7 @@ export class AuthenticationService {
     }
 
     refresh() {
-        return this.http.post<any>(`${environment.apiEndpoint}/auth/jwt/refresh/`, {refresh:this.getAccessToken()})
+        return this.http.post<any>(`${environment.Endpoint}/auth/jwt/refresh/`, {refresh:this.getAccessToken()})
             .pipe(map(res => {
                 localStorage.setItem('access_token', res.access_token);
             }));

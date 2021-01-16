@@ -12,7 +12,7 @@ const httpOptions = {
 	providedIn: 'root'
 })
 export class YtdlService {
-	ytdlUrl: string = environment.apiEndpoint + '/ytdl/download';
+	ytdlUrl: string = environment.Endpoint + '/ytdl/download';
 	constructor(private http: HttpClient) {}
 
 	getDownload(formData: YtdlFormModel): Observable<YtdlFormModel> {

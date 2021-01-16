@@ -14,7 +14,7 @@ const httpOptions = {
 	providedIn: 'root'
 })
 export class GalleryService {
-	galleryUrl: string = environment.apiEndpoint + '/gallery';
+	galleryUrl: string = environment.Endpoint + '/gallery';
 	constructor(private http: HttpClient) {}
 
 	get(): Observable<Photo[]> {

@@ -20,7 +20,7 @@ export class PhotoComponent implements OnInit, OnChanges {
     @Output() deleteImageEmitter: EventEmitter<Photo> = new EventEmitter<Photo>();
     showDeleteButton:boolean = false;
     imagePreviewUrl: any;
-    staticFiles: string = environment.staticImage;
+    staticFiles: string = environment.StaticImage;
 
 	isLightBoxShown: boolean = false;
     imageUrl: string = '';

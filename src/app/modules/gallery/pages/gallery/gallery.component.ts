@@ -187,7 +187,7 @@ export class GalleryComponent implements OnInit {
     //#region light box
 	showLightBox(photo: Photo): void {
         this.isLightBoxShown = true;
-        this.imageUrl = environment.staticImage + photo.fileName;
+        this.imageUrl = environment.StaticImage + photo.fileName;
         this.description = photo.description;
         this.tagsInString = photo.tagsInString;
         this.photoMeta = photo.photoMeta;

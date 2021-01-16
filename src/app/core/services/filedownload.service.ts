@@ -14,6 +14,6 @@ export class FiledownloadService {
 	}
 
 	removeDownloadData(filename: string): Observable<any> {
-		return this.http.delete(environment.apiEndpoint + '/ytdl/delete/' + filename);
+		return this.http.delete(environment.Endpoint + '/ytdl/delete/' + filename);
 	}
 }

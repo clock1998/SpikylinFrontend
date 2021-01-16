@@ -14,7 +14,7 @@ const httpOptions = {
 })
 
 export class BaseService <T> {
-    BaseUrl: string = environment.apiEndpoint;
+    BaseUrl: string = environment.Endpoint;
     Path: string  = '';
     protected _http: HttpClient;
 	constructor(http: HttpClient) {

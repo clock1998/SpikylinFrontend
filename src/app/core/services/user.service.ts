@@ -10,11 +10,11 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     get() {
-        return this.http.get<User[]>(`${environment.apiEndpoint}/user`);
+        return this.http.get<User[]>(`${environment.Endpoint}/user`);
     }
 
     getUserById(id: String){
-        const url = `${environment.apiEndpoint}/user/${id}`;
+        const url = `${environment.Endpoint}/user/${id}`;
 		return this.http.get<User>(url).pipe(map(res=>{
             localStorage.setItem('user_name', res.username);
             localStorage.setItem('user_created', res.created);
