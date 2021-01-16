@@ -80,7 +80,7 @@ export class PostDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.getPostId();
-        // this.getPost();
+        this.getPost();
         this.user = this.userService.UserInfo;
         this.updatePostForm = this.formBuilder.group({
             title: [ '', Validators.required],
@@ -94,17 +94,20 @@ export class PostDetailComponent implements OnInit {
         });
     }
 
-    // getPost(): void {
-    //     this.blogService.get(this.id).subscribe(
-    //         data => { 
-    //             this.post = data;
-    //             this.isOwner(); 
-    //             this.updatePostForm = this.formBuilder.group({
-    //                 title: [ this.post.title, Validators.required],
-    //                 content: [this.post.content, Validators.required]
-    //             });
-    //         });
-    // }
+    getPost(): void {
+        this.blogService.getById(this.id).subscribe(
+            data => { 
+                this.post = data;
+                this.isOwner(); 
+                this.updatePostForm = this.formBuilder.group({
+                    title: [ this.post.title, Validators.required],
+                    content: [this.post.content, Validators.required]
+                });
+            },
+            err =>{
+                console.log(err);
+            });
+    }
 
     deletePost(): void {
         this.blogService.delete(this.id).subscribe(() => {
@@ -113,7 +116,6 @@ export class PostDetailComponent implements OnInit {
     }
 
     isOwner(): void {
-        console.log(this.user.username)
         if (this.user && this.user.username === this.post.user.username) {
             this.showDeleteButton = true;
             this.showUpdateForm = true;

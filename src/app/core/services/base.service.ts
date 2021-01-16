@@ -21,11 +21,17 @@ export class BaseService <T> {
         this._http = http;
     }
 
-	get(): Observable<T[]> {
-        // console.log((<any>this).constructor.name);
-		return this._http.get<T[]>(this.BaseUrl+this.Path);
-	}
+    get(): Observable<T[]>{
+        return this._http.get<T[]>(this.BaseUrl+this.Path);
+    }
 
+	getById(id:string): Observable<T>{
+        // console.log((<any>this).constructor.name);
+        if(id != null){
+            return this._http.get<any>(this.BaseUrl+this.Path+`/${id}`);
+        }
+    }
+    
 	create(data): Observable<T>{
         const url = `${this.BaseUrl+this.Path}`;
 		return this._http.post<any>(url, data, httpOptions);
