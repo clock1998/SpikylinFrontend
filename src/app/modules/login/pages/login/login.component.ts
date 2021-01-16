@@ -40,9 +40,7 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    
     getCurrentUser(): void {
-        console.log(localStorage.getItem('user_id'));
         this.userService.getUserById(localStorage.getItem('user_id')).subscribe();
     }
 

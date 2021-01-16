@@ -83,11 +83,11 @@ export class PostNewComponent implements OnInit {
     newPost.title = this.newPostForm.get('title').value;
     newPost.content = this.newPostForm.get('content').value;
     newPost.user = this.userService.UserInfo;
-
+    console.log(JSON.stringify(newPost));
     formData.append('title', this.newPostForm.get('title').value);
     formData.append('content', this.newPostForm.get('content').value);
-
-    this.blogService.create(JSON.stringify(newPost)).subscribe((res) => {
+    let post = JSON.stringify(newPost);
+    this.blogService.create(post).subscribe((res) => {
         this.newPostForm.reset();
         console.log(res);
     },
