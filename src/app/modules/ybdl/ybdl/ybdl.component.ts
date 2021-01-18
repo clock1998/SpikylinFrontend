@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { YtdlFormModel, FileDataModel } from '../../../../shared/models/ytdl-form-model';
-import { YtdlService } from '../../../../core/services/ytdl.service';
-import { FiledownloadService } from '../../../../core/services/filedownload.service';
+import { YtdlFormModel, FileDataModel } from '../../../shared/models/ytdl-form-model';
+import { YtdlService } from '../../../core/services/ytdl.service';
+import { FiledownloadService } from '../../../core/services/filedownload.service';
 
 @Component({
 	selector: 'app-ybdl',
