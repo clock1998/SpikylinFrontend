@@ -1,31 +1,36 @@
 <nav>
-    <div class="logo">
-      <img src="../../../assets/logo.png" width="60px" height="45px">
-    </div>
+    <a routerLink="/" (click)="toggleNavbar()">
+        <div class="logo">
+            <img src="../../../assets/logo.png">
+        </div>
+    </a>
     <ul [@fade]="isNavHide ? '*' : 'show' " class="nav-links">
-      <li>
-        <a routerLink="/" (click)="toggleNavbar()" >Home</a>
-      </li>
-      <li>
-        <a routerLink="/about" (click)="toggleNavbar()">About</a>
-      </li>
-      <li>
-        <a routerLink="/gallery" (click)="toggleNavbar()">Gallery</a>
-      </li>
-      <li>
-        <a routerLink="/blog" (click)="toggleNavbar()">Blog</a>
-      </li>
-      <li>
-        <a routerLink="/ytdl" (click)="toggleNavbar()">Ytdl</a>
-      </li>
-      <li>
-        <a *ngIf="!this.loggedIn" routerLink="/login" (click)="toggleNavbar()">login</a>
-        <a *ngIf="this.loggedIn" routerLink="/"  (click)="logout()">logout</a>
-      </li>
+
+        <li>
+            <a routerLink="/" (click)="toggleNavbar()">Home</a>
+        </li>
+        <li>
+            <a routerLink="/about" (click)="toggleNavbar()">About</a>
+        </li>
+        <li>
+            <a routerLink="/gallery" (click)="toggleNavbar()">Gallery</a>
+        </li>
+        <li>
+            <a routerLink="/blog" (click)="toggleNavbar()">Blog</a>
+        </li>
+        <li>
+            <a routerLink="/ytdl" (click)="toggleNavbar()">Ytdl</a>
+        </li>
+        <li>
+            <a *ngIf="!this.loggedIn" routerLink="/login" (click)="toggleNavbar()">login</a>
+            <a *ngIf="this.loggedIn" routerLink="/" (click)="logout()">logout</a>
+        </li>
     </ul>
-    <div (click)="toggleNavbar()" class="burger">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div  class="burger">
+        <a class="arrow-icon" (click)="toggleNavbar()">
+            <span class="left-bar"></span>
+            <span class="right-bar"></span>
+          </a>
+        <!-- <i class="arrow right"></i> -->
     </div>
 </nav>

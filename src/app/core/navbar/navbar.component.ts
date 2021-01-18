@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
     }
 
 	toggleNavbar(): void {
-		this.isNavHide = !this.isNavHide;
+        this.isNavHide = !this.isNavHide;
     }
 
     logout():void{
