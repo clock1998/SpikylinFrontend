@@ -1,11 +1,10 @@
-<nav>
+<nav [ngClass]="isNavHide ? 'nav-close' : 'nav-open'">
     <a routerLink="/" (click)="toggleNavbar()">
         <div class="logo">
             <img src="../../../assets/logo.png">
         </div>
     </a>
     <ul [@fade]="isNavHide ? '*' : 'show' " class="nav-links">
-
         <li>
             <a routerLink="/" (click)="toggleNavbar()">Home</a>
         </li>
@@ -26,11 +25,10 @@
             <a *ngIf="this.loggedIn" routerLink="/" (click)="logout()">logout</a>
         </li>
     </ul>
-    <div  class="burger">
-        <a class="arrow-icon" (click)="toggleNavbar()">
-            <span class="left-bar"></span>
-            <span class="right-bar"></span>
-          </a>
-        <!-- <i class="arrow right"></i> -->
+    <div (click)="toggleNavbar()" class="arrow">
+        <div [ngClass]="isNavHide ? 'open' : 'close'">
+            <div class="left-bar"></div>
+            <div class="right-bar"></div>
+        </div>
     </div>
 </nav>
