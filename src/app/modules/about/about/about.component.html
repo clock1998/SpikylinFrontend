@@ -1,27 +1,59 @@
 <div class="about">
-    <div class="content">
-        <div id="aboutMe" #aboutMe class="aboutMe">
-            <h1>
-                About Me
-            </h1>
-            <p>My name is Lin, a software developer and a photography hobbyist living in Montreal. I am also a hiker, gamer, and dreamer...</p>
+    <div class="card">
+        <div class="dashboard">
+            <div class="me">
+                <img src="assets/img/me.jpg"/>
+                <h3>Linyi Jiang</h3>
+            </div>
+            <div class="links">
+                <div class="link">
+                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts )">About Me</a>
+                </div>
+                <div class="link">
+                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts)">This Website</a>
+                </div>
+                <div class="link">
+                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts)">My Mission</a>
+                </div>
+                <div class="link">
+                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts)">My Thoughts</a>
+                </div>
+            </div>
         </div>
-
-        <div class="aboutThisWebsite">
-            <h1>
-                About This Website
-            </h1>
-            <p>This is an experimental-solo project. It allows me to try, experiment, and practice with all kinds of new technologies. And, the website is entirely done by myself, from the back-end to the web-design part. </p>
-        </div>
-
-        <div id="mission" #myMission class="myMission">
-            <h1>My Mission</h1>
-            <p>My mission, for now, is to build a Frankenstein-website that includes a set of small tools and utilities that may or may not be useful for my users or visitors.  If you could find something helpful during your visit, that is great, just keep using it!</p>
-        </div>
-
-        <div id="myThoughts" #myThoughts class="myThoughts">
-            <h1>My Thoughts</h1>
-            <p>As you may know, the website will not have a main theme or service like other websites, however, the website will keep growing whenever an idea comes out of my mind. Oh! Lastly, if you have any idea, please contact me, I would love to hear your ideas!</p>
+        <div class="content">
+            <div class="scrollPanel" #scrollPanel>
+                <section class="showSection"  #aboutMe>
+                    <div>
+                        <h2>
+                            About Me
+                        </h2>
+                        <p>My name is Lin, a software developer and a photography hobbyist living in Montreal. I am also a hiker, gamer, and dreamer...</p>
+                    </div>
+                </section>
+                
+                <section class="hideSection" #aboutWeb>
+                    <div>
+                        <h1>
+                            This Website
+                        </h1>
+                        <p>This is an experimental-solo project. It allows me to try, experiment, and practice with all kinds of new technologies. And, the website is entirely done by myself, from the back-end to the web-design part. </p>
+                    </div>
+                </section>
+    
+                <section class="hideSection" #myMission>
+                    <div>
+                        <h1>My Mission</h1>
+                        <p>My mission, for now, is to build a Frankenstein-website that includes a set of small tools and utilities that may or may not be useful for my users or visitors.  If you could find something helpful during your visit, that is great, just keep using it!</p>
+                    </div>
+                </section>
+    
+                <section class="hideSection" #myThoughts>
+                    <div>
+                        <h1>My Thoughts</h1>
+                        <p>As you may know, the website will not have a main theme or service like other websites, however, the website will keep growing whenever an idea comes out of my mind. Oh! Lastly, if you have any idea, please contact me, I would love to hear your ideas!</p>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 </div>
