@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TapiFrontend": {
+    "SpikylinFrontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/TapiFrontend",
+            "outputPath": "dist/SpikylinFrontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "TapiFrontend:build"
+            "browserTarget": "SpikylinFrontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "TapiFrontend:build:production"
+              "browserTarget": "SpikylinFrontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "TapiFrontend:build"
+            "browserTarget": "SpikylinFrontend:build"
           }
         },
         "test": {
@@ -116,16 +116,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "TapiFrontend:serve"
+            "devServerTarget": "SpikylinFrontend:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "TapiFrontend:serve:production"
+              "devServerTarget": "SpikylinFrontend:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "TapiFrontend"
+  "defaultProject": "SpikylinFrontend"
 }

@@ -7,5 +7,5 @@ import { slideInAnimation } from './core/animation/route-amimation';
 	animations: [ slideInAnimation ]
 })
 export class AppComponent {
-	title = 'TapiFrontend';
+	title = 'SpikylinFrontend';
 }
