@@ -11,12 +11,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
-            console.log(err)
-            if (err.error!=null && err.error.code === 'token_not_valid') {
+            console.log(err);
+            if (err.status == 401) {
                 // this.authenticationService.refresh().subscribe();
                 // auto logout if 401 response returned from api
                 this.authenticationService.logout();
-                // location.reload(true);
+                location.reload();
+                alert("Session Expired!");
             }
             if(err.error != null){
                 return throwError(err.error);
