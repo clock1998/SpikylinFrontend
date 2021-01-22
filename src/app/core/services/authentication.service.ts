@@ -18,7 +18,7 @@ export class AuthenticationService {
                 let jwtDecoded = this.getDecodedAccessToken(res.access_token);
                 localStorage.setItem('user_id',jwtDecoded.id);
                 localStorage.setItem('exp',jwtDecoded.exp);
-                console.log(jwt_decode(res.access_token));
+                // console.log(jwt_decode(res.access_token));
                 // localStorage.setItem('refresh_token', res.refresh);
             }));
     }

@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
                 data => {
                     this.getCurrentUser();
                     this.router.navigate([this.returnUrl]);
+                    location.reload();
                 },
                 (err) => {
                     console.log(err.username);
