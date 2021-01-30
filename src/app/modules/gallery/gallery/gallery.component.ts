@@ -210,7 +210,7 @@ export class GalleryComponent implements OnInit {
         tag.title = this.newTagForm.get('tag').value;
         this.tagService.create(tag).subscribe((res) => {
             this.newTagForm.reset();
-            this.getAllImageTags();
+            this.getTags();
         },
         (err) => {
             this.newTagFormError = err;
