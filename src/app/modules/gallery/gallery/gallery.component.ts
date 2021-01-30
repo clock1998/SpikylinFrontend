@@ -84,7 +84,7 @@ export class GalleryComponent implements OnInit {
         }
 
     ngOnInit(): void {
-        this.getAllImageTags();
+        this.getTags();
         this.getPhotos();
         this.canManageGallery = this.authentication.isLoggedIn;
         this.uploadImageForm = new FormGroup({
@@ -198,22 +198,22 @@ export class GalleryComponent implements OnInit {
     }
     //#endregion
 
-    getAllImageTags():void{
+    getTags():void{
         this.tagService.get().subscribe((tags) =>{
             this.tags = tags;
             this.allTagChips = tags;
         })
     }
 
-    newTag():void{
-        const formData = new FormData();
-        formData.append('title', this.newTagForm.get('tag').value);
-        this.tagService.create(formData).subscribe((res) => {
+    createTag():void{
+        let tag = new Tag;
+        tag.title = this.newTagForm.get('tag').value;
+        this.tagService.create(tag).subscribe((res) => {
             this.newTagForm.reset();
             this.getAllImageTags();
         },
         (err) => {
-            this.newTagFormError = err.tag;
+            this.newTagFormError = err;
         });
     }
 
@@ -294,9 +294,9 @@ export class GalleryComponent implements OnInit {
         this.tagControl.setValue(null);
       }
 
-      private _filter(value: string): Tag[] {
-        const filterValue = value;
-        return this.allTagChips.filter(tag => tag.title.toLowerCase().indexOf(filterValue) === 0);
-      }
-      //#endregion
+    private _filter(value: string): Tag[] {
+    const filterValue = value;
+    return this.allTagChips.filter(tag => tag.title.toLowerCase().indexOf(filterValue) === 0);
+    }
+    //#endregion
 }

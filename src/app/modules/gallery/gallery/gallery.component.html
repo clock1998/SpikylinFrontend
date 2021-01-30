@@ -40,7 +40,7 @@
         </div>
 
         <div>
-            <form [formGroup]="newTagForm" (ngSubmit)="newTag()">
+            <form [formGroup]="newTagForm" (ngSubmit)="createTag()">
                 <mat-form-field appearance="fill" id="Tag">
                     <mat-label>Tag</mat-label>
                     <input matInput formControlName="tag">
@@ -54,7 +54,7 @@
         <div>
             <form [formGroup]="uploadImageForm" (ngSubmit)="addPhoto()">
                 <img src="{{imagePreviewUrl}}" width="300"/>
-                <input type="file" formControlName="image" (change)="onUploadImageSelect($event)" />
+                <input type="file" (change)="onUploadImageSelect($event)" />
                 <mat-error *ngIf="uploadImageFormImageError">
                     {{uploadImageFormImageError}}
                 </mat-error>

@@ -3,40 +3,14 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Tag } from 'src/app/shared/models/tag';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TagService {
-    tagUrl: string = environment.Endpoint + '/ImageTag';
-	constructor(private http: HttpClient) {}
-
-    get(): Observable<Tag[]> {
-		return this.http.get<Tag[]>(this.tagUrl);
-	}
-    
-    create(formData): Observable<Tag>{
-        const url = `${this.tagUrl}/`;
-        return this.http.post<Tag>(url,formData);
+export class TagService extends BaseService<Tag> {
+    Path = '/ImageTag';
+	constructor(http: HttpClient) {
+        super(http);
     }
-
-    delete(id:string):Observable<{}>{
-        const url = `${this.tagUrl}/${id}`;
-        return this.http.delete(url);
-    }
-    
-    // getTagsByImage(id:string): Observable<ImageTag[]> {
-    //     const url = `${this.imageTagUrl}/?image=${id}`;
-	// 	return this.http.get<ImageTag[]>(url);
-	// }
-    
-    // getImagesByTag(id:string): Observable<ImageTag[]> {
-    //     const url = `${this.imageTagUrl}/?tag=${id}`;
-	// 	return this.http.get<ImageTag[]>(url);
-    // }
-    
-    // deleteImageTag(id:string):Observable<{}>{
-    //     const url = `${this.imageTagUrl}/${id}`;
-    //     return this.http.delete(url);
-    // }
 }
