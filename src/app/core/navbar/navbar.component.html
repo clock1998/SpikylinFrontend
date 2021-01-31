@@ -18,9 +18,6 @@
             <a routerLink="/blog" (click)="toggleNavbar()">Blog</a>
         </li>
         <li>
-            <a routerLink="/ytdl" (click)="toggleNavbar()">Ytdl</a>
-        </li>
-        <li>
             <a *ngIf="!this.loggedIn" routerLink="/login" (click)="toggleNavbar()">login</a>
             <a *ngIf="this.loggedIn" routerLink="/" (click)="logout()">logout</a>
         </li>

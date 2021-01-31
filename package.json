@@ -30,7 +30,6 @@
     "ng2-img-max": "^2.2.4",
     "rxjs": "~6.6.3",
     "tslib": "^2.1.0",
-    "youtube-dl": "^3.1.0",
     "zone.js": "^0.11.3"
   },
   "devDependencies": {
