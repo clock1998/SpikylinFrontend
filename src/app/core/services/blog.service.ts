@@ -16,27 +16,4 @@ export class BlogService extends BaseService<Post> {
 	constructor(http: HttpClient) {
         super(http);
     }
-
-	// getPosts(): Observable<any> {
-	// 	return this._http.get<Post[]>(this.blogPostUrl);
-	// }
-
-	// getPost(id: number): Observable<Post> {
-	// 	const url = `${this.blogPostUrl}/${id}`;
-	// 	return this._http.get<Post>(url);
-	// }
-
-	// createPost(formData): Observable<Post> {
-	// 	return this._http.post<any>(this.blogPostUrl+"/", formData);
-	// }
-
-	// deletePost(id:number): Observable<{}> {
-    //     const url = `${this.blogPostUrl}/${id}`;
-	// 	return this._http.delete(url);
-	// }
-
-	// updatePost(formData, id:number): Observable<Post> {
-    //     const url = `${this.blogPostUrl}/${id}/`;
-	// 	return this._http.put<any>(url, formData);
-    // }
 }
