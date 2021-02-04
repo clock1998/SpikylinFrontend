@@ -1,0 +1,133 @@
+@startuml Backend Design Pattern
+top to bottom direction
+package MVC <<Rectangle>>{
+    package Controllers <<Frame>>{
+        class GalleryController {
+
+        }
+        class ImageTagController {
+
+        }
+        class PostController {
+
+        }
+        class TokenController {
+
+        }
+        class UserController {
+
+        }
+    }
+
+    package Services <<Frame>> {
+
+        abstract BaseService<BaseMO>{
+            #IMongoCollection<T> collection
+            #MongoClient client
+            #IMongoDatabase database
+            #IWebHostEnvironment _environment
+            --
+            +public BaseService(IDatabaseSettings settings)
+            +public BaseService(IDatabaseSettings settings, IWebHostEnvironment environment)
+            --
+            +public virtual async Task<List<T>> Get()
+            +public virtual async Task<T> Get(string id)
+            +public virtual async Task<T> Get(T item)
+            +public virtual async Task<T> Create(T item)
+            +public virtual void Update(string id, T newItem)
+            +public virtual void Remove(T item)
+            +public virtual void Remove(string id) 
+            +public async Task<string> UploadFile(IFormFile file, string path, string fileNameWithEntension = "")
+            +public string DeleteFile(string path, string fileName)
+        }
+
+        class GallerySerivce<Photo> {
+            -private ImageTagService _tagService
+            +public GalleryService(IDatabaseSettings settings) : base(settings)
+            +public GalleryService(IDatabaseSettings settings, IWebHostEnvironment environment, ImageTagService tagService)
+            --
+            +public override async Task<List<Photo>> Get()
+            +public override void Update(string id, Photo newPhoto)
+            +public async void UpdateImagesOnImageTagDeletion(string tagId)
+        }
+
+        class ImageTagService<ImageTag>{
+            +public GalleryService galleryService { get; set; }
+            --
+            +public ImageTagService(IDatabaseSettings settings ) : base(settings)
+            --
+            +public async Task<List<ImageTag>> GetByIds(List<string> ids)
+            +public override void Remove(string id)
+        }
+
+        class PostService<Post>{
+            +public PostService(IDatabaseSettings settings) : base(settings)
+        }
+
+        class TokenService{
+            #protected IJWTSettings FJWTSettings;
+            --
+            +public TokenService(IDatabaseSettings settings, IJWTSettings jwtSettings) : base(settings)
+            --
+            +public async Task<JwtSecurityToken> GetToken(User user)
+        }
+
+        class UserService<User>{
+            +class HashingManager
+            +public UserService(IDatabaseSettings settings): base(settings)
+            +public override async Task<List<User>> Get()
+            +public override async Task<User> Get(string id)   
+            +public override async Task<User> Create(User user)
+            +public async Task<User> CheckCredential(User user)
+            +public async Task<User> GetUserByUserName(string userName)
+            
+        }
+
+        BaseService <|-down- GallerySerivce
+        BaseService <|-down- ImageTagService
+        BaseService <|-down- PostService
+        UserService <|-down- TokenService
+        BaseService <|-down- UserService 
+
+        GalleryController <-up- GallerySerivce : DI
+        ImageTagController <-up-> ImageTagService : DI
+        PostController <-up- PostService : DI
+        TokenController <-up- TokenService : DI
+        UserController <-up- UserService : DI  
+    }
+
+    package Models <<Frame>>{
+        abstract BaseMO {
+            +public string Id { get; set; } = string.Empty;
+            +public DateTime Created { get; set; }
+            +public DateTime LastUpdated { get; set; }
+            --
+            +public virtual bool IsInDatabase()
+        }
+        class Comment {
+            ...
+        }
+        class ImageTag {
+
+        }
+        class Photo {
+
+        }
+        class Role {
+
+        }
+        class User {
+
+        }
+        class UserDTO {
+
+        }
+        BaseMO <|-down- Comment
+        BaseMO <|-down- ImageTag
+        BaseMO <|-down- Photo
+        BaseMO <|-down- User
+        BaseMO <|-down- UserDTO
+    }
+}
+
+@enduml
