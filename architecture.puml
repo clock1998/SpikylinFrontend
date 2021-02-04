@@ -1,96 +1,20 @@
 @startuml Spikylin Archtecture
 actor user
 user --> Angular
-rectangle Angular{
-    rectangle home
-    rectangle about
-    rectangle admin
-    rectangle blog
-    rectangle gallery
-    rectangle login
-    card angular_services [
-    <b>Service
-    ==
-    authentication.service
-    --
-    base.service
-    --
-    blog.service
-    --
-    gallery.service
-    --
-    tag.service
-    ---
-    user.service
-    ]
-    angular_services --> home : DI
-    angular_services --> about: DI
-    angular_services --> admin: DI
-    angular_services --> blog: DI
-    angular_services --> gallery: DI
-    angular_services --> login: DI
-}
-Angular <--> ASP.NET5.0 : Request&Response 
-rectangle ASP.NET5.0{
-
-    cloud cloud{
-        database MongoDB
+cloud VM{
+    frame Angular{
+        component angular_components
     }
-
-    component mongodb.driver
-
-    folder controllers [
-        <b>Controllers
-        ==
-        GalleryController
-        --
-        ImageTagController
-        --
-        PostController
-        --
-        TokenController
-        --
-        UserController
-    ]
-
-    folder Services {
-        rectangle BaseService
-        rectangle GalleryService
-        rectangle ImageTagService
-        rectangle PostService
-        rectangle TokenService
-        rectangle UserService
-        [BaseService] <-- [GalleryService] : Inherited
-        [BaseService] <-- [ImageTagService] : Inherited
-        [BaseService] <-- [PostService] : Inherited
-        [BaseService] <-- [TokenService] : Inherited
-        [BaseService] <-- [UserService] : Inherited
+    Angular <--> ASP.NET_Web_API : REST API
+    frame ASP.NET_Web_API{
+        rectangle controls
+        rectangle services
+        rectangle models
     }
-    
-    folder Models {
-        BaseMO <|-- Comment
-        BaseMO <|-- ImageTage
-        BaseMO <|-- Photo
-        BaseMO <|-- Post
-        BaseMO <|-- User     
-    }
-    [controllers] --> [Models] : Uses
-    [Services] --> [Models] : Uses
-    [controllers] <-- [Services] : DI
-    [mongodb.driver] --> [Services] : DI 
-    [mongodb.driver] --> [MongoDB] : Connect To 
-    [mongodb.driver] <--> [Models] : ORM 
-
-    card authentication_authorization [
-        <b>Authentication and Authorization
-        ==
-        JWT Authentication
-        --
-        Role Based Authorization
-        --
-        Policy Based Authorization
-    ]
-
 }
 
+cloud cloud{
+    database MongoDB
+}
+MongoDB <--> ASP.NET_Web_API
 @enduml
