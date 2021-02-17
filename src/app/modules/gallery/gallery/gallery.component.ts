@@ -86,7 +86,7 @@ export class GalleryComponent implements OnInit {
     ngOnInit(): void {
         this.getTags();
         this.getPhotos();
-        this.canManageGallery = this.authentication.isLoggedIn;
+        this.canManageGallery = this.authentication.isLoggedIn();
         this.uploadImageForm = new FormGroup({
             photoname: new FormControl(''),
             description: new FormControl(''),
@@ -258,7 +258,7 @@ export class GalleryComponent implements OnInit {
     }
     //#endregion
 
-    editButtonClick(event){
+    editButtonClick(){
         this.isEditMode = !this.isEditMode;
     }
     

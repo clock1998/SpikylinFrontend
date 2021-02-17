@@ -22,12 +22,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private userService: UserService
     ) { 
-        // redirect to home if already logged in
-        if (this.authenticationService.getAccessToken()) { 
-            this.router.navigate(['/']);
-        }
+
     }
 
     ngOnInit() {
@@ -35,13 +31,12 @@ export class LoginComponent implements OnInit {
             username: new FormControl(''),
             password: new FormControl('')
         });
-
+        // redirect to home if already logged in
+        if (this.authenticationService.isLoggedIn()) { 
+            this.router.navigate(['/']);
+        }
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
-
-    getCurrentUser(): void {
-        this.userService.getUserById(localStorage.getItem('user_id')).subscribe();
     }
 
     // convenience getter for easy access to form fields
@@ -58,7 +53,6 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .subscribe(
                 data => {
-                    this.getCurrentUser();
                     this.router.navigate([this.returnUrl]);
                     location.reload();
                 },

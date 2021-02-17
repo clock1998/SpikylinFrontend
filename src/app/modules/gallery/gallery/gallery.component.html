@@ -28,7 +28,7 @@
     <!-- The Modal -->
     <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
         <span (click)="hideLightBox()" class="close">&times;</span>
-        <img src={{imageUrl}} class="modal-content">
+        <img [src]="imageUrl" class="modal-content">
         <div id="caption">
             <p>{{description}} Tags: {{tagsInString}}</p>
             <p>{{photoMeta}}</p>
@@ -36,7 +36,7 @@
     </div>
     <div class="manageGallery" *ngIf="canManageGallery">
         <div>
-            <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick($event)">Edit</button>
+            <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick()">Edit</button>
         </div>
 
         <div>

@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
 	constructor(private authentication: AuthenticationService) {}
 
 	ngOnInit(): void {
-        this.loggedIn = this.authentication.isLoggedIn;
+        this.loggedIn = this.authentication.isLoggedIn();
     }
 
 	toggleNavbar(): void {

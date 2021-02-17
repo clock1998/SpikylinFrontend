@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import jwt_decode from 'jwt-decode';
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { UserService } from './user.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-    constructor(private http: HttpClient) {
+    private jwtHelper: JwtHelperService = new JwtHelperService();
+    constructor(private http: HttpClient, private userService: UserService) {
 
     }
 
@@ -15,9 +17,10 @@ export class AuthenticationService {
         return this.http.post<any>(`${environment.Endpoint}/token`, { username, password })
             .pipe(map(res => {
                 localStorage.setItem('access_token', res.access_token);
-                let jwtDecoded = this.getDecodedAccessToken(res.access_token);
-                localStorage.setItem('user_id',jwtDecoded.id);
-                localStorage.setItem('exp',jwtDecoded.exp);
+                let userid = this.jwtHelper.decodeToken(this.getAccessToken()).id;
+                this.userService.getUserById(userid).subscribe(user=>{
+                    localStorage.setItem('user', JSON.stringify(user));
+                });
                 // console.log(jwt_decode(res.access_token));
                 // localStorage.setItem('refresh_token', res.refresh);
             }));
@@ -31,8 +34,8 @@ export class AuthenticationService {
     }
 
     logout() {
-        localStorage.clear();
-        // remove user from local storage to log user out
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
     }
 
     getAccessToken(){
@@ -43,18 +46,8 @@ export class AuthenticationService {
         return localStorage.getItem('refresh_token');
     }
 
-    getDecodedAccessToken(token: string): any {
-        try {
-            return jwt_decode(token);
-        }
-        catch (Error) {
-            return null;
-        }
-    }
-
-    get isLoggedIn(): boolean {
-        let authToken = localStorage.getItem('access_token');
-        return (authToken !== null) ? true : false;
+    isLoggedIn(): boolean {
+        return !this.jwtHelper.isTokenExpired(this.getAccessToken());
     }
 
     private refreshTokenTimeout;
