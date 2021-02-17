@@ -7,7 +7,7 @@ import { BaseService } from './base.service';
   providedIn: 'root'
 })
 export class TagService extends BaseService<Tag> {
-    Path = '/ImageTag';
+    _path = '/ImageTag';
 	constructor(http: HttpClient) {
         super(http);
     }

@@ -14,36 +14,33 @@ const httpOptions = {
 })
 
 export class BaseService <T> {
-    BaseUrl: string = environment.Endpoint;
-    Path: string  = '';
-    protected _http: HttpClient;
-	constructor(http: HttpClient) {
-        this._http = http;
+    protected _baseUrl: string = environment.Endpoint;
+    protected _path: string  = '';
+	constructor(protected _http: HttpClient) {
     }
-
     get(): Observable<T[]>{
-        return this._http.get<T[]>(this.BaseUrl+this.Path);
+        return this._http.get<T[]>(this._baseUrl+this._path);
     }
 
 	getById(id:string): Observable<T>{
         // console.log((<any>this).constructor.name);
         if(id != null){
-            return this._http.get<any>(this.BaseUrl+this.Path+`/${id}`);
+            return this._http.get<any>(this._baseUrl+this._path+`/${id}`);
         }
     }
     
 	create(data): Observable<T>{
-        const url = `${this.BaseUrl+this.Path}`;
+        const url = `${this._baseUrl+this._path}`;
 		return this._http.post<any>(url, data, httpOptions);
     }    
 
     update(data, id:string): Observable<T>{
-        const url = `${this.BaseUrl+this.Path}/${id}`;
+        const url = `${this._baseUrl+this._path}/${id}`;
 		return this._http.put<any>(url, data, httpOptions);
     }
 
     delete(id:string):Observable<{}>{
-        const url = `${this.BaseUrl+this.Path}/${id}`;
+        const url = `${this._baseUrl+this._path}/${id}`;
         return this._http.delete(url);
     }
 }

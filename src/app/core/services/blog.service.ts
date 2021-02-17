@@ -12,7 +12,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BlogService extends BaseService<Post> {
-	Path: string = '/post';
+    _path = '/post';
 	constructor(http: HttpClient) {
         super(http);
     }
