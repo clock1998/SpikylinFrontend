@@ -12,12 +12,12 @@ declare var EXIF: any;
 	templateUrl: './photo.component.html',
 	styleUrls: [ './photo.component.scss' ]
 })
-export class PhotoComponent implements OnInit, OnChanges {
+export class PhotoComponent implements OnInit{
     @Input() photo: Photo;
     @Input() editMode: boolean;
     @Input() tags: Tag[];
-    @Output() clickedImageEmitter: EventEmitter<Photo> = new EventEmitter<Photo>();
-    @Output() deleteImageEmitter: EventEmitter<Photo> = new EventEmitter<Photo>();
+    @Output('showPhoto') clickedImageEmitter: EventEmitter<Photo> = new EventEmitter<Photo>();
+    @Output('deletePhoto') deleteImageEmitter: EventEmitter<Photo> = new EventEmitter<Photo>();
     showDeleteButton:boolean = false;
     imagePreviewUrl: any;
     staticFiles: string = environment.StaticImage;
@@ -40,10 +40,6 @@ export class PhotoComponent implements OnInit, OnChanges {
             description: [this.photo.description],
             tags:[this.photo.imageTagDocs]
         })
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        
     }
 
 	showLightBox(photo:Photo): void {
