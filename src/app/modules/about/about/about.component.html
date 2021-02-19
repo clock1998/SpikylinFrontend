@@ -7,22 +7,22 @@
             </div>
             <div class="links">
                 <div class="link">
-                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts )">About Me</a>
+                    <a (click)="section = 'About Me'">About Me</a>
                 </div>
                 <div class="link">
-                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts)">This Website</a>
+                    <a (click)="section = 'This Website'">This Website</a>
                 </div>
                 <div class="link">
-                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts)">My Mission</a>
+                    <a (click)="section = 'My Mission'">My Mission</a>
                 </div>
                 <div class="link">
-                    <a (click)="scroll($event,aboutMe, aboutWeb, myMission, myThoughts)">My Thoughts</a>
+                    <a (click)="section = 'My Thoughts'">My Thoughts</a>
                 </div>
             </div>
         </div>
         <div class="content">
-            <div class="scrollPanel" #scrollPanel>
-                <section class="showSection"  #aboutMe>
+            <div class="scrollPanel" [ngSwitch]="section">
+                <section  *ngSwitchCase="'About Me'">
                     <div>
                         <h2>
                             About Me
@@ -31,7 +31,7 @@
                     </div>
                 </section>
                 
-                <section class="hideSection" #aboutWeb>
+                <section *ngSwitchCase="'This Website'">
                     <div>
                         <h1>
                             This Website
@@ -40,14 +40,14 @@
                     </div>
                 </section>
     
-                <section class="hideSection" #myMission>
+                <section *ngSwitchCase="'My Mission'">
                     <div>
                         <h1>My Mission</h1>
                         <p>My mission, for now, is to build a Frankenstein-website that includes a set of small tools and utilities that may or may not be useful for my users or visitors.  If you could find something helpful during your visit, that is great, just keep using it!</p>
                     </div>
                 </section>
     
-                <section class="hideSection" #myThoughts>
+                <section *ngSwitchCase="'My Thoughts'">
                     <div>
                         <h1>My Thoughts</h1>
                         <p>As you may know, the website will not have a main theme or service like other websites, however, the website will keep growing whenever an idea comes out of my mind. Oh! Lastly, if you have any idea, please contact me, I would love to hear your ideas!</p>
