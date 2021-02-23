@@ -1,12 +1,6 @@
 import {
 	Component,
 	OnInit,
-	HostListener,
-	ViewChild,
-	ViewChildren,
-	QueryList,
-	ElementRef,
-	AfterViewInit
 } from '@angular/core';
 
 @Component({

@@ -3,28 +3,15 @@
         <mat-form-field class="Username">
             <mat-label>Username</mat-label>
             <input matInput type="text" formControlName="username" />
-            <mat-error *ngIf="usernameError!=null">
-                    {{usernameError}}
-                </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="usernameError!=null">
-            {{usernameError}}
-        </mat-error>
 
         <mat-form-field class="Password">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" />
-            <mat-error *ngIf="passwordError">
-                {{passwordError}}
-            </mat-error>
         </mat-form-field>
 
-        <mat-error *ngIf="passwordError">
-            {{passwordError}}
-        </mat-error>
-
-        <mat-error *ngIf="detailError">
-            {{detailError}}
+        <mat-error *ngIf="error">
+            {{error}}
         </mat-error>
         <button mat-stroked-button type="submit">Login</button>
     </form>
