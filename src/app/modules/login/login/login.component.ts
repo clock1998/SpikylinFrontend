@@ -11,10 +11,7 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: [ 'login.component.scss' ]})
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    loading = false;
-    submitted = false;
     returnUrl: string;
-    error: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -24,8 +21,8 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.loginForm = new FormGroup({
-            username: new FormControl(''),
-            password: new FormControl('')
+            username: new FormControl('', Validators.required),
+            password: new FormControl('', Validators.required)
         });
         // redirect to home if already logged in
         if (this.authenticationService.isLoggedIn()) { 
@@ -34,14 +31,13 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
-
+    get username(){
+        return this.loginForm.get('username');
+    }
     onSubmit() {
-        this.submitted = true;
         if (this.loginForm.invalid) {
             return;
         }
-
-        this.loading = true;
         this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password)
             .subscribe(
                 data => {
@@ -49,8 +45,7 @@ export class LoginComponent implements OnInit {
                     location.reload();
                 },
                 (err) => {
-                    this.error = err;
-                    this.loading = false;
+                    this.loginForm.setErrors({invalidLogin: true})
                 });
     }
     
