@@ -34,6 +34,7 @@
             <p>{{photoMeta}}</p>
         </div>
     </div>
+    
     <div class="manageGallery" *ngIf="canManageGallery">
         <div>
             <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick()">Edit</button>
@@ -55,9 +56,6 @@
             <form [formGroup]="uploadImageForm" (ngSubmit)="addPhoto()">
                 <img src="{{imagePreviewUrl}}" width="300"/>
                 <input type="file" (change)="onUploadImageSelect($event)" />
-                <mat-error *ngIf="uploadImageFormImageError">
-                    {{uploadImageFormImageError}}
-                </mat-error>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Name</mat-label>
@@ -98,9 +96,7 @@
                 <button mat-stroked-button type="submit">Upload Image File</button>
             </form>
         </div>
-
     </div>
-
 </div>
 <p style="text-align: center;">All the images are compressed, please contact me for better quality images.</p>
 <app-footer></app-footer>
