@@ -90,9 +90,13 @@
                     </mat-list-option>
                 </mat-selection-list> -->
 
+                <mat-error *ngIf="uploadImageForm.errors">
+                    {{uploadImageForm.errors}}
+                </mat-error>
                 <mat-error *ngIf="uploadImageFormError">
                     {{uploadImageFormError}}
                 </mat-error>
+                
                 <button mat-stroked-button type="submit">Upload Image File</button>
             </form>
         </div>

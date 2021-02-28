@@ -15,6 +15,7 @@ import { Photo } from 'src/app/shared/models/photo';
 import { environment } from 'src/environments/environment';
 import { AppError } from 'src/app/shared/errors/app-error';
 import { NotFoundError } from 'src/app/shared/errors/not-found-error';
+import { BadInput } from 'src/app/shared/errors/bad-input-erorr';
 declare var EXIF: any;
 // import * as EXIF from 'exif-js';
 
@@ -109,14 +110,8 @@ export class GalleryComponent implements OnInit {
                 });
             }, 
             (error:AppError) => {
-                if(error instanceof NotFoundError){
-                    console.error("No photos has been found.")
-                }
-                else{
-                    throw error
-                }
-            }
-            );
+                throw error
+            });
             this.photosTemp=this.photos;
 		});
     }
@@ -140,9 +135,13 @@ export class GalleryComponent implements OnInit {
                             this.getPhotos();
                             this.uploadImageForm.reset();
                         },
-                        (err) => {
-                            this.uploadImageFormError = err;
-                            console.log(err);
+                        (error: AppError) => {
+                            if(error instanceof BadInput){
+                                this.uploadImageForm.setErrors(error.orginalError);
+                            }
+                            else{
+                                throw error;
+                            }
                         }
                     );
                 },
@@ -158,7 +157,16 @@ export class GalleryComponent implements OnInit {
     }
 
     deleteImage(photo:Photo):void{
-        this.galleryService.delete(photo.id).subscribe((res)=>{});
+        this.galleryService.delete(photo.id).subscribe(
+            (res) => { },
+            (error: AppError) => {
+                if (error instanceof BadInput) {
+                    this.uploadImageForm.setErrors(error.orginalError);
+                }
+                else {
+                    throw error;
+                }
+            });
         let index =  this.photosTemp.findIndex(x => x.id==photo.id);
         if (index > -1) {
             this.photosTemp.splice(index, 1);
@@ -212,6 +220,9 @@ export class GalleryComponent implements OnInit {
         this.tagService.get().subscribe((tags) =>{
             this.tags = tags;
             this.allTagChips = tags;
+        },
+        (error: AppError) => {
+            throw error;
         })
     }
 
@@ -222,8 +233,13 @@ export class GalleryComponent implements OnInit {
             this.newTagForm.reset();
             this.getTags();
         },
-        (err) => {
-            this.newTagFormError = err;
+        (error) => {
+            if(error instanceof BadInput){
+                this.newTagFormError = error.orginalError;
+            }
+            else{
+                throw error;
+            }
         });
     }
 

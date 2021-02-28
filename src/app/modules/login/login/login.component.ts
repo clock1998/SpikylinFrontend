@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService  } from '../../../core/services/authentication.service';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
-@Component({ 
-  selector: 'app-login',
-  templateUrl: 'login.component.html', 
-  styleUrls: [ 'login.component.scss' ]})
+@Component({
+    selector: 'app-login',
+    templateUrl: 'login.component.html',
+    styleUrls: ['login.component.scss']
+})
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     returnUrl: string;
@@ -23,13 +24,13 @@ export class LoginComponent implements OnInit {
             password: new FormControl('', Validators.required)
         });
         // redirect to home if already logged in
-        if (this.authenticationService.isLoggedIn()) { 
+        if (this.authenticationService.isLoggedIn()) {
             this.router.navigate(['/']);
         }
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
-    get username(){
+    get username() {
         return this.loginForm.get('username');
     }
     onSubmit() {
@@ -42,9 +43,9 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                     location.reload();
                 },
-                (err:Response) => {
-                    this.loginForm.setErrors({invalidLogin: true})
+                (err: Response) => {
+                    this.loginForm.setErrors({ invalidLogin: true })
                 });
     }
-    
+
 }
