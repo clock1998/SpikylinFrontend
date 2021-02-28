@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                     location.reload();
                 },
-                (err) => {
+                (err:Response) => {
                     this.loginForm.setErrors({invalidLogin: true})
                 });
     }

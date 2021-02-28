@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Photo } from 'src/app/shared/models/photo';
 import { environment } from 'src/environments/environment';
+import { AppError } from 'src/app/shared/errors/app-error';
+import { NotFoundError } from 'src/app/shared/errors/not-found-error';
 declare var EXIF: any;
 // import * as EXIF from 'exif-js';
 
@@ -56,7 +58,6 @@ export class GalleryComponent implements OnInit {
     isEditMode:boolean = false;
     uploadImageForm: FormGroup;
     uploadImageFormError:string = '';
-    uploadImageFormImageError:string = '';
 
     newTagForm: FormGroup;
     newTagFormError: string = '';
@@ -106,7 +107,16 @@ export class GalleryComponent implements OnInit {
                 photo.imageTagDocs.forEach(tagDoc => {
                     photo.tagsInString+=tagDoc.title;
                 });
-            });
+            }, 
+            (error:AppError) => {
+                if(error instanceof NotFoundError){
+                    console.error("No photos has been found.")
+                }
+                else{
+                    throw error
+                }
+            }
+            );
             this.photosTemp=this.photos;
 		});
     }
@@ -131,7 +141,7 @@ export class GalleryComponent implements OnInit {
                             this.uploadImageForm.reset();
                         },
                         (err) => {
-                            this.uploadImageFormError = err.File;
+                            this.uploadImageFormError = err;
                             console.log(err);
                         }
                     );
