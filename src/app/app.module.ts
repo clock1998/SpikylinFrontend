@@ -34,6 +34,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import { AppErrorHandler } from './core/helpers/error.handler';
+import { ModalComponent } from './core/modal/modal.component';
 
 @Pipe({ name: 'safeHtml'})
 export class SafeHtmlPipe implements PipeTransform  {
@@ -68,7 +69,8 @@ export class SafeStylePipe implements PipeTransform  {
         PostDetailComponent,
         SafeHtmlPipe,
         SafeStylePipe,
-        PostNewComponent
+        PostNewComponent,
+        ModalComponent
 	],
 	imports: [
 		CKEditorModule,

@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="photos">
-        <app-photo 
+        <app-photo
         *ngFor="let photo of photosTemp"
         [photo]="photo"
         [tags]="tags"
@@ -25,16 +25,14 @@
         [@imageFade]>
         </app-photo>
     </div>
-    <!-- The Modal -->
-    <div [@lightBox]="isLightBoxShown ? 'show' : '*' " class="modal">
-        <span (click)="hideLightBox()" class="close">&times;</span>
-        <img [src]="imageUrl" class="modal-content">
-        <div id="caption">
-            <p>{{description}} Tags: {{tagsInString}}</p>
-            <p>{{photoMeta}}</p>
-        </div>
-    </div>
-    
+
+    <app-modal [(visible)]="isLightBoxShown"  [img-url]="imageUrl">
+      <ng-container class="caption">
+        <p>{{description}} Tags: {{tagsInString}}</p>
+        <p>{{photoMeta}}</p>
+      </ng-container>
+    </app-modal>
+
     <div class="manageGallery" *ngIf="canManageGallery">
         <div>
             <button mat-stroked-button *ngIf="canManageGallery" (click)="editButtonClick()">Edit</button>
@@ -96,7 +94,7 @@
                 <mat-error *ngIf="uploadImageFormError">
                     {{uploadImageFormError}}
                 </mat-error>
-                
+
                 <button mat-stroked-button type="submit">Upload Image File</button>
             </form>
         </div>

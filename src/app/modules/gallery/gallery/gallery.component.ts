@@ -108,7 +108,7 @@ export class GalleryComponent implements OnInit {
                 photo.imageTagDocs.forEach(tagDoc => {
                     photo.tagsInString+=tagDoc.title;
                 });
-            }, 
+            },
             (error:AppError) => {
                 throw error
             });
@@ -129,7 +129,7 @@ export class GalleryComponent implements OnInit {
                     this.tagChips.forEach(element => {
                         formData.append('ImageTagIds', element.id);
                     });
-    
+
                     this.galleryService.create(formData).subscribe(
                         (res) => {
                             this.getPhotos();
@@ -178,7 +178,7 @@ export class GalleryComponent implements OnInit {
         if (event.target.files.length > 0) {
             this.file = event.target.files[0];
             var reader = new FileReader();
-            reader.readAsDataURL(this.file); 
+            reader.readAsDataURL(this.file);
             reader.onload = (event) => { // called once readAsDataURL is completed
                 this.imagePreviewUrl = event.target.result;
             }
@@ -203,17 +203,14 @@ export class GalleryComponent implements OnInit {
     //#endregion
 
     //#region light box
-	showLightBox(photo: Photo): void {
+	  showLightBox(photo: Photo): void {
         this.isLightBoxShown = true;
         this.imageUrl = environment.StaticImage + photo.fileName;
         this.description = photo.description;
         this.tagsInString = photo.tagsInString;
         this.photoMeta = photo.photoMeta;
     }
-    
-	hideLightBox(): void {
-		this.isLightBoxShown = false;
-    }
+
     //#endregion
 
     getTags():void{
@@ -261,22 +258,22 @@ export class GalleryComponent implements OnInit {
 
             const ExposureTime = EXIF.getTag(this, 'ExposureTime');
             if(ExposureTime != null){
-                exposureTime =`${ExposureTime.numerator}/${ExposureTime.denominator}s`;    
+                exposureTime =`${ExposureTime.numerator}/${ExposureTime.denominator}s`;
             }
 
             const FNumber = EXIF.getTag(this, 'FNumber');
             if(FNumber != null){
-                fStop =`F${FNumber.numerator/FNumber.denominator}`;    
+                fStop =`F${FNumber.numerator/FNumber.denominator}`;
             }
-            
+
             const FocalLength = EXIF.getTag(this, 'FocalLength');
             if(FocalLength != null){
-                focalLength =`${FocalLength.numerator/FocalLength.denominator}mm`;    
+                focalLength =`${FocalLength.numerator/FocalLength.denominator}mm`;
             }
 
             const ISOSpeedRatings = EXIF.getTag(this, 'ISOSpeedRatings');
             if(ISOSpeedRatings != null){
-                ISO =`ISO${ISOSpeedRatings} `;    
+                ISO =`ISO${ISOSpeedRatings} `;
             }
             metaData = ` ${cameraModel} ${fStop} ${exposureTime} ${ISO} ${focalLength}`;
         });
@@ -287,8 +284,8 @@ export class GalleryComponent implements OnInit {
     editButtonClick(){
         this.isEditMode = !this.isEditMode;
     }
-    
-    //#region chips compoent 
+
+    //#region chips compoent
     remove(tag: Tag): void {
         const index = this.tagChips.indexOf(tag);
 
@@ -302,21 +299,21 @@ export class GalleryComponent implements OnInit {
         this.tagInput.nativeElement.value = '';
         this.tagControl.setValue(null);
     }
-    
+
     add(event: MatChipInputEvent): void {
         const input = event.input;
         const value = event.value;
-    
+
         this.tags.forEach(element => {
             if (element.title == input.value) {
                 this.tagChips.push(element);
             }
         });
-    
+
         if (input) {
           input.value = '';
         }
-    
+
         this.tagControl.setValue(null);
       }
 

@@ -1,0 +1,7 @@
+<div [@lightBox]="visible ? 'show' : '*' " class="modal">
+  <span (click)="hide()" class="close">&times;</span>
+  <img [src]="imgUrl" class="modal-content">
+  <div id="caption">
+    <ng-content select=".caption"></ng-content>
+  </div>
+</div>
