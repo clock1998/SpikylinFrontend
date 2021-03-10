@@ -53,19 +53,21 @@
         <div>
             <form [formGroup]="uploadImageForm" (ngSubmit)="addPhoto()">
                 <img src="{{imagePreviewUrl}}" width="300"/>
-                <input type="file" (change)="onUploadImageSelect($event)" />
+                <div class="formField">
+                  <input type="file" (change)="onUploadImageSelect($event)" />
+                </div>
 
-                <mat-form-field appearance="fill">
+                <mat-form-field class="formField">
                     <mat-label>Name</mat-label>
                     <textarea matInput type="text" formControlName="photoname"></textarea>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" id="ImageDescription">
+                <mat-form-field appearance="fill" class="formField">
                     <mat-label>Description</mat-label>
                     <textarea matInput type="text" formControlName="description"></textarea>
                 </mat-form-field>
 
-                <mat-form-field id="tagChips">
+                <mat-form-field class="formField">
                     <mat-chip-list #chipList aria-label="Tag selection">
                         <mat-chip *ngFor="let tag of tagChips" [selectable]="false" [removable]="removable" (removed)="remove(tag)">
                             {{tag.title}}
@@ -95,7 +97,7 @@
                     {{uploadImageFormError}}
                 </mat-error>
 
-                <button mat-stroked-button type="submit">Upload Image File</button>
+                <button mat-stroked-button type="submit" style="float: right;">Upload Image File</button>
             </form>
         </div>
     </div>

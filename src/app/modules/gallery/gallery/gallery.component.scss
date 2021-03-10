@@ -65,3 +65,19 @@
 	column-gap: 20px;
     justify-content: center;
 }
+
+.manageGallery{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: space-around;
+  max-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  div{
+      margin-bottom: 12px;
+  }
+  .formField{
+      width: 100%;
+  }
+}
