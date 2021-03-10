@@ -29,8 +29,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   @Input('img-url') imgUrl:string;
-  @Input() visible:boolean;
-  @Output() visibleChange = new EventEmitter<boolean>();
+  @Input('visible') visible:boolean;
+  @Output('visibleChange') visibleChange = new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit(): void {
