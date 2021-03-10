@@ -24,16 +24,7 @@ declare var EXIF: any;
 	templateUrl: './gallery.component.html',
 	styleUrls: [ './gallery.component.scss' ],
 	animations: [
-		trigger('lightBox', [
-			state(
-				'show',
-				style({
-					display: 'flex'
-				})
-			),
-			transition('* <=> show', [])
-        ]),
-        trigger('imageFade', [
+      trigger('imageFade', [
 			transition('void => *', [
                 style({ opacity: '0',  transform: 'scale(0.2)'}),
                 animate('300ms ease-in-out', style({ opacity: 1, transform: 'scale(1)' }))
